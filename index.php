@@ -16,6 +16,7 @@
 		<script src="js/jquery.scrolly.min.js"></script>
 		<script src="js/jquery.scrollgress.min.js"></script>
 		<script src="js/skel.min.js"></script>
+        <script src="js/pageInit.js"></script>
 		<script src="js/init.js"></script>
         
 		<noscript>
@@ -185,21 +186,7 @@
 			</section>
             
 		<!-- Footer -->
-			<footer id="footer">
-
-				<!-- Icons -->
-					<ul class="actions">
-						<li><a href="https://www.facebook.com/jagdwatches" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="http://instagram.com/jagdwatches" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-					</ul>
-
-				<!-- Menu -->
-					<ul class="menu">
-						<li>&copy; Jagd Watches ApS</li>
-						<li>Design: HTML5 UP</li>
-					</ul>
-			
-			</footer>
+		<?php include("footer.php"); ?>
 
 	</body>
 </html>

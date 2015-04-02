@@ -8,29 +8,18 @@
 
 	var settings = {
 
-		// Fullscreen?
-			fullScreen: true,
-			
-		// Section Transitions?
-			sectionTransitions: true,
+        // Fullscreen?
+        fullScreen: true,
 
-		// Fade in speed (in ms).
-			fadeInSpeed: 1000
+        // Section Transitions?
+        sectionTransitions: true,
 
-	};
+        // Fade in speed (in ms).
+        fadeInSpeed: 1000
 
-	skel.init({
-		reset: 'full',
-		breakpoints: {
-			'max': { range: '*', href: 'css/style.css', containers: 1440 },
-			'wide': { range: '-1920', href: 'css/style-wide.css', containers: 1360 },
-			'normal': { range: '-1680', href: 'css/style-normal.css', containers: 1200 },
-			'narrow': { range: '-1280', href: 'css/style-narrow.css', containers: 960, lockViewport: true },
-			'narrower': { range: '-1000', href: 'css/style-narrower.css', containers: '95%' },
-			'mobile': { range: '-640', href: 'css/style-mobile.css', grid: { gutters: 20 } },
-			'mobile-narrow': { range: '-480', grid: { collapse: true, gutters: 10 } }
-		}
-	});
+    };
+
+	pageInit();
 	
 	$(function() {
 
@@ -41,31 +30,31 @@
 			sectionTransitionState = false;
 
 		// Settings.
-		
+
 			// IE<10?
 				if (skel.vars.IEVersion < 10) {
-					
+
 					// Turn off transitions.
 						settings.sectionTransitions = false;
-						
+
 				}
-		
+
 			// Touch?
 				if (skel.vars.isTouch) {
-				
+
 					// Disable section transitions
 						settings.sectionTransitions = false;
-						
+
 					// Turn on touch mode
 						$body.addClass('touch');
-				
+
 				}
-				
+
 		// Fade in once everything's loaded.
 			$all
 				.addClass('is-loading')
 				.fadeTo(0, 0.0001);
-			
+
 			$window.load(function() {
 				window.setTimeout(function() {
 					$all
