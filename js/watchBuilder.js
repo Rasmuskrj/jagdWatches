@@ -3,7 +3,7 @@
  */
 
 WatchBuilder = (function($) {
-    pageInit();
+    //pageInit();
 
 
     var builder = {
@@ -15,6 +15,7 @@ WatchBuilder = (function($) {
 
             self.cacheElements();
             self.bindEvents();
+            self.el.step1.hide();
         },
 
         cacheElements: function(){
@@ -22,6 +23,7 @@ WatchBuilder = (function($) {
 
             self.el.startButton = $('#startButton');
             self.el.intro = $('#splash');
+            self.el.step1 = $('#step1');
 
         },
 
@@ -34,9 +36,8 @@ WatchBuilder = (function($) {
 
         removeIntro: function(){
             var self = builder;
-            console.log("clicked");
-
             self.el.intro.hide();
+            self.el.step1.show();
         }
     };
 
