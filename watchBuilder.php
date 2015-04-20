@@ -66,10 +66,34 @@ include("Preprocessing.php");
 <section class="main style1 fullscreen" id="step1" name="step1">
     <div class="content container small">
         <div class="watchContainer">
-            <img src="images/WatchBuilder/Straps/Main/Oily%20brown.png" class="watchElement watchStraps">
-            <img src="images/WatchBuilder/WatchCase/Main/Stainless%20steel.png" class="watchElement watchCase" >
-            <img src="images/WatchBuilder/DialMaterial/Main/Dial%20bamboo.png" class="watchElement watchDial">
-            <img src="images/WatchBuilder/Hands/Main/Hands%20silver.png" class="watchElement watchHands">
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchStrapMains as $main){
+                    echo "<img src='$main' class='watchStrap watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchCaseMains as $main){
+                    echo "<img src='$main' class='watchCase watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchDialMains as $main){
+                    echo "<img src='$main' class='watchDial watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchHandsMains as $main){
+                    echo "<img src='$main' class='watchHands watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
         </div>
         <div class="selectCaseColor leftSideSelector">
             <div class="selectCaseColorHeader leftSideSelectorHeader">
@@ -78,7 +102,7 @@ include("Preprocessing.php");
             <div class="thumbnails">
                 <?php
                 foreach($watchCaseThumbnails as $thumbnail){
-                    echo "<img src='$thumbnail' class='watchCaseThumbnail thumbnail leftSideThumbnail'>";
+                    echo "<img src='$thumbnail' class='watchCaseThumbnail thumbnail leftSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'>";
                 }
                 ?>
             </div>
@@ -90,7 +114,7 @@ include("Preprocessing.php");
             <div class="thumbnails">
                 <?php
                 foreach($watchStrapsThumbnails as $thumbnail){
-                    echo "<img src='$thumbnail' class='watchStrapThumbnail thumbnail leftSideThumbnail'>";
+                    echo "<img src='$thumbnail' class='watchStrapThumbnail thumbnail leftSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'>";
                 }
                 ?>
             </div>
@@ -102,7 +126,19 @@ include("Preprocessing.php");
             <div class="thumbnails">
                 <?php
                 foreach($watchHandsThumbnails as $thumbnail){
-                    echo "<img src='$thumbnail' class='watchHandsThumbnail thumbnail leftSideThumbnail'>";
+                    echo "<img src='$thumbnail' class='watchHandsThumbnail thumbnail leftSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+        </div>
+        <div class="selectDial rightSideSelector">
+            <div class="selectDialHeader rightSideSelectorHeader">
+                <p>Dial</p>
+            </div>
+            <div class="thumbnails">
+                <?php
+                foreach($watchDialThumbnails as $thumbnail){
+                    echo "<img src='$thumbnail' class='watchDialThumbnail thumbnail rightSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'>";
                 }
                 ?>
             </div>
