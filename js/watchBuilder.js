@@ -10,12 +10,33 @@ WatchBuilder = (function($) {
 
         el: {},
 
+        state: {
+            case: 'gun metal',
+            hands: 'black',
+            straps: 'croco black',
+            dial: 'bamboo'
+        },
+
         init: function() {
             var self = builder;
 
             self.cacheElements();
             self.bindEvents();
             self.el.step1.hide();
+            $('.watchElement').each(function(){
+                var parttype = $(this).data('parttype').toLowerCase();
+                if( parttype == self.state.case || parttype == self.state.hands ||parttype == self.state.straps || parttype == self.state.dial){
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+            $('.thumbnail').each(function(){
+                var parttype = $(this).data('parttype').toLowerCase();
+                if( parttype == self.state.case || parttype == self.state.hands ||parttype == self.state.straps || parttype == self.state.dial){
+                    $(this).addClass('selected');
+                }
+            });
         },
 
         cacheElements: function(){
@@ -47,10 +68,15 @@ WatchBuilder = (function($) {
         },
 
         bindSelectorEvents: function(container, target){
+            var self = builder;
             $(container + ' > .thumbnails > .thumbnail').each(function(index){
                 var partType = $(this).data('parttype');
                 $(this).on('click', function(e){
                     e.preventDefault();
+                    $(container).find('.selected').each(function(){
+                        $(this).removeClass('selected');
+                    });
+                    $(this).addClass('selected');
                     $(target).each(function(index){
                         if($(this).data('parttype') == partType){
                             $(this).show();
@@ -59,6 +85,20 @@ WatchBuilder = (function($) {
                         }
                     });
                 });
+                switch (container) {
+                    case '.selectCaseColor':
+                        self.state.case = partType;
+                        break;
+                    case '.selectStrap':
+                        self.state.straps = partType;
+                        break;
+                    case '.selectHands':
+                        self.state.hands = partType;
+                        break;
+                    case '.selectDial':
+                        self.state.dial = partType;
+                        break;
+                }
 
             });
         }
