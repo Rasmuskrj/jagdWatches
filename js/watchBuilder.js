@@ -23,8 +23,9 @@ WatchBuilder = (function($) {
             self.cacheElements();
             self.bindEvents();
             self.el.step1.hide();
+            self.el.step2.hide();
             $('.watchElement').each(function(){
-                var parttype = $(this).data('parttype').toLowerCase();
+                var parttype = $(this).data('parttype');
                 if( parttype == self.state.case || parttype == self.state.hands ||parttype == self.state.straps || parttype == self.state.dial){
                     $(this).show();
                 } else {
@@ -32,7 +33,7 @@ WatchBuilder = (function($) {
                 }
             });
             $('.thumbnail').each(function(){
-                var parttype = $(this).data('parttype').toLowerCase();
+                var parttype = $(this).data('parttype');
                 if( parttype == self.state.case || parttype == self.state.hands ||parttype == self.state.straps || parttype == self.state.dial){
                     $(this).addClass('selected');
                 }
@@ -43,8 +44,10 @@ WatchBuilder = (function($) {
             var self = builder;
 
             self.el.startButton = $('#startButton');
+            self.el.step2Button = $('#step2Button');
             self.el.intro = $('#splash');
             self.el.step1 = $('#step1');
+            self.el.step2 = $('#step2');
             self.el.selectCase = $('.selectCaseColor');
             self.el.selectStrap = $('.selectStrap');
             self.el.selectHands = $('.selectHands');
@@ -55,6 +58,7 @@ WatchBuilder = (function($) {
             var self = builder;
 
             self.el.startButton.on('click', self.removeIntro);
+            self.el.step2Button.on('click', self.enterStep2);
             self.bindSelectorEvents('.selectCaseColor', '.watchCase');
             self.bindSelectorEvents('.selectStrap', '.watchStrap');
             self.bindSelectorEvents('.selectHands', '.watchHands');
@@ -65,6 +69,12 @@ WatchBuilder = (function($) {
             var self = builder;
             self.el.intro.hide();
             self.el.step1.show();
+        },
+
+        enterStep2: function(){
+            var self = builder;
+            self.el.step1.hide();
+            self.el.step2.show();
         },
 
         bindSelectorEvents: function(container, target){

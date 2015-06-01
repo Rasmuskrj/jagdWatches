@@ -52,7 +52,7 @@ include("Preprocessing.php");
 
 </header>
 <!-- SPLASH -->
-<section class="main style1 fullscreen" id="splash" name="splash" style="padding-top:50px !important;">
+<!--<section class="main style1 fullscreen" id="splash" name="splash" style="padding-top:50px !important;">
     <div class="content container small">
         <img name="splash2" src="images/Watch-splash.gif" style="width:320px;" class="image">
         <footer>
@@ -60,44 +60,56 @@ include("Preprocessing.php");
         </footer>
     </div>
 
+</section>-->
+
+<section id="splash">
+    <a id="startButton" href="javascript: void(0)" class="button style3">Build my watch</a>
 </section>
+
+<div class="watchContainer">
+    <div class="watchElementContainer">
+        <?php
+        foreach($watchStrapMains as $main){
+            echo "<img src='$main' class='watchStrap watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+        }
+        ?>
+    </div>
+    <div class="watchElementContainer">
+        <?php
+        foreach($watchCaseMains as $main){
+            echo "<img src='$main' class='watchCase watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+        }
+        ?>
+    </div>
+    <div class="watchElementContainer">
+        <?php
+        foreach($watchDialMains as $main){
+            echo "<img src='$main' class='watchDial watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+        }
+        ?>
+    </div>
+    <div class="watchElementContainer">
+        <?php
+        foreach($watchHandsMains as $main){
+            echo "<img src='$main' class='watchHands watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+        }
+        ?>
+    </div>
+    <div class="watchElementContainer">
+        <?php
+        foreach($patternMains as $main){
+            echo "<img src='$main' class='watchPattern watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+        }
+        ?>
+    </div>
+</div>
 
 <!-- Step 1 -->
 <section class="main style1 fullscreen" id="step1" name="step1">
     <div class="content container small">
-        <div class="watchContainer">
-            <div class="watchElementContainer">
-                <?php
-                foreach($watchStrapMains as $main){
-                    echo "<img src='$main' class='watchStrap watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-                }
-                ?>
-            </div>
-            <div class="watchElementContainer">
-                <?php
-                foreach($watchCaseMains as $main){
-                    echo "<img src='$main' class='watchCase watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-                }
-                ?>
-            </div>
-            <div class="watchElementContainer">
-                <?php
-                foreach($watchDialMains as $main){
-                    echo "<img src='$main' class='watchDial watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-                }
-                ?>
-            </div>
-            <div class="watchElementContainer">
-                <?php
-                foreach($watchHandsMains as $main){
-                    echo "<img src='$main' class='watchHands watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-                }
-                ?>
-            </div>
-        </div>
         <div class="selectCaseColor leftSideSelector">
             <div class="selectCaseColorHeader leftSideSelectorHeader">
-                <p>Case Color</p>
+                <p class="watchBuilderText">Case Color</p>
             </div>
             <div class="thumbnails">
                 <?php
@@ -109,7 +121,7 @@ include("Preprocessing.php");
         </div>
         <div class="selectStrap leftSideSelector">
             <div class="selectStrapHeader leftSideSelectorHeader">
-                <p>Strap</p>
+                <p class="watchBuilderText">Strap</p>
             </div>
             <div class="thumbnails">
                 <?php
@@ -121,7 +133,7 @@ include("Preprocessing.php");
         </div>
         <div class="selectHands leftSideSelector">
             <div class="selectHandsHeader leftSideSelectorHeader">
-                <p>Hands Color</p>
+                <p class="watchBuilderText">Hands Color</p>
             </div>
             <div class="thumbnails">
                 <?php
@@ -133,7 +145,7 @@ include("Preprocessing.php");
         </div>
         <div class="selectDial rightSideSelector">
             <div class="selectDialHeader rightSideSelectorHeader">
-                <p>Dial</p>
+                <p class="watchBuilderText">Dial</p>
             </div>
             <div class="thumbnails">
                 <?php
@@ -143,6 +155,16 @@ include("Preprocessing.php");
                 ?>
             </div>
         </div>
+        <div class="buttonsContainer">
+            <p class="watchBuilderText">Design your own dial?</p>
+            <a id="step2Button" class="button style3">Make it your own</a>
+        </div>
+    </div>
+</section>
+
+<section class="main style1 fullscreen" id="step2" name="step2">
+    <div class="content container small">
+
     </div>
 </section>
 

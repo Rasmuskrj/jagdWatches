@@ -898,12 +898,18 @@ body {
 /* Watch Builder                                                                 */
 /*********************************************************************************/
 
-
+#startButton {
+    position: fixed;
+    left: 44%;
+    bottom: 15%;
+}
 
 .watchContainer .watchElement {
     position: fixed;
     top: 9%;
     left: 39%;
+    width: 23vw;
+    height: auto;
 }
 
 .watchStrap {
@@ -920,6 +926,12 @@ body {
 
 .watchHands {
     z-index: 1004;
+}
+
+.buttonsContainer {
+    position: fixed;
+    right: 10px;
+    bottom: 10%;
 }
 
 .selectCaseColor{
@@ -954,9 +966,17 @@ body {
 }
 
 .thumbnail {
-    width: 10%;
+    width: 4vw;
     height: auto;
     padding: 10px;
+}
+
+.watchStrapThumbnail {
+    width: 7vw !important;
+}
+
+.watchBuilderText {
+    font-size: 1.5vw;
 }
 
 .selectStrap {
