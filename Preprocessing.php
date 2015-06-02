@@ -15,13 +15,13 @@ $watchHandsMainFolder = "images/WatchBuilder/Hands/Main/";
 $watchDialFolder = "images/WatchBuilder/DialMaterial/Thumbnails/";
 $watchDialMainFolder = "images/WatchBuilder/DialMaterial/Main/";
 //Watch Pattern
-$patternFolder = "images/WatchBuilder/Patterns/Thumbnails";
-$patternMainFolder = "images/WatchBuilder/Patterns/Standard";
+$patternFolder = "images/WatchBuilder/Patterns/Thumbnails/";
+$patternMainFolder = "images/WatchBuilder/Patterns/Standard/";
 //Watch Numerals
-$watchNumeralsFolder = "images/WatchBuilder/Numerals";
+$watchNumeralsFolder = "images/WatchBuilder/Numerals/";
 //Watch Index
-$watchIndexFolder = "images/WatchBuilder/Index/Thumbnails";
-$watchIndexMainFolder = "images/WatchBuilder/Index/Main";
+$watchIndexFolder = "images/WatchBuilder/Index/Thumbnails/";
+$watchIndexMainFolder = "images/WatchBuilder/Index/Main/";
 
 //find all files, and put them in arrays
 $watchCaseThumbnails = glob($watchCaseFolder . "*.jpg");
@@ -39,6 +39,4 @@ $watchNumeralsMains = glob($watchNumeralsFolder . "*.png");
 $watchIndexThumbnails = glob($watchIndexFolder . "*.png");
 $watchIndexMains = glob($watchIndexMainFolder . "*.png");
 
-var_dump($watchCaseMains);
-die();
 ?>

@@ -17,11 +17,13 @@ include("Preprocessing.php");
     <meta name="keywords" content="" />
     <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
     <script src="js/jquery.min.js"></script>
+    <script src="plugins/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
     <script src="js/jquery.poptrox.min.js"></script>
     <script src="js/jquery.scrolly.min.js"></script>
     <script src="js/jquery.scrollgress.min.js"></script>
     <script src="js/watchBuilder.js"></script>
 
+    <link rel="stylesheet" href="plugins/jquery-ui-1.11.4.custom/jquery-ui.css">
     <link rel="stylesheet" href="css/style.css" />
     <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
     <!--<script>
@@ -102,6 +104,20 @@ include("Preprocessing.php");
         }
         ?>
     </div>
+    <div class="watchElementContainer">
+        <?php
+        foreach($watchNumeralsMains as $main){
+            echo "<img src='$main' class='watchNumerals watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+        }
+        ?>
+    </div>
+    <div class="watchElementContainer">
+        <?php
+        foreach($watchIndexMains as $main){
+            echo "<img src='$main' class='watchIndex watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+        }
+        ?>
+    </div>
 </div>
 
 <!-- Step 1 -->
@@ -164,7 +180,46 @@ include("Preprocessing.php");
 
 <section class="main style1 fullscreen" id="step2" name="step2">
     <div class="content container small">
-
+        <div class="selectIndex leftSideSelector">
+            <div class="selectIndexHeader leftSideSelectorHeader">
+                <p class="watchBuilderText">Index</p>
+            </div>
+            <div class="thumbnails">
+                <?php
+                foreach($watchIndexThumbnails as $thumbnail){
+                    echo "<img src='$thumbnail' class='watchIndexThumbnail thumbnail leftSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+        </div>
+        <div class="selectNumerals leftSideSelector">
+            <div class="selectNumeralsHeader leftSideSelectorHeader">
+                <p class="watchBuilderText">Numerals</p>
+            </div>
+            <div class="thumbnails">
+                <?php
+                foreach($watchNumeralsThumbnails as $thumbnail){
+                    echo "<img src='$thumbnail' class='watchNumeralsThumbnail thumbnail leftSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+        </div>
+        <div class="selectPattern rightSideSelector">
+            <div class="selectPatternHeader rightSideSelectorHeader">
+                <p class="watchBuilderText">Dial</p>
+            </div>
+            <div class="thumbnails">
+                <?php
+                foreach($patternThumbnails as $thumbnail){
+                    echo "<img src='$thumbnail' class='watchPatternThumbnail thumbnail rightSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+        </div>
+        <div class="patternRotator">
+            <p class="watchBuilderText">Rotate pattern</p>
+            <div class="patternRotatorSlider"></div>
+        </div>
     </div>
 </section>
 

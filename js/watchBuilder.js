@@ -14,7 +14,10 @@ WatchBuilder = (function($) {
             case: 'gun metal',
             hands: 'black',
             straps: 'croco black',
-            dial: 'bamboo'
+            dial: 'bamboo',
+            index: '1None',
+            numerals: '1None',
+            pattern: '1None'
         },
 
         init: function() {
@@ -24,6 +27,7 @@ WatchBuilder = (function($) {
             self.bindEvents();
             self.el.step1.hide();
             self.el.step2.hide();
+            $('.patternRotatorSlider').slider();
             $('.watchElement').each(function(){
                 var parttype = $(this).data('parttype');
                 if( parttype == self.state.case || parttype == self.state.hands ||parttype == self.state.straps || parttype == self.state.dial){
@@ -34,10 +38,11 @@ WatchBuilder = (function($) {
             });
             $('.thumbnail').each(function(){
                 var parttype = $(this).data('parttype');
-                if( parttype == self.state.case || parttype == self.state.hands ||parttype == self.state.straps || parttype == self.state.dial){
+                if( parttype == self.state.case || parttype == self.state.hands ||parttype == self.state.straps || parttype == self.state.dial || parttype == self.state.index || parttype == self.state.numerals || parttype == self.state.pattern){
                     $(this).addClass('selected');
                 }
             });
+            console.log(self.state);
         },
 
         cacheElements: function(){
@@ -63,6 +68,9 @@ WatchBuilder = (function($) {
             self.bindSelectorEvents('.selectStrap', '.watchStrap');
             self.bindSelectorEvents('.selectHands', '.watchHands');
             self.bindSelectorEvents('.selectDial', '.watchDial');
+            self.bindSelectorEvents('.selectIndex', '.watchIndex');
+            self.bindSelectorEvents('.selectNumerals', '.watchNumerals');
+            self.bindSelectorEvents('.selectPattern', '.watchPattern');
         },
 
         removeIntro: function(){

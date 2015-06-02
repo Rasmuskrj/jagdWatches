@@ -843,7 +843,8 @@ body {
 
 #footer {
     position: fixed;
-    height: 3em;
+    height: 6%;
+    left: 0px;
     line-height: 5em;
     margin: 0;
     background: #39454b;
@@ -867,8 +868,8 @@ body {
     position: absolute;
     left: 0.5em;
     top: 0.1em;
-    height: 5em;
-    line-height: 4em;
+    height: 2em;
+    line-height: 2em;
     margin: 0;
 }
 
@@ -886,7 +887,7 @@ body {
     right: 2em;
     top: 0;
     height: 5em;
-    line-height: 4em;
+    line-height: 2em;
     margin: 0;
 }
 
@@ -900,14 +901,17 @@ body {
 
 #startButton {
     position: fixed;
-    left: 44%;
+    left: 43%;
     bottom: 15%;
+    z-index: 1050;
+    width: 9vw;
+    font-size: 1.2vw;
 }
 
 .watchContainer .watchElement {
     position: fixed;
-    top: 9%;
-    left: 39%;
+    top: 10%;
+    left: 38%;
     width: 23vw;
     height: auto;
 }
@@ -916,16 +920,33 @@ body {
     z-index: 1001;
 }
 
+.watchPattern {
+    z-index: 1003;
+    border-radius: 50%;
+    width: 17vw !important;
+    top: 26% !important;
+    left: 41% !important;
+}
+
+
 .watchCase {
-    z-index: 1002;
+    z-index: 1004;
 }
 
 .watchDial {
-    z-index: 1003;
+    z-index: 1002;
 }
 
 .watchHands {
-    z-index: 1004;
+    z-index: 1005;
+}
+
+.watchIndex {
+    z-index: 1005;
+}
+
+.watchNumerals {
+    z-index: 1005;
 }
 
 .buttonsContainer {
@@ -936,11 +957,10 @@ body {
 
 .selectCaseColor{
     position: fixed;
-    left: 0px;
+    top: 7%;
 }
 
 .leftSideThumbnail{
-    float: left;
 }
 
 .leftSideSelector .thumbnails{
@@ -953,7 +973,6 @@ body {
 }
 
 .rightSideThumbnail{
-    float: right;
 }
 
 .rightSideSelector .thumbnails{
@@ -966,13 +985,14 @@ body {
 }
 
 .thumbnail {
-    width: 4vw;
+    width: 2vw;
     height: auto;
     padding: 10px;
+    display: inline-block;
 }
 
 .watchStrapThumbnail {
-    width: 7vw !important;
+    width: 6vw !important;
 }
 
 .watchBuilderText {
@@ -981,19 +1001,56 @@ body {
 
 .selectStrap {
     position: fixed;
-    left: 0px;
     bottom: 7%;
 }
 
 .selectHands {
     position: fixed;
-    left: 0px;
     top: 30%;
 }
 
 .selectDial {
     position: fixed;
-    right: 0px;
+    top: 7%;
+}
+
+.selectIndex {
+    position: fixed;
+    top: 7%;
+}
+
+.selectNumerals {
+    position: fixed;
+    top: 30%;
+}
+
+.selectPattern {
+    position: fixed;
+}
+
+.patternRotator {
+    position: fixed;
+    right: 2px;
+    top: 40%;
+    width: 18%;
+}
+
+.thumbnails {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.leftSideSelector {
+    width: 18%;
+    text-align: left;
+    left: 2px
+}
+
+.rightSideSelector {
+    width: 18%;
+    text-align: right;
+    right: 2px;
 }
 
 .selected {
