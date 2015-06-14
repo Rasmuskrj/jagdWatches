@@ -908,6 +908,13 @@ body {
     font-size: 1.2vw;
 }
 
+.invertPattern {
+    position: fixed;
+    right: 2.4%;
+    top: 11%;
+    font-size: 1vw;
+}
+
 .watchContainer .watchElement {
     position: fixed;
     top: 10%;
@@ -963,6 +970,10 @@ body {
 .leftSideThumbnail{
 }
 
+.partDescription{
+    font-size: small;
+}
+
 .leftSideSelector .thumbnails{
     clear: left;
 }
@@ -973,6 +984,7 @@ body {
 }
 
 .rightSideThumbnail{
+    width: 6vw!important;
 }
 
 .rightSideSelector .thumbnails{
@@ -980,15 +992,27 @@ body {
 }
 
 .rightSideSelectorHeader {
-    padding-right: 10px;
-    float: right;
+    padding-left: 4px;
+    float: left;
 }
 
 .thumbnail {
     width: 2vw;
     height: auto;
-    padding: 10px;
     display: inline-block;
+    border: solid;
+    border-color: #000000;
+    border-width: 1px;
+}
+
+.thumbnailInnerContainer {
+    border-bottom: solid;
+    border-bottom-color: transparent;
+}
+
+.thumbnailContainer {
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .watchStrapThumbnail {
@@ -1035,10 +1059,16 @@ body {
     width: 18%;
 }
 
-.thumbnails {
+.thumbnailsLeft {
     width: 100%;
     overflow-x: auto;
     white-space: nowrap;
+}
+
+.thumbnailsRight {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .leftSideSelector {
@@ -1048,15 +1078,19 @@ body {
 }
 
 .rightSideSelector {
-    width: 18%;
-    text-align: right;
+    width: 22%;
+    height: 22%;
+    text-align: left;
     right: 2px;
 }
 
 .selected {
-    border: solid;
-    border-color: #9ac8e9;
-    border-width: thin;
+    border-bottom: solid;
+    border-bottom-color: #000000;
+}
+
+.selectorHeader {
+    line-height: 1%;
 }
 /*********************************************************************************/
 /* Poptrox                                                                       */
