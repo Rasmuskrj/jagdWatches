@@ -911,7 +911,7 @@ body {
 .invertPattern {
     position: fixed;
     right: 2.4%;
-    top: 11%;
+    top: 13%;
     font-size: 1vw;
 }
 
@@ -960,11 +960,6 @@ body {
     position: fixed;
     right: 10px;
     bottom: 10%;
-}
-
-.selectCaseColor{
-    position: fixed;
-    top: 7%;
 }
 
 .leftSideThumbnail{
@@ -1023,6 +1018,11 @@ body {
     font-size: 1.5vw;
 }
 
+.selectCaseColor{
+    position: fixed;
+    top: 10%;
+}
+
 .selectStrap {
     position: fixed;
     bottom: 7%;
@@ -1035,12 +1035,12 @@ body {
 
 .selectDial {
     position: fixed;
-    top: 7%;
+    top: 10%;
 }
 
 .selectIndex {
     position: fixed;
-    top: 7%;
+    top: 10%;
 }
 
 .selectNumerals {
@@ -1050,6 +1050,7 @@ body {
 
 .selectPattern {
     position: fixed;
+    top: 10%;
 }
 
 .patternRotator {
