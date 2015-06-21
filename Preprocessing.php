@@ -1,5 +1,11 @@
 <?php
 
+$db = mysqli_connect('jagdwatches.com.mysql','jagdwatches_com','4T6kKfy2','jagdwatches_com');
+
+if($db->connect_errno > 0){
+    die('Unable to connect to database [' . $db->connect_error . ']');
+}
+
 //Define folder paths
 /*************************************************************/
 //Watch Case
@@ -38,5 +44,24 @@ $watchNumeralsThumbnails = glob($watchNumeralsFolder . "*.png");
 $watchNumeralsMains = glob($watchNumeralsFolder . "*.png");
 $watchIndexThumbnails = glob($watchIndexFolder . "*.png");
 $watchIndexMains = glob($watchIndexMainFolder . "*.png");
+
+/**
+ * 1: Plain dial, one strap
+ * 2: Plain dial, three straps
+ * 3: Engraved dial, one strap
+ * 4: Engraged dial, three straps
+ */
+$sql =
+    "SELECT *
+    FROM prices;";
+
+if(!$result = $db->query($sql)){
+    die('There was an error running the query [' . $db->error . ']');
+}
+
+$prices = array();
+while($row = $result->fetch_assoc()){
+    $prices[] = $row;
+}
 
 ?>
