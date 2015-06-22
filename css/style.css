@@ -900,26 +900,42 @@ body {
 /*********************************************************************************/
 
 #startButton {
-    position: fixed;
-    left: 43%;
+    position: absolute;
+    left: 505px;
     bottom: 15%;
     z-index: 1050;
-    width: 9vw;
-    font-size: 1.2vw;
+    width: 180px;
+    font-size: 23px;
+}
+
+.builderOuterContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.builderInnerContainer {
+    position: absolute;
+    width: 1600px;
+    height: 800px;
+    top: 0%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
 }
 
 .invertPattern {
-    position: fixed;
-    right: 2.4%;
-    top: 13%;
-    font-size: 1vw;
+    position: absolute;
+    right: 46px;
+    top: 10px;
+    font-size: 16px;
 }
 
 .watchContainer .watchElement {
-    position: fixed;
-    top: 10%;
-    left: 38%;
-    width: 23vw;
+    position: absolute;
+    top: 25px;
+    left: 380px;
+    width: 530px;
     height: auto;
 }
 
@@ -930,9 +946,9 @@ body {
 .watchPattern {
     z-index: 1003;
     border-radius: 50%;
-    width: 17vw !important;
-    top: 26% !important;
-    left: 41% !important;
+    width: 395px !important;
+    top: 211px !important;
+    left: 447px !important;
 }
 
 
@@ -957,35 +973,38 @@ body {
 }
 
 .buttonsContainer {
-    position: fixed;
-    right: 10px;
-    bottom: 10%;
-    width: 21%;
-    height: 47%;
-    line-height: 100%;
+    position: absolute;
+    left: 1000px;
+    top: 440px;
+    width: 570px;
+    height: 230px;
+    line-height: 1.4em;
     z-index: 500;
 }
 
 .buttonHelperText {
-    font-size: 1.2vw;
+    font-size: 1.1em;
     position: absolute;
     width: 48%;
-    top: 28%;
     text-align: left;
 }
 
 .step1Buttons {
     position: absolute;
     width: 48%;
-    top: 36%;
+    top: 35px;
     right: 1%;
 }
 
 .cstmbtn {
     display: block;
     padding: 4px 12px;
-    margin-bottom: 22%;
+    margin-bottom: 8%;
     cursor: pointer;
+    width: 254px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
 
     -o-transition: background-color .2s ease-in;
     -moz-transition: background-color .2s ease-in;
@@ -1018,7 +1037,7 @@ body {
 
 .priceContainer {
     position: absolute;
-    top: 68%;
+    top: 94%;
     height: 10%;
     width: 100%;
 }
@@ -1027,17 +1046,20 @@ body {
     position: absolute;
     height: 10%;
     right: 1%;
+    top: 20px;
+    font-size: 35px;
 }
 
 .leftSideThumbnail{
 }
 
 .watchBuilderText {
-    font-size: 1.5vw;
+    font-size: 1.1em
 }
 
 .partDescription{
     font-size: small;
+    color: gray;
 }
 
 .leftSideSelector .thumbnails{
@@ -1045,12 +1067,12 @@ body {
 }
 
 .leftSideSelectorHeader {
-    padding-left: 10px;
+    padding-left: 0px;
     float: left;
 }
 
 .rightSideThumbnail{
-    width: 6vw!important;
+    width: 152px!important;
 }
 
 .rightSideSelector .thumbnails{
@@ -1063,7 +1085,7 @@ body {
 }
 
 .thumbnail {
-    width: 2vw;
+    width: 45px;
     height: auto;
     display: inline-block;
     border: solid;
@@ -1077,52 +1099,53 @@ body {
 }
 
 .thumbnailContainer {
-    padding-left: 5px;
-    padding-right: 5px;
+    display: inline-block;
+    padding-bottom: 15px;
+    padding-right: 30px;
 }
 
 .watchStrapThumbnail {
-    width: 6vw !important;
+    width: 95px !important;
 }
 
 .selectCaseColor{
-    position: fixed;
-    top: 10%;
+    position: absolute;
+    top: 10px;
 }
 
 .selectStrap {
-    position: fixed;
-    bottom: 7%;
+    position: absolute;
+    top: 540px;
 }
 
 .selectHands {
-    position: fixed;
-    top: 30%;
+    position: absolute;
+    top: 275px;
 }
 
 .selectDial {
-    position: fixed;
-    top: 10%;
+    position: absolute;
+    top: 10px;
 }
 
 .selectIndex {
-    position: fixed;
-    top: 10%;
+    position: absolute;
+    top: 10px;
 }
 
 .selectNumerals {
-    position: fixed;
-    top: 30%;
+    position: absolute;
+    top: 275px;
 }
 
 .selectPattern {
-    position: fixed;
-    top: 10%;
+    position: absolute;
+    top: 10px;
 }
 
 .patternRotator {
-    position: fixed;
-    right: 2px;
+    position: absolute;
+    right: 160px;
     top: 40%;
     width: 18%;
     z-index: 600;
@@ -1143,14 +1166,14 @@ body {
 .leftSideSelector {
     width: 18%;
     text-align: left;
-    left: 2px
+    left: 28px
 }
 
 .rightSideSelector {
-    width: 22%;
-    height: 22%;
+    width: 570px;
+    height: 330px;
     text-align: left;
-    right: 2px;
+    left: 1000px;
 }
 
 .selected {
@@ -1160,6 +1183,14 @@ body {
 
 .selectorHeader {
     line-height: 1%;
+}
+
+.priceValue {
+    font-weight: bold;
+}
+
+.priceCurrency {
+    font-weight: bold;
 }
 
 /*********************************************************************************/
