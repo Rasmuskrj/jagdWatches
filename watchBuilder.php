@@ -27,6 +27,49 @@ include("Preprocessing.php");
         var pricePlainThreeStraps = <?php echo $prices[1]['price_dkk']; ?>;
         var priceEngravedOneStrap = <?php echo $prices[2]['price_dkk']; ?>;
         var priceEngravedThreeStraps = <?php echo $prices[3]['price_dkk']; ?>;
+
+        var cases = [],
+            straps = [],
+            hands = [],
+            dials = [],
+            indices = [],
+            numerals = [],
+            patterns = [];
+        <?php
+            foreach($watchCaseThumbnails as $thumbnail) {
+                echo "cases.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
+            }
+        ?>
+        <?php
+            foreach($watchStrapsThumbnails as $thumbnail) {
+                echo "straps.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
+            }
+        ?>
+        <?php
+            foreach($watchHandsThumbnails as $thumbnail) {
+                echo "hands.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
+            }
+        ?>
+        <?php
+            foreach($watchDialThumbnails as $thumbnail) {
+                echo "dials.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
+            }
+        ?>
+        <?php
+            foreach($patternThumbnails as $thumbnail) {
+                echo "patterns.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
+            }
+        ?>
+        <?php
+            foreach($watchNumeralsThumbnails as $thumbnail) {
+                echo "numerals.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
+            }
+        ?>
+        <?php
+            foreach($watchIndexThumbnails as $thumbnail) {
+                echo "indices.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
+            }
+        ?>
     </script>
 
 
@@ -81,7 +124,8 @@ include("Preprocessing.php");
 
 
         <section id="splash">
-            <a id="startButton" href="javascript: void(0)" class="button style3">Build my watch</a>
+            <!--<a id="startButton" href="javascript: void(0)" class="button style3">Build my watch</a>-->
+            <span id="startButton" class="cstmbtn type2"><span><b>Build my watch</b></span></span>
         </section>
 
         <div class="watchContainer">
@@ -133,6 +177,12 @@ include("Preprocessing.php");
                     echo "<img src='$main' class='watchIndex watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                 }
                 ?>
+            </div>
+            <div class="chooseArrowLeft">
+                <img src="images/WatchBuilder/Misc/Arrow%20main.png">
+            </div>
+            <div class="chooseArrowRight">
+                <img src="images/WatchBuilder/Misc/Arrow%20main.png">
             </div>
         </div>
 
@@ -192,8 +242,8 @@ include("Preprocessing.php");
                 <div class="buttonsContainer">
                     <p class="buttonHelperText">You now have two options. To continue and design your own dial <b>or</b> buy it as it is right now.</p>
                     <div class="step1Buttons">
-                        <span id="step2Button" class="cstmbtn type1">Design <b>your own dial</b></span>
-                        <span class="cstmbtn type2 buyNowButton"><b>Buy it</b> now</span>
+                        <span id="step2Button" class="cstmbtn type1" style="line-height: 19px;"><span>Design <b>your own dial</b></span></span>
+                        <span class="cstmbtn type2 buyNowButton"><span><b>Buy it</b> now</span></span>
                         <!--<a id="step2Button" class="button style3">Make it your own</a>-->
                     </div>
                     <div class="priceContainer">
@@ -235,7 +285,7 @@ include("Preprocessing.php");
                 </div>
                 <div class="selectPattern rightSideSelector">
                     <div class="selectorHeader rightSideSelectorHeader">
-                        <p class="watchBuilderText">PATTERN</p><p class="partDescription"></p><input type="checkbox" id="invertPattern"><label class="invertPattern" for="invertPattern">Invert Pattern</label>
+                        <p class="watchBuilderText">PATTERN</p><p class="partDescription"></p><input type="checkbox" id="invertPattern"><label id="invertPatternLabel" class="invertPattern" for="invertPattern">Invert Pattern</label>
                     </div>
                     <div class="thumbnails thumbnailsRight">
                         <?php
@@ -246,13 +296,13 @@ include("Preprocessing.php");
                     </div>
                 </div>
                 <div class="patternRotator">
-                    <p class="watchBuilderText">Rotate pattern</p>
+                    <p class="patternRotatorText">Rotate pattern</p>
                     <div class="patternRotatorSlider"></div>
                 </div>
                 <div class="buttonsContainer">
-                    <p class="buttonHelperText">You now have two options. To continue and design your own dial <b>or</b> buy it as it is right now.</p>
-                    <div class="step1Buttons">
-                        <span class="cstmbtn type2 buyNowButton"><b>Buy it</b> now</span>
+                    <p class="step2ButtonHelperText">Looking good!</p>
+                    <div class="step2Buttons">
+                        <span class="cstmbtn type2 buyNowButton"><span><b>Buy it</b> now</span></span>
                         <!--<a id="step2Button" class="button style3">Make it your own</a>-->
                     </div>
                     <div class="priceContainer">

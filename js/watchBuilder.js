@@ -10,7 +10,7 @@ function generateUUID(){
         return (c=='x' ? r : (r&0x3|0x8)).toString(16);
     });
     return uuid;
-};
+}
 
 
 WatchBuilder = (function($) {
@@ -22,8 +22,8 @@ WatchBuilder = (function($) {
         el: {},
 
         variables: {
-            noneName: "1None",
-            animationSpeed: 1000
+            noneName: "None",
+            animationSpeed: 10
         },
 
         defaultValues: {
@@ -31,9 +31,9 @@ WatchBuilder = (function($) {
             hands: 'Black',
             straps: 'Croco black',
             dial: 'Bamboo2',
-            index: '1None',
-            numerals: '1None',
-            pattern: '1None',
+            index: 'None',
+            numerals: 'None',
+            pattern: 'None',
             currentScreen: 'intro',
             lastScreen: 'intro',
             invertPattern: false,
@@ -45,14 +45,16 @@ WatchBuilder = (function($) {
             hands: 'black',
             straps: 'croco black',
             dial: 'bamboo',
-            index: '1None',
-            numerals: '1None',
-            pattern: '1None',
+            index: 'None',
+            numerals: 'None',
+            pattern: 'None',
             currentScreen: 'intro',
             lastScreen: 'intro',
             invertPattern: false,
             patternRotation: 0
         },
+
+        partLists: {},
 
         init: function() {
             var self = builder;
@@ -68,7 +70,6 @@ WatchBuilder = (function($) {
             $(".selectHands img[data-parttype='" + self.state.hands + "']").trigger('click');
             $(".selectDial img[data-parttype='" + self.state.dial + "']").trigger('click');
             $(".selectIndex img[data-parttype='" + self.state.index + "']").trigger('click');
-            console.log("before is " + self.state.pattern);
             $(".selectNumerals img[data-parttype='" + self.state.numerals + "']").trigger('click');
             $(".selectPattern img[data-parttype='" + self.state.pattern + "']").trigger('click');
             var sliderValue = 0;
@@ -90,7 +91,6 @@ WatchBuilder = (function($) {
             if(Cookies.get('userID') == undefined){
                 Cookies.set('userID', generateUUID(), {expires: 30, path: '/'});
             }
-            console.log(Cookies.get('userID'));
         },
 
         cacheElements: function(){
@@ -112,6 +112,15 @@ WatchBuilder = (function($) {
             self.el.invertButton = $('#invertPattern');
             self.el.buyNowButton = $('.buyNowButton');
             self.el.priceValue = $('.priceValue');
+            self.el.leftArrow = $('.chooseArrowLeft');
+            self.el.rightArrow = $('.chooseArrowRight');
+            self.partLists.cases = cases;
+            self.partLists.straps = straps;
+            self.partLists.hands = hands;
+            self.partLists.dials = dials;
+            self.partLists.indices = indices;
+            self.partLists.numerals = numerals;
+            self.partLists.patterns = patterns;
         },
 
         bindEvents: function() {
@@ -152,7 +161,65 @@ WatchBuilder = (function($) {
                     }
                 }
             });
-            self.el.buyNowButton.on('click', self.enterCustomerDetails)
+            self.el.buyNowButton.on('click', self.enterCustomerDetails);
+            self.el.leftArrow.on('click', function(){
+                if(self.state.currentScreen == 'step1'){
+                    var index = 0;
+                    for(var i = 0; 0 < self.partLists.dials.length; i++){
+                        if(self.partLists.dials[i] == self.state.dial){
+                            index = i - 1;
+                            break;
+                        }
+                    }
+                    if(index < 0) {
+                        index = self.partLists.dials.length - 1;
+                    }
+                    $(".selectDial img[data-parttype='" + self.partLists.dials[index] + "']").trigger('click');
+                } else if (self.state.currentScreen == 'step2') {
+                    var index = 0;
+                    for(var i = 0; 0 < self.partLists.patterns.length; i++){
+                        if(self.partLists.patterns[i] == self.state.pattern){
+                            index = i - 1;
+                            break;
+                        }
+                    }
+                    if(index < 0) {
+                        index = self.partLists.patterns.length - 1;
+                    }
+                    $(".selectPattern img[data-parttype='" + self.partLists.patterns[index] + "']").trigger('click');
+                } else {
+                    self.randomizeParts();
+                }
+            });
+            self.el.rightArrow.on('click', function(){
+                if(self.state.currentScreen == 'step1'){
+                    var index = 0;
+                    for(var i = 0; 0 < self.partLists.dials.length; i++){
+                        if(self.partLists.dials[i] == self.state.dial){
+                            index = i + 1;
+                            break;
+                        }
+                    }
+                    if(index > self.partLists.dials.length - 1) {
+                        index = 0;
+                    }
+                    $(".selectDial img[data-parttype='" + self.partLists.dials[index] + "']").trigger('click');
+                } else if (self.state.currentScreen == 'step2') {
+                    var index = 0;
+                    for(var i = 0; 0 < self.partLists.patterns.length; i++){
+                        if(self.partLists.patterns[i] == self.state.pattern){
+                            index = i + 1;
+                            break;
+                        }
+                    }
+                    if(index > self.partLists.patterns.length - 1) {
+                        index = 0;
+                    }
+                    $(".selectPattern img[data-parttype='" + self.partLists.patterns[index] + "']").trigger('click');
+                } else {
+                    self.randomizeParts();
+                }
+            });
         },
 
         enterIntro: function(){
@@ -175,7 +242,6 @@ WatchBuilder = (function($) {
             self.el.customerDetails.hide(self.variables.animationSpeed);
             self.state.lastScreen = self.state.currentScreen;
             self.state.currentScreen = 'step1';
-            console.log(Cookies.get());
         },
 
         enterStep2: function(){
@@ -246,16 +312,15 @@ WatchBuilder = (function($) {
                             break;
                         case '.selectPattern':
                             self.state.pattern = partType;
-                            console.log("select Pattern Called. case " + container);
                             Cookies.set('pattern', partType, {expires: 30, path: '/'});
                             break;
                         default:
                             console.log("Error: State not changed");
                     }
                     if(self.state.pattern == self.variables.noneName && self.state.numerals == self.variables.noneName && self.state.index == self.variables.noneName) {
-                        self.el.priceValue.text(pricePlainOneStrap);
+                        self.el.priceValue.text(self.formatPrice(pricePlainOneStrap));
                     } else {
-                        self.el.priceValue.text(priceEngravedOneStrap);
+                        self.el.priceValue.text(self.formatPrice(priceEngravedOneStrap));
                     }
                 });
 
@@ -274,7 +339,6 @@ WatchBuilder = (function($) {
                 self.state.index = Cookies.get('index');
                 self.state.numerals = Cookies.get('numerals');
                 self.state.pattern = Cookies.get('pattern');
-                console.log("pattern set to " + self.state.pattern);
                 if(Cookies.get('patternRotation') != undefined) {
                     $('.watchPattern').css("transform", "rotate(" + Cookies.get('patternRotation') + "deg)");
                 }
@@ -285,6 +349,30 @@ WatchBuilder = (function($) {
                 }
             }
 
+        },
+        randomizeParts: function() {
+            var self = builder;
+
+            $(".selectCaseColor img[data-parttype='" + self.partLists.cases[Math.floor(self.partLists.cases.length * Math.random())] + "']").trigger('click');
+            $(".selectStrap img[data-parttype='" + self.partLists.straps[Math.floor(self.partLists.straps.length * Math.random())] + "']").trigger('click');
+            $(".selectHands img[data-parttype='" + self.partLists.hands[Math.floor(self.partLists.hands.length * Math.random())] + "']").trigger('click');
+            $(".selectDial img[data-parttype='" + self.partLists.dials[Math.floor(self.partLists.dials.length * Math.random())] + "']").trigger('click');
+            $(".selectIndex img[data-parttype='" + self.partLists.indices[Math.floor(self.partLists.indices.length * Math.random())] + "']").trigger('click');
+            $(".selectNumerals img[data-parttype='" + self.partLists.numerals[Math.floor(self.partLists.numerals.length * Math.random())] + "']").trigger('click');
+            $(".selectPattern img[data-parttype='" + self.partLists.patterns[Math.floor(self.partLists.patterns.length * Math.random())] + "']").trigger('click');
+        },
+
+        formatPrice: function(number) {
+            number = number + '';
+            var arr = number.split(',');
+            var n1 = arr[0];
+            var n2 = arr.length > 1 ? ',' + arr[1] : ',00';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(n1)) {
+                n1 = n1.replace(rgx, '$1' + '.' + '$2');
+            }
+
+            return n1 + n2;
         }
     };
 

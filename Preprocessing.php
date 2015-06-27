@@ -39,10 +39,13 @@ $watchHandsMains = glob($watchHandsMainFolder . "*.png");
 $watchDialThumbnails = glob($watchDialFolder . "*.png");
 $watchDialMains = glob($watchDialMainFolder . "*.png");
 $patternThumbnails = glob( $patternFolder . "*.png");
+$patternThumbnails = moveValueByIndex($patternThumbnails, $patternFolder . "None.png");
 $patternMains = glob($patternMainFolder . "*.png");
 $watchNumeralsThumbnails = glob($watchNumeralsFolder . "*.png");
+$watchNumeralsThumbnails = moveValueByIndex($watchNumeralsThumbnails, $watchNumeralsFolder . "None.png");
 $watchNumeralsMains = glob($watchNumeralsFolder . "*.png");
 $watchIndexThumbnails = glob($watchIndexFolder . "*.png");
+$watchIndexThumbnails = moveValueByIndex($watchIndexThumbnails, $watchIndexFolder . "None.png");
 $watchIndexMains = glob($watchIndexMainFolder . "*.png");
 
 /**
@@ -62,6 +65,28 @@ if(!$result = $db->query($sql)){
 $prices = array();
 while($row = $result->fetch_assoc()){
     $prices[] = $row;
+}
+
+
+function moveValueByIndex( array $array, $from )
+{
+    $index = array_search($from, $array);
+
+    if ( $index === false )
+    {
+        die( "Offset $from does not exist" );
+    }
+
+
+    $value = $array[$index];
+    unset( $array[$index] );
+
+    $tail = array_splice( $array, 0 );
+    array_push( $array, $value );
+    $array = array_merge( $array, $tail );
+
+
+    return $array;
 }
 
 ?>

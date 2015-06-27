@@ -901,11 +901,27 @@ body {
 
 #startButton {
     position: absolute;
-    left: 505px;
-    bottom: 15%;
+    left: 423px;
+    bottom: 1%;
     z-index: 1050;
     width: 180px;
+    height: auto;
     font-size: 23px;
+}
+
+.chooseArrowLeft {
+    position: absolute;
+    top: 298px;
+    left: 255px;
+    transform: rotate(180deg);
+    cursor: pointer;
+}
+
+.chooseArrowRight {
+    position: absolute;
+    top: 311px;
+    left: 735px;
+    cursor: pointer;
 }
 
 .builderOuterContainer {
@@ -916,26 +932,42 @@ body {
 
 .builderInnerContainer {
     position: absolute;
-    width: 1600px;
-    height: 800px;
+    width: 1250px;
+    height: 720px;
     top: 0%;
     margin: 0 auto;
     left: 0;
     right: 0;
+    overflow: hidden;
 }
 
 .invertPattern {
     position: absolute;
-    right: 46px;
-    top: 10px;
-    font-size: 16px;
+    right: 38px;
+    top: 27px;
+    font-size: 14px;
+}
+
+.invertPattern.ui-button {
+    background-image: none;
+    background-color: #B9C5CB;
+    border-radius: 0;
+    color: #39454C;
+    font-family: inherit;
+}
+
+.invertPattern.ui-state-active {
+    background-image: none;
+    border-radius: 0;
+    background-color: #39454C;
+    color: #DCE5EA;
 }
 
 .watchContainer .watchElement {
     position: absolute;
-    top: 25px;
-    left: 380px;
-    width: 530px;
+    top: 40px;
+    left: 295px;
+    width: 460px;
     height: auto;
 }
 
@@ -946,9 +978,9 @@ body {
 .watchPattern {
     z-index: 1003;
     border-radius: 50%;
-    width: 395px !important;
-    top: 211px !important;
-    left: 447px !important;
+    width: 351px !important;
+    top: 191px !important;
+    left: 349px !important;
 }
 
 
@@ -974,19 +1006,20 @@ body {
 
 .buttonsContainer {
     position: absolute;
-    left: 1000px;
+    left: 819px;
     top: 440px;
-    width: 570px;
+    width: 430px;
     height: 230px;
     line-height: 1.4em;
     z-index: 500;
 }
 
 .buttonHelperText {
-    font-size: 1.1em;
+    font-size: 0.9em;
     position: absolute;
     width: 48%;
     text-align: left;
+    color: #39454C;
 }
 
 .step1Buttons {
@@ -996,15 +1029,29 @@ body {
     right: 1%;
 }
 
+.step2ButtonHelperText {
+    font-size: 1.0em;
+    position: absolute;
+    width: 48%;
+    text-align: center;
+    top: 74px;
+}
+
+.step2Buttons {
+    position: absolute;
+    width: 48%;
+    top: 86px;
+    right: 1%;
+}
+
 .cstmbtn {
     display: block;
-    padding: 4px 12px;
-    margin-bottom: 8%;
+    padding: 8px 12px;
+    margin-bottom: 13%;
     cursor: pointer;
-    width: 254px;
-    height: 60px;
+    width: 195px;
+    height: auto;
     text-align: center;
-    line-height: 60px;
 
     -o-transition: background-color .2s ease-in;
     -moz-transition: background-color .2s ease-in;
@@ -1012,17 +1059,30 @@ body {
     transition: background-color .2s ease-in;
 }
 
+.cstmbtn span {
+    vertical-align: sub;
+}
+
+.cstmbtn.step2button.type1 {
+    line-height: 1px;
+}
+
+
 .cstmbtn.type1 {
-    background-color: #888888;
+    background-color: #B9C5CB;
 }
 
 .cstmbtn.type2 {
-    background-color: #404040;
-    color: #ffffff;
+    background-color: #39454C;
+    color: #DCE5EA;
 }
 
-.cstmbtn:hover {
-    background-color: #e5e5e5;
+.cstmbtn.type1:hover {
+    background-color: #999999;
+}
+
+.cstmbtn.type2:hover {
+    background-color: #000000;
 }
 
 .cstmbtn:active {
@@ -1033,6 +1093,7 @@ body {
     width:100%;
     height:2px;
     background-color: #000000;
+    color: #39454C;
 }
 
 .priceContainer {
@@ -1047,19 +1108,21 @@ body {
     height: 10%;
     right: 1%;
     top: 20px;
-    font-size: 35px;
+    font-size: 25px;
+    color: #231F20;
 }
 
 .leftSideThumbnail{
 }
 
 .watchBuilderText {
-    font-size: 1.1em
+    font-size: 0.8em;
+    color: #221E1F;
 }
 
 .partDescription{
-    font-size: small;
-    color: gray;
+    font-size: 0.8em;
+    color: #7F7F7F;
 }
 
 .leftSideSelector .thumbnails{
@@ -1071,8 +1134,8 @@ body {
     float: left;
 }
 
-.rightSideThumbnail{
-    width: 152px!important;
+.thumbnail.rightSideThumbnail{
+    width: 115px;
 }
 
 .rightSideSelector .thumbnails{
@@ -1085,7 +1148,7 @@ body {
 }
 
 .thumbnail {
-    width: 45px;
+    width: 35px;
     height: auto;
     display: inline-block;
     border: solid;
@@ -1100,12 +1163,12 @@ body {
 
 .thumbnailContainer {
     display: inline-block;
-    padding-bottom: 15px;
-    padding-right: 30px;
+    padding-bottom: 10px;
+    padding-right: 20px;
 }
 
-.watchStrapThumbnail {
-    width: 95px !important;
+.thumbnail.watchStrapThumbnail {
+    width: 68px;
 }
 
 .selectCaseColor{
@@ -1115,12 +1178,12 @@ body {
 
 .selectStrap {
     position: absolute;
-    top: 540px;
+    top: 450px;
 }
 
 .selectHands {
     position: absolute;
-    top: 275px;
+    top: 240px;
 }
 
 .selectDial {
@@ -1135,7 +1198,7 @@ body {
 
 .selectNumerals {
     position: absolute;
-    top: 275px;
+    top: 240px;
 }
 
 .selectPattern {
@@ -1145,10 +1208,16 @@ body {
 
 .patternRotator {
     position: absolute;
-    right: 160px;
-    top: 40%;
-    width: 18%;
+    right: 18px;
+    top: 380px;
+    width: 399px;
+    line-height: 10px;
     z-index: 600;
+}
+
+.patternRotatorText {
+    font-size: inherit;
+    margin-left: -16px;
 }
 
 .thumbnailsLeft {
@@ -1164,16 +1233,16 @@ body {
 }
 
 .leftSideSelector {
-    width: 18%;
+    width: 13%;
     text-align: left;
     left: 28px
 }
 
 .rightSideSelector {
-    width: 570px;
-    height: 330px;
+    width: 430px;
+    height: 295px;
     text-align: left;
-    left: 1000px;
+    left: 819px;
 }
 
 .selected {
@@ -1182,7 +1251,7 @@ body {
 }
 
 .selectorHeader {
-    line-height: 1%;
+    line-height: 20%;
 }
 
 .priceValue {
