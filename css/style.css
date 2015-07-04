@@ -641,7 +641,7 @@ input[type="reset"].style2:hover,
 
 #header {
     position: fixed;
-    z-index: 10000;
+    z-index: 7000;
     left: 0;
     top: 0;
     width: 100%;
@@ -899,29 +899,44 @@ body {
 /* Watch Builder                                                                 */
 /*********************************************************************************/
 
+.step1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.step2 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 #startButton {
     position: absolute;
-    left: 423px;
+    left: 391px;
     bottom: 1%;
     z-index: 1050;
     width: 180px;
-    height: auto;
+    height: 50px;
     font-size: 23px;
+    line-height: 50px;
 }
 
 .chooseArrowLeft {
     position: absolute;
-    top: 298px;
-    left: 255px;
+    top: 218px;
+    left: -45px;
     transform: rotate(180deg);
     cursor: pointer;
+    z-index: 1000;
 }
 
 .chooseArrowRight {
     position: absolute;
-    top: 311px;
-    left: 735px;
+    top: 231px;
+    left: 399px;
     cursor: pointer;
+    z-index: 1000;
 }
 
 .builderOuterContainer {
@@ -932,19 +947,33 @@ body {
 
 .builderInnerContainer {
     position: absolute;
-    width: 1250px;
-    height: 720px;
+    height: 585px;
     top: 0%;
+}
+
+.centeredContent {
+    width: 1250px;
     margin: 0 auto;
     left: 0;
     right: 0;
-    overflow: hidden;
+}
+
+.builderContent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.endline {
+    position: absolute;
+    bottom: -20px;
 }
 
 .invertPattern {
     position: absolute;
-    right: 38px;
-    top: 27px;
+    right: 40px;
+    top: 5px;
     font-size: 14px;
 }
 
@@ -963,24 +992,28 @@ body {
     color: #DCE5EA;
 }
 
-.watchContainer .watchElement {
+.watchContainer {
     position: absolute;
-    top: 40px;
+    top: 15px;
     left: 295px;
-    width: 460px;
+    width: 396px;
     height: auto;
+}
+
+.watchElement {
+    position: absolute;
 }
 
 .watchStrap {
     z-index: 1001;
 }
 
-.watchPattern {
+.watchElement.watchPattern {
     z-index: 1003;
     border-radius: 50%;
-    width: 351px !important;
-    top: 191px !important;
-    left: 349px !important;
+    width: 308px;
+    top: 132px;
+    left: 48px;
 }
 
 
@@ -1007,25 +1040,26 @@ body {
 .buttonsContainer {
     position: absolute;
     left: 819px;
-    top: 440px;
+    top: 365px;
     width: 430px;
-    height: 230px;
+    height: 155px;
     line-height: 1.4em;
     z-index: 500;
 }
 
 .buttonHelperText {
-    font-size: 0.9em;
+    font-size: 0.8em;
     position: absolute;
     width: 48%;
     text-align: left;
     color: #39454C;
+    line-height: 1.3em;
 }
 
 .step1Buttons {
     position: absolute;
     width: 48%;
-    top: 35px;
+    top: 4px;
     right: 1%;
 }
 
@@ -1040,27 +1074,25 @@ body {
 .step2Buttons {
     position: absolute;
     width: 48%;
-    top: 86px;
+    top: 69px;
     right: 1%;
 }
 
 .cstmbtn {
     display: block;
-    padding: 8px 12px;
-    margin-bottom: 13%;
+    padding: 4px 12px;
+    margin-bottom: 8%;
     cursor: pointer;
-    width: 195px;
-    height: auto;
+    width: 186px;
+    height: 40px;
     text-align: center;
+    font-size: 19px;
+    line-height: 40px;
 
     -o-transition: background-color .2s ease-in;
     -moz-transition: background-color .2s ease-in;
     -webkit-transition: background-color .2s ease-in;
     transition: background-color .2s ease-in;
-}
-
-.cstmbtn span {
-    vertical-align: sub;
 }
 
 .cstmbtn.step2button.type1 {
@@ -1078,11 +1110,11 @@ body {
 }
 
 .cstmbtn.type1:hover {
-    background-color: #999999;
+    background-color: #DFECF2;
 }
 
 .cstmbtn.type2:hover {
-    background-color: #000000;
+    background-color: #5E717D;
 }
 
 .cstmbtn:active {
@@ -1098,7 +1130,7 @@ body {
 
 .priceContainer {
     position: absolute;
-    top: 94%;
+    top: 90%;
     height: 10%;
     width: 100%;
 }
@@ -1107,7 +1139,7 @@ body {
     position: absolute;
     height: 10%;
     right: 1%;
-    top: 20px;
+    top: 5px;
     font-size: 25px;
     color: #231F20;
 }
@@ -1135,7 +1167,7 @@ body {
 }
 
 .thumbnail.rightSideThumbnail{
-    width: 115px;
+    width: 114px;
 }
 
 .rightSideSelector .thumbnails{
@@ -1173,43 +1205,43 @@ body {
 
 .selectCaseColor{
     position: absolute;
-    top: 10px;
+    top: 20px;
 }
 
 .selectStrap {
     position: absolute;
-    top: 450px;
+    top: 387px;
 }
 
 .selectHands {
     position: absolute;
-    top: 240px;
+    top: 190px;
 }
 
 .selectDial {
     position: absolute;
-    top: 10px;
+    top: 20px;
 }
 
 .selectIndex {
     position: absolute;
-    top: 10px;
+    top: 20px;
 }
 
 .selectNumerals {
     position: absolute;
-    top: 240px;
+    top: 190px;
 }
 
 .selectPattern {
     position: absolute;
-    top: 10px;
+    top: 20px;
 }
 
 .patternRotator {
     position: absolute;
     right: 18px;
-    top: 380px;
+    top: 320px;
     width: 399px;
     line-height: 10px;
     z-index: 600;
@@ -1240,7 +1272,7 @@ body {
 
 .rightSideSelector {
     width: 430px;
-    height: 295px;
+    height: 240px;
     text-align: left;
     left: 819px;
 }
@@ -1260,6 +1292,124 @@ body {
 
 .priceCurrency {
     font-weight: bold;
+}
+
+.galleryTextContainer {
+    position: absolute;
+    top: 550px;
+    right: 4px;
+    font-size: 18px;
+}
+
+.bottomGalleryContainer{
+    position: absolute;
+    top: 640px;
+    height: 132px;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.fancybox img {
+    height: 100%;
+    width: auto;
+}
+
+.watchRecap {
+    position: absolute;
+    left: 0px;
+    width: 419px;
+    height: 470px;
+    top: 100px;
+    background-color: #B9C5CB;
+    border: solid;
+    border-color: #000000;
+    border-width: thin;
+    border-radius: 10px;
+}
+
+.watchRecap .partTitle {
+    margin: 40px;
+}
+
+.formContent {
+    position: absolute;
+    right: 0px;
+    width: 48%;
+}
+
+.formContent form input {
+    width: 60%;
+    padding: 5px;
+}
+
+.additionalStrapModalButton {
+    position: absolute;
+    top: -5px;
+    left: 150px;
+    white-space: nowrap;
+    font-size: 11px;
+    background-color: #80CF70;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 8px;
+    cursor: pointer;
+
+    -o-transition: background-color .2s ease-in;
+    -moz-transition: background-color .2s ease-in;
+    -webkit-transition: background-color .2s ease-in;
+    transition: background-color .2s ease-in;
+}
+
+.additionalStrapModalButton:hover {
+    background-color: #9AFF85;
+}
+
+.modalSelector {
+    position: absolute;
+    top: 125px;
+    left: 30px;
+    width: 170px;
+}
+
+.modalRecap {
+    position: absolute;
+    top: 125px;
+    right: 258px;
+    white-space: nowrap;
+}
+
+.modalRecap span {
+    display: inline-block;
+    width: 150px;
+}
+
+.strapTitle {
+    margin-right: 40px;
+}
+
+.modalRecap span.clearButton {
+    background: url('/images/Icons/clear2.ico') no-repeat top left;
+    background-size: cover;
+    height: 24px;
+    width: 28px;
+    display: inline-block;
+}
+
+.unselectedStrap {
+    color: grey;
+}
+
+.selectedStrap {
+    font-weight: bold;
+}
+
+.ui-dialog {
+    z-index: 10000 !important;
+}
+
+.ui-dialog-title {
+    font-weight: normal !important;
 }
 
 /*********************************************************************************/

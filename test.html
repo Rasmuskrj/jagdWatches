@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="plugins/fancybox2/jquery.fancybox.css">
+    <style>
+        .bottomGalleryContainer {
+            height: 200px;
+        }
+
+        .fancybox img{
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="plugins/fancybox2/jquery.fancybox.pack.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".fancybox").fancybox({
+                openEffect	: 'none',
+                closeEffect	: 'none'
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div class="bottomGalleryContainer">
+    <a class="fancybox bottomGallery" rel="bottomGallery" href="images/fulls/01.jpg" title="Image 1">
+        <img src="images/fulls/01.jpg" alt="" />
+    </a>
+    <a class="fancybox bottomGallery" rel="bottomGallery" href="images/fulls/02.jpg" title="Image 2">
+        <img src="images/fulls/02.jpg" alt="" />
+    </a>
+    <a class="fancybox bottomGallery" rel="bottomGallery" href="images/fulls/03.jpg" title="Image 3">
+        <img src="images/fulls/03.jpg" alt="" />
+    </a>
+    <a class="fancybox bottomGallery" rel="bottomGallery" href="images/fulls/04.jpg" title="Image 4">
+        <img src="images/fulls/04.jpg" alt="" />
+    </a>
+</div>
+
+</body>
+</html>

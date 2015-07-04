@@ -1,7 +1,7 @@
-/*! jQuery UI - v1.11.4 - 2015-03-11
+/*! jQuery UI - v1.11.4 - 2015-07-03
 * http://jqueryui.com
-* Includes: core.css, accordion.css, autocomplete.css, button.css, datepicker.css, dialog.css, draggable.css, menu.css, progressbar.css, resizable.css, selectable.css, selectmenu.css, slider.css, sortable.css, spinner.css, tabs.css, tooltip.css, theme.css
-* To view and modify this theme, visit http://jqueryui.com/themeroller/?tr%26ffDefault=Helvetica%2CArial%2Csans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=5px&bgColorHeader=888888&bgTextureHeader=highlight_hard&bgImgOpacityHeader=15&borderColorHeader=404040&fcHeader=ffffff&iconColorHeader=cccccc&bgColorContent=121212&bgTextureContent=gloss_wave&bgImgOpacityContent=16&borderColorContent=404040&fcContent=eeeeee&iconColorContent=bbbbbb&bgColorDefault=adadad&bgTextureDefault=highlight_soft&bgImgOpacityDefault=35&borderColorDefault=cccccc&fcDefault=333333&iconColorDefault=666666&bgColorHover=dddddd&bgTextureHover=highlight_soft&bgImgOpacityHover=60&borderColorHover=dddddd&fcHover=000000&iconColorHover=c98000&bgColorActive=121212&bgTextureActive=inset_soft&bgImgOpacityActive=15&borderColorActive=000000&fcActive=ffffff&iconColorActive=f29a00&bgColorHighlight=555555&bgTextureHighlight=highlight_hard&bgImgOpacityHighlight=55&borderColorHighlight=404040&fcHighlight=cccccc&iconColorHighlight=aaaaaa&bgColorError=fef1ec&bgTextureError=glass&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a
+* Includes: core.css, draggable.css, resizable.css, selectable.css, sortable.css, accordion.css, autocomplete.css, button.css, datepicker.css, dialog.css, menu.css, progressbar.css, selectmenu.css, slider.css, spinner.css, tabs.css, tooltip.css, theme.css
+* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Source%20Sans%20Pro%20%2Csans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=0px&bgColorHeader=%23ffffff&bgTextureHeader=highlight_soft&bgImgOpacityHeader=75&borderColorHeader=%23ffffff&fcHeader=%23222222&iconColorHeader=%23222222&bgColorContent=%23ffffff&bgTextureContent=flat&bgImgOpacityContent=75&borderColorContent=%23aaaaaa&fcContent=%23222222&iconColorContent=%23222222&bgColorDefault=%2339454C&bgTextureDefault=flat&bgImgOpacityDefault=15&borderColorDefault=%23000000&fcDefault=%23DCE5EA&iconColorDefault=%23DCE5EA&bgColorHover=%235E717D&bgTextureHover=flat&bgImgOpacityHover=75&borderColorHover=%23000000&fcHover=%23DCE5EA&iconColorHover=%23DCE5EA&bgColorActive=%235E717D&bgTextureActive=flat&bgImgOpacityActive=65&borderColorActive=%23000000&fcActive=%23DCE5EA&iconColorActive=%23DCE5EA&bgColorHighlight=%23fbf9ee&bgTextureHighlight=glass&bgImgOpacityHighlight=55&borderColorHighlight=%23fcefa1&fcHighlight=%23363636&iconColorHighlight=%232e83ff&bgColorError=%23fef1ec&bgTextureError=glass&bgImgOpacityError=95&borderColorError=%23cd0a0a&fcError=%23cd0a0a&iconColorError=%23cd0a0a&bgColorOverlay=%23B9C5CB&bgTextureOverlay=flat&bgImgOpacityOverlay=75&opacityOverlay=30&bgColorShadow=%23aaaaaa&bgTextureShadow=flat&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px
 * Copyright 2015 jQuery Foundation and other contributors; Licensed MIT */
 
 /* Layout helpers
@@ -85,6 +85,93 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+.ui-draggable-handle {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.ui-resizable {
+	position: relative;
+}
+.ui-resizable-handle {
+	position: absolute;
+	font-size: 0.1px;
+	display: block;
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.ui-resizable-disabled .ui-resizable-handle,
+.ui-resizable-autohide .ui-resizable-handle {
+	display: none;
+}
+.ui-resizable-n {
+	cursor: n-resize;
+	height: 7px;
+	width: 100%;
+	top: -5px;
+	left: 0;
+}
+.ui-resizable-s {
+	cursor: s-resize;
+	height: 7px;
+	width: 100%;
+	bottom: -5px;
+	left: 0;
+}
+.ui-resizable-e {
+	cursor: e-resize;
+	width: 7px;
+	right: -5px;
+	top: 0;
+	height: 100%;
+}
+.ui-resizable-w {
+	cursor: w-resize;
+	width: 7px;
+	left: -5px;
+	top: 0;
+	height: 100%;
+}
+.ui-resizable-se {
+	cursor: se-resize;
+	width: 12px;
+	height: 12px;
+	right: 1px;
+	bottom: 1px;
+}
+.ui-resizable-sw {
+	cursor: sw-resize;
+	width: 9px;
+	height: 9px;
+	left: -5px;
+	bottom: -5px;
+}
+.ui-resizable-nw {
+	cursor: nw-resize;
+	width: 9px;
+	height: 9px;
+	left: -5px;
+	top: -5px;
+}
+.ui-resizable-ne {
+	cursor: ne-resize;
+	width: 9px;
+	height: 9px;
+	right: -5px;
+	top: -5px;
+}
+.ui-selectable {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.ui-selectable-helper {
+	position: absolute;
+	z-index: 100;
+	border: 1px dotted black;
+}
+.ui-sortable-handle {
+	-ms-touch-action: none;
+	touch-action: none;
 }
 .ui-accordion .ui-accordion-header {
 	display: block;
@@ -447,10 +534,6 @@ button.ui-button::-moz-focus-inner {
 .ui-draggable .ui-dialog-titlebar {
 	cursor: move;
 }
-.ui-draggable-handle {
-	-ms-touch-action: none;
-	touch-action: none;
-}
 .ui-menu {
 	list-style: none;
 	padding: 0;
@@ -521,85 +604,6 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-progressbar-indeterminate .ui-progressbar-value {
 	background-image: none;
-}
-.ui-resizable {
-	position: relative;
-}
-.ui-resizable-handle {
-	position: absolute;
-	font-size: 0.1px;
-	display: block;
-	-ms-touch-action: none;
-	touch-action: none;
-}
-.ui-resizable-disabled .ui-resizable-handle,
-.ui-resizable-autohide .ui-resizable-handle {
-	display: none;
-}
-.ui-resizable-n {
-	cursor: n-resize;
-	height: 7px;
-	width: 100%;
-	top: -5px;
-	left: 0;
-}
-.ui-resizable-s {
-	cursor: s-resize;
-	height: 7px;
-	width: 100%;
-	bottom: -5px;
-	left: 0;
-}
-.ui-resizable-e {
-	cursor: e-resize;
-	width: 7px;
-	right: -5px;
-	top: 0;
-	height: 100%;
-}
-.ui-resizable-w {
-	cursor: w-resize;
-	width: 7px;
-	left: -5px;
-	top: 0;
-	height: 100%;
-}
-.ui-resizable-se {
-	cursor: se-resize;
-	width: 12px;
-	height: 12px;
-	right: 1px;
-	bottom: 1px;
-}
-.ui-resizable-sw {
-	cursor: sw-resize;
-	width: 9px;
-	height: 9px;
-	left: -5px;
-	bottom: -5px;
-}
-.ui-resizable-nw {
-	cursor: nw-resize;
-	width: 9px;
-	height: 9px;
-	left: -5px;
-	top: -5px;
-}
-.ui-resizable-ne {
-	cursor: ne-resize;
-	width: 9px;
-	height: 9px;
-	right: -5px;
-	top: -5px;
-}
-.ui-selectable {
-	-ms-touch-action: none;
-	touch-action: none;
-}
-.ui-selectable-helper {
-	position: absolute;
-	z-index: 100;
-	border: 1px dotted black;
 }
 .ui-selectmenu-menu {
 	padding: 0;
@@ -715,10 +719,6 @@ button.ui-button::-moz-focus-inner {
 .ui-slider-vertical .ui-slider-range-max {
 	top: 0;
 }
-.ui-sortable-handle {
-	-ms-touch-action: none;
-	touch-action: none;
-}
 .ui-spinner {
 	position: relative;
 	display: inline-block;
@@ -830,7 +830,7 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-	font-family: Verdana,Arial,sans-serif;
+	font-family: Source Sans Pro ,sans-serif;
 	font-size: 1.1em;
 }
 .ui-widget .ui-widget {
@@ -840,25 +840,25 @@ body .ui-tooltip {
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-	font-family: Verdana,Arial,sans-serif;
+	font-family: Source Sans Pro ,sans-serif;
 	font-size: 1em;
 }
 .ui-widget-content {
-	border: 1px solid #404040;
-	background: #121212 url("images/ui-bg_gloss-wave_16_121212_500x100.png") 50% top repeat-x;
-	color: #eeeeee;
+	border: 1px solid #aaaaaa;
+	background: #ffffff url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
+	color: #222222;
 }
 .ui-widget-content a {
-	color: #eeeeee;
+	color: #222222;
 }
 .ui-widget-header {
-	border: 1px solid #404040;
-	background: #888888 url("images/ui-bg_highlight-hard_15_888888_1x100.png") 50% 50% repeat-x;
-	color: #ffffff;
+	border: 1px solid #ffffff;
+	background: #ffffff url("images/ui-bg_highlight-soft_75_ffffff_1x100.png") 50% 50% repeat-x;
+	color: #222222;
 	font-weight: bold;
 }
 .ui-widget-header a {
-	color: #ffffff;
+	color: #222222;
 }
 
 /* Interaction states
@@ -866,15 +866,15 @@ body .ui-tooltip {
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
-	border: 1px solid #cccccc;
-	background: #adadad url("images/ui-bg_highlight-soft_35_adadad_1x100.png") 50% 50% repeat-x;
+	border: 1px solid #000000;
+	background: #39454C url("images/ui-bg_flat_15_39454C_40x100.png") 50% 50% repeat-x;
 	font-weight: normal;
-	color: #333333;
+	color: #DCE5EA;
 }
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
-	color: #333333;
+	color: #DCE5EA;
 	text-decoration: none;
 }
 .ui-state-hover,
@@ -883,10 +883,10 @@ body .ui-tooltip {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	border: 1px solid #dddddd;
-	background: #dddddd url("images/ui-bg_highlight-soft_60_dddddd_1x100.png") 50% 50% repeat-x;
+	border: 1px solid #000000;
+	background: #5E717D url("images/ui-bg_flat_75_5E717D_40x100.png") 50% 50% repeat-x;
 	font-weight: normal;
-	color: #000000;
+	color: #DCE5EA;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -896,21 +896,21 @@ body .ui-tooltip {
 .ui-state-focus a:hover,
 .ui-state-focus a:link,
 .ui-state-focus a:visited {
-	color: #000000;
+	color: #DCE5EA;
 	text-decoration: none;
 }
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	border: 1px solid #000000;
-	background: #121212 url("images/ui-bg_inset-soft_15_121212_1x100.png") 50% 50% repeat-x;
+	background: #5E717D url("images/ui-bg_flat_65_5E717D_40x100.png") 50% 50% repeat-x;
 	font-weight: normal;
-	color: #ffffff;
+	color: #DCE5EA;
 }
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
-	color: #ffffff;
+	color: #DCE5EA;
 	text-decoration: none;
 }
 
@@ -919,14 +919,14 @@ body .ui-tooltip {
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-	border: 1px solid #404040;
-	background: #555555 url("images/ui-bg_highlight-hard_55_555555_1x100.png") 50% top repeat-x;
-	color: #cccccc;
+	border: 1px solid #fcefa1;
+	background: #fbf9ee url("images/ui-bg_glass_55_fbf9ee_1x400.png") 50% 50% repeat-x;
+	color: #363636;
 }
 .ui-state-highlight a,
 .ui-widget-content .ui-state-highlight a,
 .ui-widget-header .ui-state-highlight a {
-	color: #cccccc;
+	color: #363636;
 }
 .ui-state-error,
 .ui-widget-content .ui-state-error,
@@ -978,23 +978,23 @@ body .ui-tooltip {
 }
 .ui-icon,
 .ui-widget-content .ui-icon {
-	background-image: url("images/ui-icons_bbbbbb_256x240.png");
+	background-image: url("images/ui-icons_222222_256x240.png");
 }
 .ui-widget-header .ui-icon {
-	background-image: url("images/ui-icons_cccccc_256x240.png");
+	background-image: url("images/ui-icons_222222_256x240.png");
 }
 .ui-state-default .ui-icon {
-	background-image: url("images/ui-icons_666666_256x240.png");
+	background-image: url("images/ui-icons_DCE5EA_256x240.png");
 }
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
-	background-image: url("images/ui-icons_c98000_256x240.png");
+	background-image: url("images/ui-icons_DCE5EA_256x240.png");
 }
 .ui-state-active .ui-icon {
-	background-image: url("images/ui-icons_f29a00_256x240.png");
+	background-image: url("images/ui-icons_DCE5EA_256x240.png");
 }
 .ui-state-highlight .ui-icon {
-	background-image: url("images/ui-icons_aaaaaa_256x240.png");
+	background-image: url("images/ui-icons_2e83ff_256x240.png");
 }
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {
@@ -1188,30 +1188,30 @@ body .ui-tooltip {
 .ui-corner-top,
 .ui-corner-left,
 .ui-corner-tl {
-	border-top-left-radius: 5px;
+	border-top-left-radius: 0px;
 }
 .ui-corner-all,
 .ui-corner-top,
 .ui-corner-right,
 .ui-corner-tr {
-	border-top-right-radius: 5px;
+	border-top-right-radius: 0px;
 }
 .ui-corner-all,
 .ui-corner-bottom,
 .ui-corner-left,
 .ui-corner-bl {
-	border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 0px;
 }
 .ui-corner-all,
 .ui-corner-bottom,
 .ui-corner-right,
 .ui-corner-br {
-	border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 0px;
 }
 
 /* Overlays */
 .ui-widget-overlay {
-	background: #aaaaaa url("images/ui-bg_flat_0_aaaaaa_40x100.png") 50% 50% repeat-x;
+	background: #B9C5CB url("images/ui-bg_flat_75_B9C5CB_40x100.png") 50% 50% repeat-x;
 	opacity: .3;
 	filter: Alpha(Opacity=30); /* support: IE8 */
 }
