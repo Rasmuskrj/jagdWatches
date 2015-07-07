@@ -1,10 +1,11 @@
 <?php
+require('Database.php');
 
-$db = mysqli_connect('jagdwatches.com.mysql','jagdwatches_com','4T6kKfy2','jagdwatches_com');
 
-if($db->connect_errno > 0){
-    die('Unable to connect to database [' . $db->connect_error . ']');
-}
+$dataBase = new Database();
+
+$db = $dataBase->getConnection();
+
 
 //Define folder paths
 /*************************************************************/

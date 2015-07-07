@@ -23,7 +23,7 @@ WatchBuilder = (function($) {
 
         variables: {
             noneName: "None",
-            animationType: "drop",
+            animationType: "fade",
             animationSpeed: 500
         },
 
@@ -69,56 +69,20 @@ WatchBuilder = (function($) {
             self.el.step1.hide();
             self.el.step2.hide();
             self.el.bottomGallery.hide();
-            self.el.customerDetails.hide();
+            self.el.buyStep1.hide();
             self.setDefaultValues();
-            $(".selectCaseColor img[data-parttype='" + self.state.case + "']").trigger('click');
-            $(".selectStrap img[data-parttype='" + self.state.straps + "']").trigger('click');
-            $(".selectHands img[data-parttype='" + self.state.hands + "']").trigger('click');
-            $(".selectDial img[data-parttype='" + self.state.dial + "']").trigger('click');
-            $(".selectIndex img[data-parttype='" + self.state.index + "']").trigger('click');
-            $(".selectNumerals img[data-parttype='" + self.state.numerals + "']").trigger('click');
-            $(".selectPattern img[data-parttype='" + self.state.pattern + "']").trigger('click');
             var sliderValue = 0;
-            self.el.additionalStrapsDialog.dialog({
-                autoOpen: false,
-                height: 500,
-                width: 700,
-                modal: true,
-                buttons: [
-                    {
-                        id: 'StrapButtonDone',
-                        text: 'Done',
-                        click: function() {
-                            var strap1Value = $(this).find('.strap1Value').html(),
-                                strap2Value = $(this).find('.strap2Value').html();
-
-                            self.state.additionalStrap1 = strap1Value;
-                            self.state.additionalStrap2 = strap2Value;
-                            self.el.partRecapAdditionalStrap1.html(strap1Value);
-                            self.el.partRecapAdditionalStrap2.html(strap2Value);
-                            Cookies.set('additionalStrap1', strap1Value, {expires: 30, path: '/'})
-                            Cookies.set('additionalStrap2', strap2Value, {expires: 30, path: '/'});
-                            self.updatePrice();
-                            $(this).dialog('close');
-                        }
-                    }
-                ],
-                close: function(){
-                    if($('#StrapButtonDone').is(':disabled')){
-                        self.state.additionalStrap1 = self.variables.noneName;
-                        self.state.additionalStrap2 = self.variables.noneName;
-                        self.el.partRecapAdditionalStrap1.html(self.variables.noneName);
-                        self.el.partRecapAdditionalStrap2.html(self.variables.noneName);
-                        Cookies.set('additionalStrap1', self.variables.noneName, {expires: 30, path: '/'})
-                        Cookies.set('additionalStrap2', self.variables.noneName, {expires: 30, path: '/'});
-                        self.updatePrice();
-                    }
-                }
-            });
-            $('#StrapButtonDone').button('disable');
+            self.initModals();
             $('.fancybox').fancybox({
                 type: "image"
             });
+            self.el.startButton.button();
+            self.el.fullViewButton.button();
+            self.el.step2Button.button();
+            self.el.buyNowButton.button();
+            self.el.invertButton.button();
+            self.el.addPromotionCodeBtn.button();
+            self.el.buyStep2Button.button();
             if(Cookies.get('patternRotation') != undefined){
                 sliderValue = Cookies.get('patternRotation');
             }
@@ -128,13 +92,16 @@ WatchBuilder = (function($) {
                 value: sliderValue,
                 max: 359,
                 slide: function(event, ui){
-                    $('.watchPattern').css("transform", "rotate(" + ui.value + "deg)");
+                    self.el.watchPattern.css("-webkit-transform", "rotate(" + ui.value + "deg)");
+                    self.el.watchPattern.css("-moz-transform", "rotate(" + ui.value + "deg)");
+                    self.el.watchPattern.css("-ms-transform", "rotate(" + ui.value + "deg)");
+                    self.el.watchPattern.css("-o-transform", "rotate(" + ui.value + "deg)");
+                    self.el.watchPattern.css("transform", "rotate(" + ui.value + "deg)");
                     self.state.patternRotation = ui.value;
                     Cookies.set('patternRotation', ui.value, {expires: 30, path: '/'});
                     self.el.partRecapRotation.html(ui.value + " degrees");
                 }
             });
-            self.el.invertButton.button();
             if(Cookies.get('userID') == undefined){
                 Cookies.set('userID', generateUUID(), {expires: 30, path: '/'});
             }
@@ -150,11 +117,13 @@ WatchBuilder = (function($) {
             self.el.step1 = $('.step1');
             self.el.step2 = $('.step2');
             self.el.bottomGallery = $('.bottomGalleryContainer');
-            self.el.customerDetails = $('#customerDetails');
+            self.el.buyStep1 = $('.buyStep1');
             self.el.selectCase = $('.selectCaseColor');
             self.el.selectStrap = $('.selectStrap');
             self.el.selectHands = $('.selectHands');
             self.el.selectDial = $('.selectDial');
+            self.el.watchPattern = $('.watchPattern');
+            self.el.fullViewButton = $('#fullViewButton');
             self.el.patternRotationSlider = $('.patternRotatorSlider');
             self.el.backButton = $('#backButton');
             self.el.invertButton = $('#invertPattern');
@@ -184,6 +153,11 @@ WatchBuilder = (function($) {
             self.el.additionalStrapsButton = $('.additionalStrapModalButton');
             self.el.additionalStrapsDialog = $('#additionalStrapDialog');
             self.el.clearButtons = $('.clearButton');
+            self.el.addPromotionCodeBtn = $('.addPromotionCodeBtn');
+            self.el.addPromotionCodeInput = $('.promotionCodeInput');
+            self.el.fullViewDialog = $('#fullViewDialog');
+            self.el.editButton = $('.editButton');
+            self.el.buyStep2Button = $('.buyStep2Button');
         },
 
         bindEvents: function() {
@@ -209,6 +183,7 @@ WatchBuilder = (function($) {
                     //Do Nothing
                 }
             });
+            self.el.editButton.on('click', self.enterStep1);
             self.el.invertButton.on('click', function() {
                 if($(this).is(':checked')){
                     self.state.invertPattern = true;
@@ -226,7 +201,7 @@ WatchBuilder = (function($) {
                     }
                 }
             });
-            self.el.buyNowButton.on('click', self.enterCustomerDetails);
+            self.el.buyNowButton.on('click', self.enterBuyStep1);
             self.el.leftArrow.on('click', function(){
                 if(self.state.currentScreen == 'step1'){
                     var index = 0;
@@ -288,6 +263,9 @@ WatchBuilder = (function($) {
             self.el.additionalStrapsButton.on('click', function(){
                 self.el.additionalStrapsDialog.dialog('open');
             });
+            self.el.fullViewButton.on('click', function () {
+                self.el.fullViewDialog.dialog('open');
+            });
             $('.modalSelector > .thumbnails > .thumbnailContainer > .thumbnailInnerContainer > .thumbnail').each(function(index){
                 $(this).on('click', function(e){
                     var valueSet = false,
@@ -316,18 +294,36 @@ WatchBuilder = (function($) {
                     $('#StrapButtonDone').button('disable');
                 });
             });
+            self.el.addPromotionCodeBtn.on('click', function(){
+                $.ajax({
+                    type: "POST",
+                    url: 'phpScripts/checkDiscountCode.php',
+                    data: {string: self.el.addPromotionCodeInput.val()},
+                    dataType: 'json'
+                }).done(function (data) {
+                    if(data.response != undefined && data.response == true) {
+                        console.log("its true");
+                    } else {
+                        console.log("its false");
+                    }
+                }).error(function() {
+                    console.log("There was an error fetching data");
+                })
+            });
         },
 
         enterIntro: function(){
             var self = builder;
             self.el.intro.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.show(self.variables.animationType, self.variables.animationSpeed);
+            self.el.watchContainer.removeClass('buyPosition');
             self.el.step2.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step1.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.bottomGallery.hide(self.variables.animationType, self.variables.animationSpeed);
-            self.el.customerDetails.hide(self.variables.animationType, self.variables.animationSpeed);
+            self.el.buyStep1.hide(self.variables.animationType, self.variables.animationSpeed);
             self.state.lastScreen = self.state.currentScreen;
             self.state.currentScreen = 'intro';
+            self.positionFooter();
         },
 
         enterStep1: function(){
@@ -337,9 +333,11 @@ WatchBuilder = (function($) {
             self.el.step1.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.bottomGallery.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.show(self.variables.animationType, self.variables.animationSpeed);
-            self.el.customerDetails.hide(self.variables.animationType, self.variables.animationSpeed);
+            self.el.watchContainer.removeClass('buyPosition');
+            self.el.buyStep1.hide(self.variables.animationType, self.variables.animationSpeed);
             self.state.lastScreen = self.state.currentScreen;
             self.state.currentScreen = 'step1';
+            self.positionFooter();
         },
 
         enterStep2: function(){
@@ -349,21 +347,25 @@ WatchBuilder = (function($) {
             self.el.step2.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.bottomGallery.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.show(self.variables.animationType, self.variables.animationSpeed);
-            self.el.customerDetails.hide(self.variables.animationType, self.variables.animationSpeed);
+            self.el.buyStep1.hide(self.variables.animationType, self.variables.animationSpeed);
+            self.el.watchContainer.removeClass('buyPosition');
             self.state.lastScreen = self.state.currentScreen;
             self.state.currentScreen = 'step2';
+            self.positionFooter();
         },
 
-        enterCustomerDetails: function() {
+        enterBuyStep1: function() {
             var self = builder;
             self.el.intro.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step1.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step2.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.bottomGallery.hide(self.variables.animationType, self.variables.animationSpeed);
-            self.el.watchContainer.hide(self.variables.animationType, self.variables.animationSpeed);
-            self.el.customerDetails.show(self.variables.animationType, self.variables.animationSpeed);
+            //self.el.watchContainer.hide(self.variables.animationType, self.variables.animationSpeed);
+            self.el.watchContainer.addClass('buyPosition');
+            self.el.buyStep1.show(self.variables.animationType, self.variables.animationSpeed);
             self.state.lastScreen = self.state.currentScreen;
             self.state.currentScreen = 'CustomerDetails';
+            self.positionFooter();
         },
 
         bindSelectorEvents: function(container, target){
@@ -456,6 +458,14 @@ WatchBuilder = (function($) {
                 self.el.partRecapAdditionalStrap2.html(Cookies.get('additionalStrap2'));
             }
 
+            $(".selectCaseColor img[data-parttype='" + self.state.case + "']").trigger('click');
+            $(".selectStrap img[data-parttype='" + self.state.straps + "']").trigger('click');
+            $(".selectHands img[data-parttype='" + self.state.hands + "']").trigger('click');
+            $(".selectDial img[data-parttype='" + self.state.dial + "']").trigger('click');
+            $(".selectIndex img[data-parttype='" + self.state.index + "']").trigger('click');
+            $(".selectNumerals img[data-parttype='" + self.state.numerals + "']").trigger('click');
+            $(".selectPattern img[data-parttype='" + self.state.pattern + "']").trigger('click');
+
         },
         randomizeParts: function() {
             var self = builder;
@@ -493,12 +503,85 @@ WatchBuilder = (function($) {
             } else {
                 self.el.priceValue.text(self.formatPrice(priceEngravedThreeStraps));
             }
+        },
+
+        initModals: function(){
+            var self = builder;
+
+            self.el.additionalStrapsDialog.dialog({
+                autoOpen: false,
+                height: 500,
+                width: 700,
+                modal: true,
+                buttons: [
+                    {
+                        id: 'StrapButtonDone',
+                        text: 'Done',
+                        click: function() {
+                            var strap1Value = $(this).find('.strap1Value').html(),
+                                strap2Value = $(this).find('.strap2Value').html();
+
+                            self.state.additionalStrap1 = strap1Value;
+                            self.state.additionalStrap2 = strap2Value;
+                            self.el.partRecapAdditionalStrap1.html(strap1Value);
+                            self.el.partRecapAdditionalStrap2.html(strap2Value);
+                            Cookies.set('additionalStrap1', strap1Value, {expires: 30, path: '/'})
+                            Cookies.set('additionalStrap2', strap2Value, {expires: 30, path: '/'});
+                            self.updatePrice();
+                            $(this).dialog('close');
+                        }
+                    }
+                ],
+                close: function(){
+                    if($('#StrapButtonDone').is(':disabled')){
+                        self.state.additionalStrap1 = self.variables.noneName;
+                        self.state.additionalStrap2 = self.variables.noneName;
+                        self.el.partRecapAdditionalStrap1.html(self.variables.noneName);
+                        self.el.partRecapAdditionalStrap2.html(self.variables.noneName);
+                        Cookies.set('additionalStrap1', self.variables.noneName, {expires: 30, path: '/'})
+                        Cookies.set('additionalStrap2', self.variables.noneName, {expires: 30, path: '/'});
+                        self.updatePrice();
+                    }
+                }
+            });
+            $('#StrapButtonDone').button('disable');
+
+            self.el.fullViewDialog.dialog({
+                autoOpen: false,
+                height: 700,
+                width: 400,
+                modal: true,
+                buttons: {
+                    "Ok": function() {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+        },
+
+        positionFooter: function () {
+            var footerHeight = 0,
+                footerTop = 0,
+                $footer = $(".footer");
+
+            footerHeight = $footer.height();
+            footerTop = ($(document).height()-footerHeight) + "px";
+
+            $footer.css({
+                position: "absolute",
+                top: footerTop
+            })
+
         }
     };
 
     return {
         init: function(){
             builder.init();
+        },
+
+        positionFooter: function() {
+            builder.positionFooter();
         }
     };
 
@@ -506,4 +589,33 @@ WatchBuilder = (function($) {
 
 $(function(){
     WatchBuilder.init();
+
+
+    $(window).load(function(){
+        $(".vScrollable").mCustomScrollbar({
+            theme: "minimal-dark",
+            advanced:{ autoExpandHorizontalScroll: true},
+            scrollInertia: 0,
+            alwaysShowScrollbar: 2,
+            autoDraggerLength: true
+        });
+        $(".hScrollable").mCustomScrollbar({
+            theme: "minimal-dark",
+            axis: "x",
+            advanced:{ autoExpandHorizontalScroll: true},
+            scrollInertia: 0,
+            alwaysShowScrollbar: 2,
+            autoDraggerLength: true
+        });
+    });
+
+    $(window).bind("load", function() {
+
+        WatchBuilder.positionFooter();
+
+        $(window)
+            .scroll(WatchBuilder.positionFooter)
+            .resize(WatchBuilder.positionFooter)
+
+    });
 });

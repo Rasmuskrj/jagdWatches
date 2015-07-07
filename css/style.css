@@ -899,44 +899,43 @@ body {
 /* Watch Builder                                                                 */
 /*********************************************************************************/
 
+body, html {
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+}
+
+/**************************/
+/* Containers             */
+/**************************/
+
 .step1 {
     position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 1;
 }
 
 .step2 {
     position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 1;
 }
 
-#startButton {
+.splash {
     position: absolute;
-    left: 391px;
-    bottom: 1%;
+    width: 100%;
+    height: 100%;
     z-index: 1050;
-    width: 180px;
-    height: 50px;
-    font-size: 23px;
-    line-height: 50px;
-}
-
-.chooseArrowLeft {
-    position: absolute;
-    top: 218px;
-    left: -45px;
-    transform: rotate(180deg);
-    cursor: pointer;
-    z-index: 1000;
-}
-
-.chooseArrowRight {
-    position: absolute;
-    top: 231px;
-    left: 399px;
-    cursor: pointer;
-    z-index: 1000;
 }
 
 .builderOuterContainer {
@@ -948,7 +947,7 @@ body {
 .builderInnerContainer {
     position: absolute;
     height: 585px;
-    top: 0%;
+    top: 3em;
 }
 
 .centeredContent {
@@ -970,19 +969,43 @@ body {
     bottom: -20px;
 }
 
-.invertPattern {
-    position: absolute;
-    right: 40px;
-    top: 5px;
-    font-size: 14px;
+.grey {
+    color: #7F7F7F;
 }
 
-.invertPattern.ui-button {
+/**************************/
+/* Buttons                */
+/**************************/
+
+.ui-button {
+    background-image: none;
+    background-color: #39454C;
+
+    -o-transition: background-color .2s ease-in;
+    -moz-transition: background-color .2s ease-in;
+    -webkit-transition: background-color .2s ease-in;
+    transition: background-color .2s ease-in;
+}
+
+.ui-button:hover {
+    background-color: #5E717D;
+}
+
+.type2.ui-button {
     background-image: none;
     background-color: #B9C5CB;
     border-radius: 0;
     color: #39454C;
-    font-family: inherit;
+    border: none;
+}
+
+.type2.ui-button:hover{
+    background-color: #DFECF2;
+}
+
+.type2.ui-button.twoLines .ui-button-text {
+    line-height: 20px;
+    padding-top: 0px;
 }
 
 .invertPattern.ui-state-active {
@@ -992,16 +1015,94 @@ body {
     color: #DCE5EA;
 }
 
+.invertPattern.ui-button:hover {
+    background-color: #B9C5CB;
+}
+
+.invertPattern.ui-state-active:hover {
+    background-color: #39454C;
+}
+
+#fullViewButton {
+    top: 544px;
+    left: 375px;
+    width: auto;
+    height: auto;
+    z-index: 1050;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+#startButton {
+    position: absolute;
+    left: 375px;
+    bottom: 1%;
+    z-index: 1050;
+}
+
+.lowerRightButton {
+    display: block;
+    padding: 4px 12px;
+    margin-bottom: 8%;
+    cursor: pointer;
+    width: 186px;
+    height: 40px;
+    text-align: center;
+    font-size: 19px;
+}
+
+
+.invertPattern {
+    position: absolute;
+    right: 40px;
+    top: 5px;
+    font-size: 14px;
+}
+
+/**************************/
+/* Watch Container        */
+/**************************/
+
+
 .watchContainer {
     position: absolute;
     top: 15px;
     left: 295px;
     width: 396px;
-    height: auto;
+    height: 100%;
+
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.watchHeader {
+    position: absolute;
+    top: -60px;
+    left: 51px;
+    line-height: 25px;
+    display: none;
+    z-index: 1050;
+}
+
+.watchHeader .editButton {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.watchHeader .editButton:hover {
+    text-decoration: underline;
+}
+
+.watchContainer.buyPosition .watchHeader {
+    display: inherit;
 }
 
 .watchElement {
     position: absolute;
+    width: 100%;
 }
 
 .watchStrap {
@@ -1011,11 +1112,47 @@ body {
 .watchElement.watchPattern {
     z-index: 1003;
     border-radius: 50%;
-    width: 308px;
-    top: 132px;
-    left: 48px;
+    width: 76%;
+    top: 23%;
+    left: 12%;
 }
 
+.watchContainer.buyPosition {
+    left: 2px;
+    width: 250px;
+    top: 122px;
+    height: 64%;
+}
+
+.watchContainer.buyPosition .chooseArrowLeft {
+    display: none;
+}
+
+.watchContainer.buyPosition .chooseArrowRight {
+    display: none;
+}
+
+
+.chooseArrowLeft {
+    position: absolute;
+    top: 218px;
+    left: -45px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.chooseArrowRight {
+    position: absolute;
+    top: 231px;
+    left: 399px;
+    cursor: pointer;
+    z-index: 1100;
+}
 
 .watchCase {
     z-index: 1004;
@@ -1036,6 +1173,10 @@ body {
 .watchNumerals {
     z-index: 1005;
 }
+
+/**************************/
+/* Content                */
+/**************************/
 
 .buttonsContainer {
     position: absolute;
@@ -1078,49 +1219,6 @@ body {
     right: 1%;
 }
 
-.cstmbtn {
-    display: block;
-    padding: 4px 12px;
-    margin-bottom: 8%;
-    cursor: pointer;
-    width: 186px;
-    height: 40px;
-    text-align: center;
-    font-size: 19px;
-    line-height: 40px;
-
-    -o-transition: background-color .2s ease-in;
-    -moz-transition: background-color .2s ease-in;
-    -webkit-transition: background-color .2s ease-in;
-    transition: background-color .2s ease-in;
-}
-
-.cstmbtn.step2button.type1 {
-    line-height: 1px;
-}
-
-
-.cstmbtn.type1 {
-    background-color: #B9C5CB;
-}
-
-.cstmbtn.type2 {
-    background-color: #39454C;
-    color: #DCE5EA;
-}
-
-.cstmbtn.type1:hover {
-    background-color: #DFECF2;
-}
-
-.cstmbtn.type2:hover {
-    background-color: #5E717D;
-}
-
-.cstmbtn:active {
-    background-color: #ccc;
-}
-
 .hline {
     width:100%;
     height:2px;
@@ -1154,7 +1252,6 @@ body {
 
 .partDescription{
     font-size: 0.8em;
-    color: #7F7F7F;
 }
 
 .leftSideSelector .thumbnails{
@@ -1167,7 +1264,7 @@ body {
 }
 
 .thumbnail.rightSideThumbnail{
-    width: 114px;
+    width: 111px;
 }
 
 .rightSideSelector .thumbnails{
@@ -1196,7 +1293,8 @@ body {
 .thumbnailContainer {
     display: inline-block;
     padding-bottom: 10px;
-    padding-right: 20px;
+    padding-right: 17px;
+    padding-left: 3px;
 }
 
 .thumbnail.watchStrapThumbnail {
@@ -1254,14 +1352,14 @@ body {
 
 .thumbnailsLeft {
     width: 100%;
-    overflow-x: auto;
+    overflow: auto !important;
     white-space: nowrap;
 }
 
 .thumbnailsRight {
     width: 100%;
     height: 100%;
-    overflow-y: auto;
+    overflow: auto !important;
 }
 
 .leftSideSelector {
@@ -1287,10 +1385,14 @@ body {
 }
 
 .priceValue {
+
+}
+
+.priceValueBuilder {
     font-weight: bold;
 }
 
-.priceCurrency {
+.priceCurrencyBuilder {
     font-weight: bold;
 }
 
@@ -1301,35 +1403,120 @@ body {
     font-size: 18px;
 }
 
+/**************************/
+/* Gallery                */
+/**************************/
+
 .bottomGalleryContainer{
     position: absolute;
-    top: 640px;
-    height: 132px;
+    top: 700px;
+    height: 152px;
     white-space: nowrap;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    overflow: auto;
+    margin-bottom: 42px;
 }
 
 .fancybox img {
-    height: 100%;
+    height: 132px;
     width: auto;
 }
 
-.watchRecap {
-    position: absolute;
-    left: 0px;
-    width: 419px;
-    height: 470px;
-    top: 100px;
-    background-color: #B9C5CB;
-    border: solid;
-    border-color: #000000;
-    border-width: thin;
-    border-radius: 10px;
+a.fancybox {
+    color: transparent;
 }
 
-.watchRecap .partTitle {
-    margin: 40px;
+/**************************/
+/* Buy step 1             */
+/**************************/
+
+.watchRecap {
+    position: absolute;
+    right: 1px;
+    width: 750px;
+    height: 100%;
+    top: 25px;
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 0 10px;
+    line-height: 30px;
+}
+
+.watchRecap .row {
+    display: table-row;
+    height: 10px;
+    border-bottom: solid #7F7F7F 1px;
+}
+
+.watchRecap .cell {
+    display: table-cell;
+}
+
+.watchRecap .rightCell {
+    text-align: right;
+}
+
+.watchRecap .row.bottomRow {
+    height: 200px;
+    border-bottom-style: none;
+}
+
+.row.bottomRow .cell {
+    vertical-align: middle;
+}
+
+.smallRecapText {
+    font-size: 14px;
+}
+
+.watchRecapTitle {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.step1Recap {
+    position: absolute;
+    top: 40px;
+}
+
+.additionalStrapRecap {
+    position: absolute;
+    top: 270px;
+}
+
+.partTitle {
+    width: 145px;
+    font-weight: bold;
+}
+
+.partValue {
+}
+
+.promotionCodeLabel {
+    font-size: 16px;
+}
+
+.addPromotionCodeLine {
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+}
+
+.promotionCodeInput {
+    width: 200px;
+}
+
+.orderingInformation {
+    margin-top: 40px;
+}
+
+.orderingInformation span {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.orderingInformation p {
+    font-size: 12px;
+    line-height: 18px;
 }
 
 .formContent {
@@ -1342,6 +1529,33 @@ body {
     width: 60%;
     padding: 5px;
 }
+
+.finalPriceRecapTable {
+    width: 340px;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.finalPriceRecapTable tr.totalPriceRow {
+    border-top: solid #000000 2px;
+}
+
+.finalPriceRecapTable tr.totalPriceRow td {
+    padding-top: 5px;
+}
+
+.buyStep2Button {
+    float: right;
+    font-weight: normal;
+    width: 334px;
+}
+
+
+/**************************/
+/* additional strap modal */
+/**************************/
 
 .additionalStrapModalButton {
     position: absolute;
@@ -1389,7 +1603,7 @@ body {
 }
 
 .modalRecap span.clearButton {
-    background: url('/images/Icons/clear2.ico') no-repeat top left;
+    background: url('../images/Icons/clear2.ico') no-repeat top left;
     background-size: cover;
     height: 24px;
     width: 28px;
@@ -1403,6 +1617,29 @@ body {
 .selectedStrap {
     font-weight: bold;
 }
+/**************************/
+/* full view modal        */
+/**************************/
+
+#fullViewDialog {
+    overflow: hidden;
+}
+
+.fullViewContainer {
+    height: 100%;
+    width: auto;
+}
+
+.fullViewContainer .watchElement {
+    height: 100%;
+    width: auto;
+}
+
+.fullViewContainer .watchElement.watchPattern {
+    height: 270px;
+    top: 129px;
+    left: 66px;
+}
 
 .ui-dialog {
     z-index: 10000 !important;
@@ -1410,6 +1647,36 @@ body {
 
 .ui-dialog-title {
     font-weight: normal !important;
+}
+
+/**************************/
+/* footer                 */
+/**************************/
+
+
+.footer {
+    margin-bottom: -42px;
+    height: 42px;
+    width: 100%;
+    background-color: #39454C;
+    color: #B9C5CB;
+    text-align: center;
+    font-size: 16px;
+}
+
+.innerFooter {
+    margin: auto;
+    width: 100%;
+}
+
+.footerElement {
+    border-right: solid #B9C5CB 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.footerElement.lastFooterElement {
+    border-right: none;
 }
 
 /*********************************************************************************/
