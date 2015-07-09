@@ -50,10 +50,10 @@ $watchIndexThumbnails = moveValueByIndex($watchIndexThumbnails, $watchIndexFolde
 $watchIndexMains = glob($watchIndexMainFolder . "*.png");
 
 /**
- * 1: Plain dial, one strap
- * 2: Plain dial, three straps
- * 3: Engraved dial, one strap
- * 4: Engraged dial, three straps
+ * 1: Plain dial
+ * 2: Engraved dial
+ * 3: Shipping Cost
+ * 4: Single Strap Cost
  */
 $sql =
     "SELECT *

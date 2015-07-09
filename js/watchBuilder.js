@@ -24,30 +24,16 @@ WatchBuilder = (function($) {
         variables: {
             noneName: "None",
             animationType: "fade",
-            animationSpeed: 500
-        },
-
-        defaultValues: {
-            case: 'Gun metal',
-            hands: 'Black',
-            straps: 'Croco black',
-            dial: 'Bamboo2',
-            index: 'None',
-            numerals: 'None',
-            pattern: 'None',
-            currentScreen: 'intro',
-            lastScreen: 'intro',
-            invertPattern: false,
-            patternRotation: 0,
-            additionalStrap1: "None",
-            additionalStrap2: "None"
+            animationSpeed: 500,
+            checkoutURL: 'checkout.php',
+            possibleStrapAmount: 5
         },
 
         state: {
             case: 'Gun metal',
-            hands: 'black',
-            straps: 'croco black',
-            dial: 'bamboo',
+            hands: 'Black',
+            straps: 'Croco black',
+            dial: 'Bamboo',
             index: 'None',
             numerals: 'None',
             pattern: 'None',
@@ -55,8 +41,15 @@ WatchBuilder = (function($) {
             lastScreen: 'intro',
             invertPattern: false,
             patternRotation: 0,
+            noOfAdditionalStraps: 0,
             additionalStrap1: "None",
-            additionalStrap2: "None"
+            additionalStrap2: "None",
+            additionalStrap3: "None",
+            additionalStrap4: "None",
+            additionalStrap5: "None",
+            validPromotionCodeAdded: false,
+            totalPrice: 0,
+            addedPromotionCode: ''
         },
 
         partLists: {},
@@ -64,18 +57,26 @@ WatchBuilder = (function($) {
         init: function() {
             var self = builder;
 
+            self.state.totalPrice = shippingCost + pricePlainOneStrap;
+            self.state.totalPrice = shippingCost + pricePlainOneStrap;
             self.cacheElements();
             self.bindEvents();
             self.el.step1.hide();
             self.el.step2.hide();
             self.el.bottomGallery.hide();
             self.el.buyStep1.hide();
+            for(var i = 1; i < self.variables.possibleStrapAmount + 1; i++){
+                self.el['partRecapAdditionalStrapRow' + i].hide();
+            }
+            self.el.partRecapAdditionStrapsTable.hide();
             self.setDefaultValues();
+            self.el.promotionCodeTableRow.hide();
             var sliderValue = 0;
             self.initModals();
             $('.fancybox').fancybox({
                 type: "image"
             });
+            self.el.shippingCostValue = self.formatPrice(shippingCost);
             self.el.startButton.button();
             self.el.fullViewButton.button();
             self.el.step2Button.button();
@@ -141,8 +142,22 @@ WatchBuilder = (function($) {
             self.el.partRecapPattern = $('.patternValue');
             self.el.partRecapInverted = $('.invertedValue');
             self.el.partRecapRotation = $('.rotationValue');
+            self.el.partRecapAdditionStrapsTable = $('.additionalStrapsRowMain');
             self.el.partRecapAdditionalStrap1 = $('.additionalStrap1Value');
             self.el.partRecapAdditionalStrap2 = $('.additionalStrap2Value');
+            self.el.partRecapAdditionalStrap3 = $('.additionalStrap3Value');
+            self.el.partRecapAdditionalStrap4 = $('.additionalStrap4Value');
+            self.el.partRecapAdditionalStrap5 = $('.additionalStrap5Value');
+            self.el.partRecapAdditionalStrapPrice1 = $('.additionalStrapPriceValue1');
+            self.el.partRecapAdditionalStrapPrice2 = $('.additionalStrapPriceValue2');
+            self.el.partRecapAdditionalStrapPrice3 = $('.additionalStrapPriceValue3');
+            self.el.partRecapAdditionalStrapPrice4 = $('.additionalStrapPriceValue4');
+            self.el.partRecapAdditionalStrapPrice5 = $('.additionalStrapPriceValue5');
+            self.el.partRecapAdditionalStrapRow1 = $('.additionalStrapLine1');
+            self.el.partRecapAdditionalStrapRow2 = $('.additionalStrapLine2');
+            self.el.partRecapAdditionalStrapRow3 = $('.additionalStrapLine3');
+            self.el.partRecapAdditionalStrapRow4 = $('.additionalStrapLine4');
+            self.el.partRecapAdditionalStrapRow5 = $('.additionalStrapLine5');
             self.partLists.cases = cases;
             self.partLists.straps = straps;
             self.partLists.hands = hands;
@@ -158,6 +173,14 @@ WatchBuilder = (function($) {
             self.el.fullViewDialog = $('#fullViewDialog');
             self.el.editButton = $('.editButton');
             self.el.buyStep2Button = $('.buyStep2Button');
+            self.el.promotionCodeTableRow = $('.promotionCodeRow');
+            self.el.invalidPromotionCodeDialog = $('#invalidPromotionCodeModal');
+
+            self.el.shippingCostValue = $('.shippingCostValue');
+            self.el.promotionCodeDiscount = $('.promotionCodeDiscount');
+            self.el.step1RecapTitle = $('.step1RecapTitle');
+            self.el.additionalStrapPriceValue = $('.additionalStrapPriceValue');
+            self.el.totalPriceValue = $('.totalPriceValue');
         },
 
         bindEvents: function() {
@@ -291,7 +314,6 @@ WatchBuilder = (function($) {
                     $(this).removeClass('selectedStrap');
                     $(this).addClass('unselectedStrap');
                     $(this).html("Please select");
-                    $('#StrapButtonDone').button('disable');
                 });
             });
             self.el.addPromotionCodeBtn.on('click', function(){
@@ -302,13 +324,38 @@ WatchBuilder = (function($) {
                     dataType: 'json'
                 }).done(function (data) {
                     if(data.response != undefined && data.response == true) {
-                        console.log("its true");
+                        self.state.validPromotionCodeAdded = true;
+                        self.el.promotionCodeTableRow.show();
+                        self.state.addedPromotionCode = self.el.addPromotionCodeInput.val();
+                        self.updatePrice();
                     } else {
-                        console.log("its false");
+                        self.state.validPromotionCodeAdded = false;
+                        self.el.promotionCodeTableRow.hide();
+                        self.state.addedPromotionCode = self.el.addPromotionCodeInput.val();
+                        self.updatePrice();
+                        self.el.invalidPromotionCodeDialog.dialog('open');
                     }
                 }).error(function() {
                     console.log("There was an error fetching data");
                 })
+            });
+
+            self.el.buyStep2Button.on('click', function() {
+                var postForm = '<form method="POST" action="' + self.variables.checkoutURL + '" + >\n';
+
+                for(var key in self.state) {
+                    if(self.state.hasOwnProperty(key)){
+                        postForm += '<input type="hidden" name="' + key + '" value="' + self.state[key] + '" ></input>\n';
+                        console.log(self.state[key]);
+                    }
+                }
+
+                postForm += "</form>";
+
+                var postFormEle = $(postForm);
+
+                $('body').append(postFormEle);
+                postFormEle.submit();
             });
         },
 
@@ -435,7 +482,8 @@ WatchBuilder = (function($) {
         setDefaultValues: function() {
             var self = builder;
             if(Cookies.get('userID') == undefined){
-                self.state = self.defaultValues;
+                //Do Nothing
+                //self.state = self.defaultValues;
             } else {
                 self.state.case = Cookies.get('case');
                 self.state.straps = Cookies.get('straps');
@@ -452,10 +500,29 @@ WatchBuilder = (function($) {
                     self.el.invertButton.prop('checked', val);
                     self.state.invertPattern = val;
                 }
-                self.state.additionalStrap1 = Cookies.get('additionalStrap1');
-                self.state.additionalStrap2 = Cookies.get('additionalStrap2');
-                self.el.partRecapAdditionalStrap1.html(Cookies.get('additionalStrap1'));
-                self.el.partRecapAdditionalStrap2.html(Cookies.get('additionalStrap2'));
+
+                for(var i = 1; i < self.variables.possibleStrapAmount + 1; i++){
+                    if(Cookies.get('additionalStrap' + i) != undefined){
+                        self.state['additionalStrap' + i] = Cookies.get('additionalStrap' + i);
+                    }
+
+                    if(self.state['additionalStrap' + i] != self.variables.noneName){
+                        self.el['partRecapAdditionalStrapPrice' + i].html(singleStrapCost);
+                        self.el['partRecapAdditionalStrapRow' + i].show();
+                        self.el['partRecapAdditionalStrap' + i].html(Cookies.get('additionalStrap' + i));
+                    } else {
+                        self.el['partRecapAdditionalStrapRow' + i].hide();
+                    }
+                }
+
+                if(Cookies.get('noOfAdditionalStraps') != undefined){
+                    self.state.noOfAdditionalStraps = Cookies.get('noOfAdditionalStraps');
+                }
+                if(self.state.noOfAdditionalStraps > 0) {
+                    self.el.partRecapAdditionStrapsTable.show();
+                } else {
+                    self.el.partRecapAdditionStrapsTable.hide();
+                }
             }
 
             $(".selectCaseColor img[data-parttype='" + self.state.case + "']").trigger('click');
@@ -494,15 +561,29 @@ WatchBuilder = (function($) {
 
         updatePrice: function () {
             var self = builder;
-            if(self.state.pattern == self.variables.noneName && self.state.numerals == self.variables.noneName && self.state.index == self.variables.noneName && self.state.additionalStrap1 == self.variables.noneName){
-                self.el.priceValue.text(self.formatPrice(pricePlainOneStrap));
-            } else if(self.state.pattern == self.variables.noneName && self.state.numerals == self.variables.noneName && self.state.index == self.variables.noneName && self.state.additionalStrap1 != self.variables.noneName){
-                self.el.priceValue.text(self.formatPrice(pricePlainThreeStraps));
-            } else if (self.state.additionalStrap1 == self.variables.noneName) {
-                self.el.priceValue.text(self.formatPrice(priceEngravedOneStrap));
+            var totalPrice = 0;
+            if(self.state.pattern == self.variables.noneName && self.state.numerals == self.variables.noneName && self.state.index == self.variables.noneName){
+                self.el.priceValue.text(self.formatPrice(pricePlainOneStrap + self.state.noOfAdditionalStraps * singleStrapCost));
+                self.el.step1RecapTitle.text("JAGD WATCH - PLAIN DIAL");
+                self.el.additionalStrapPriceValue.text(100);
+                totalPrice = pricePlainOneStrap  + self.state.noOfAdditionalStraps * singleStrapCost;
             } else {
-                self.el.priceValue.text(self.formatPrice(priceEngravedThreeStraps));
+                self.el.priceValue.text(self.formatPrice(priceEngravedOneStrap + self.state.noOfAdditionalStraps * singleStrapCost));
+                self.el.additionalStrapPriceValue.text(100);
+                self.el.step1RecapTitle.text("JAGD WATCH - ENGRAVED DIAL");
+                totalPrice = priceEngravedOneStrap  + self.state.noOfAdditionalStraps * singleStrapCost;
             }
+            self.el.promotionCodeDiscount.text("-" + self.formatPrice(totalPrice + shippingCost));
+            if(self.state.validPromotionCodeAdded) {
+                totalPrice = 0;
+                self.el.totalPriceValue.text(self.formatPrice(totalPrice));
+                self.state.totalPrice = totalPrice
+            } else {
+                totalPrice = totalPrice + shippingCost;
+                self.el.totalPriceValue.text(self.formatPrice(totalPrice));
+                self.state.totalPrice = totalPrice;
+            }
+
         },
 
         initModals: function(){
@@ -518,22 +599,44 @@ WatchBuilder = (function($) {
                         id: 'StrapButtonDone',
                         text: 'Done',
                         click: function() {
-                            var strap1Value = $(this).find('.strap1Value').html(),
-                                strap2Value = $(this).find('.strap2Value').html();
+                            var strap1Value = $(this).find('.strap1Value'),
+                                strap2Value = $(this).find('.strap2Value'),
+                                strap3Value = $(this).find('.strap3Value'),
+                                strap4Value = $(this).find('.strap4Value'),
+                                strap5Value = $(this).find('.strap5Value'),
+                                amountOfStraps = 0;
 
-                            self.state.additionalStrap1 = strap1Value;
-                            self.state.additionalStrap2 = strap2Value;
-                            self.el.partRecapAdditionalStrap1.html(strap1Value);
-                            self.el.partRecapAdditionalStrap2.html(strap2Value);
-                            Cookies.set('additionalStrap1', strap1Value, {expires: 30, path: '/'})
-                            Cookies.set('additionalStrap2', strap2Value, {expires: 30, path: '/'});
+                            var strapValues =[strap1Value, strap2Value, strap3Value, strap4Value, strap5Value];
+
+                            for(var i = 0; i < strapValues.length; i++) {
+                                if(!(strapValues[i].hasClass('unselectedStrap'))) {
+                                    self.state['additionalStrap' + (i+1)] = strapValues[i].html();
+                                    self.el['partRecapAdditionalStrap' + (i+1)].html(strapValues[i].html());
+                                    Cookies.set('additionalStrap' + (i + 1), strapValues[i].html(), {expires: 30, path: '/'});
+                                    self.el['partRecapAdditionalStrapPrice' + (i+1)].html(singleStrapCost);
+                                    self.el['partRecapAdditionalStrapRow' + (i+1)].show();
+                                    amountOfStraps++;
+                                } else {
+                                    self.el['partRecapAdditionalStrapRow' + (i+1)].hide();
+                                    Cookies.set('additionalStrap' + (i + 1), self.variables.noneName, {expires: 30, path: '/'});
+                                }
+                            }
+
+                            if(amountOfStraps > 0){
+                                self.el.partRecapAdditionStrapsTable.show();
+                            } else {
+                                self.el.partRecapAdditionStrapsTable.hide();
+                            }
+                            Cookies.set('noOfAdditionalStraps', amountOfStraps);
+                            self.state.noOfAdditionalStraps = amountOfStraps;
                             self.updatePrice();
                             $(this).dialog('close');
                         }
                     }
                 ],
                 close: function(){
-                    if($('#StrapButtonDone').is(':disabled')){
+
+                    /*if($('#StrapButtonDone').is(':disabled')){
                         self.state.additionalStrap1 = self.variables.noneName;
                         self.state.additionalStrap2 = self.variables.noneName;
                         self.el.partRecapAdditionalStrap1.html(self.variables.noneName);
@@ -541,10 +644,9 @@ WatchBuilder = (function($) {
                         Cookies.set('additionalStrap1', self.variables.noneName, {expires: 30, path: '/'})
                         Cookies.set('additionalStrap2', self.variables.noneName, {expires: 30, path: '/'});
                         self.updatePrice();
-                    }
+                    }*/
                 }
             });
-            $('#StrapButtonDone').button('disable');
 
             self.el.fullViewDialog.dialog({
                 autoOpen: false,
@@ -552,11 +654,23 @@ WatchBuilder = (function($) {
                 width: 400,
                 modal: true,
                 buttons: {
-                    "Ok": function() {
+                    "OK": function() {
                         $(this).dialog('close');
                     }
                 }
             });
+
+            self.el.invalidPromotionCodeDialog.dialog({
+                autoOpen: false,
+                height: 500,
+                width: 500,
+                modal: true,
+                buttons: {
+                    "OK": function() {
+                        $(this).dialog('close');
+                    }
+                }
+            })
         },
 
         positionFooter: function () {
@@ -586,36 +700,3 @@ WatchBuilder = (function($) {
     };
 
 })(jQuery);
-
-$(function(){
-    WatchBuilder.init();
-
-
-    $(window).load(function(){
-        $(".vScrollable").mCustomScrollbar({
-            theme: "minimal-dark",
-            advanced:{ autoExpandHorizontalScroll: true},
-            scrollInertia: 0,
-            alwaysShowScrollbar: 2,
-            autoDraggerLength: true
-        });
-        $(".hScrollable").mCustomScrollbar({
-            theme: "minimal-dark",
-            axis: "x",
-            advanced:{ autoExpandHorizontalScroll: true},
-            scrollInertia: 0,
-            alwaysShowScrollbar: 2,
-            autoDraggerLength: true
-        });
-    });
-
-    $(window).bind("load", function() {
-
-        WatchBuilder.positionFooter();
-
-        $(window)
-            .scroll(WatchBuilder.positionFooter)
-            .resize(WatchBuilder.positionFooter)
-
-    });
-});

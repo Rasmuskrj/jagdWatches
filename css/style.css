@@ -281,6 +281,8 @@ ol.default li {
 
 /* Form */
 
+/* Form */
+
 form {
 }
 
@@ -1429,7 +1431,7 @@ a.fancybox {
 /* Buy step 1             */
 /**************************/
 
-.watchRecap {
+.buyStepContent {
     position: absolute;
     right: 1px;
     width: 750px;
@@ -1552,6 +1554,84 @@ a.fancybox {
     width: 334px;
 }
 
+/**************************/
+/* Buy step 2             */
+/**************************/
+
+.checkoutForm  form input[type="text"],
+.checkoutForm  form input[type="email"] {
+    width: 350px;
+    line-height: 30px;
+    font-size: 20px;
+    padding: 1px 0;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    background-color: white;
+    border: 1px grey solid;
+    border-radius: 0;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    cursor: auto;
+    text-rendering: auto;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+}
+
+.checkoutForm .newsletterCell {
+    text-align: center;
+    font-size: 15px;
+}
+
+.checkoutForm .newsletterCell input[type="checkbox"] {
+    -webkit-transform: scale(2);
+    -moz-transform: scale(2);
+    -ms-transform: scale(2);
+    -o-transform: scale(2);
+    transform: scale(2);
+    margin-right: 10px;
+}
+
+.checkoutForm.buyStepContent {
+    border-collapse: separate;
+    border-spacing: 10px 17px;
+}
+
+.checkoutForm .paymentButton {
+    width: 350px;
+    line-height: 30px;
+    font-size: 20px;
+}
+
+
+.checkoutForm label {
+    display: initial;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.checkoutForm .policyText {
+    position: absolute;
+    bottom: 85px;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+}
+
+.checkoutForm {
+    margin-bottom: 42px;
+}
+
+.cardLogo {
+    padding: 5px
+}
 
 /**************************/
 /* additional strap modal */
@@ -1652,7 +1732,6 @@ a.fancybox {
 /**************************/
 /* footer                 */
 /**************************/
-
 
 .footer {
     margin-bottom: -42px;

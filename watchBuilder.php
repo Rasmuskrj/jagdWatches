@@ -37,9 +37,9 @@ include("phpScripts/Preprocessing.php");
     <script src="js/jquery.scrollgress.min.js"></script>
     <script>
         var pricePlainOneStrap = <?php echo $prices[0]['price_dkk']; ?>;
-        var pricePlainThreeStraps = <?php echo $prices[1]['price_dkk']; ?>;
-        var priceEngravedOneStrap = <?php echo $prices[2]['price_dkk']; ?>;
-        var priceEngravedThreeStraps = <?php echo $prices[3]['price_dkk']; ?>;
+        var priceEngravedOneStrap = <?php echo $prices[1]['price_dkk']; ?>;
+        var shippingCost = <?php echo $prices[2]['price_dkk']; ?>;
+        var singleStrapCost = <?php echo $prices[3]['price_dkk']; ?>;
 
         var cases = [],
             straps = [],
@@ -88,6 +88,7 @@ include("phpScripts/Preprocessing.php");
 
 
     <script src="js/watchBuilder.js"></script>
+    <script src="js/builder.js"></script>
 
     <!--<script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -99,6 +100,7 @@ include("phpScripts/Preprocessing.php");
         ga('send', 'pageview');
 
     </script>-->
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
 </head>
 <body>
 
@@ -128,7 +130,7 @@ include("phpScripts/Preprocessing.php");
     </div>
 
 </section>-->
-    <div class="builderOuterContainer">
+<div class="builderOuterContainer">
         <div class="builderInnerContainer centeredContent">
 
 
@@ -382,7 +384,7 @@ include("phpScripts/Preprocessing.php");
             <section class="buyStep1">
                 <div class="builderContent">
 
-                    <div class="watchRecap">
+                    <div class="watchRecap buyStepContent">
                         <div class="row">
                             <div class="cell watchRecapTitle">
                                 ITEM
@@ -405,16 +407,19 @@ include("phpScripts/Preprocessing.php");
                                 </table>
                             </div>
                             <div class="cell rightCell">
-                                950 DKK
+                                <span class="priceValue">950</span><span class="priceCurrency"> DKK</span>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row additionalStrapsRowMain">
                             <div class="cell">
                                 <table class="partRecapTable smallRecapText" border="0" cellspacing="0" cellpadding="0">
                                     <tbody>
-                                    <tr><td colspan="2" class="additionalStrapRecapTitle watchRecapTitle">ADDITIONAL STRAPS</td></tr>
-                                    <tr><td class="additionalStrap1Title partTitle">STRAP 2:</td><td class="partValue additionalStrap1Value grey">None</td></tr>
-                                    <tr><td class="additionalStrap2Title partTitle">STRAP 3:</td><td class="partValue additionalStrap2Value grey">None</td></tr>
+                                        <tr><td colspan="2" class="additionalStrapRecapTitle watchRecapTitle">ADDITIONAL STRAPS</td></tr>
+                                        <tr class="additionalStrapLine1"><td class="additionalStrap1Title partTitle">STRAP 2:</td><td class="partValue additionalStrap1Value grey">None</td></tr>
+                                        <tr class="additionalStrapLine2"><td class="additionalStrap2Title partTitle">STRAP 3:</td><td class="partValue additionalStrap2Value grey">None</td></tr>
+                                        <tr class="additionalStrapLine3"><td class="additionalStrap3Title partTitle">STRAP 4:</td><td class="partValue additionalStrap3Value grey">None</td></tr>
+                                        <tr class="additionalStrapLine4"><td class="additionalStrap4Title partTitle">STRAP 5:</td><td class="partValue additionalStrap4Value grey">None</td></tr>
+                                        <tr class="additionalStrapLine5"><td class="additionalStrap5Title partTitle">STRAP 6:</td><td class="partValue additionalStrap5Value grey">None</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -422,8 +427,11 @@ include("phpScripts/Preprocessing.php");
                                 <table>
                                     <tbody>
                                         <tr><td>&nbsp;</td></tr>
-                                        <tr><td>100 DKK</td></tr>
-                                        <tr><td>100 DKK</td></tr>
+                                        <tr class="additionalStrapLine1"><td><span class="additionalStrapPriceValue additionalStrapPriceValue1">0</span> <span class="priceCurrency">DKK</span></td></tr>
+                                        <tr class="additionalStrapLine2"><td><span class="additionalStrapPriceValue additionalStrapPriceValue2">0</span> <span class="priceCurrency">DKK</span></td></tr>
+                                        <tr class="additionalStrapLine3"><td><span class="additionalStrapPriceValue additionalStrapPriceValue3">0</span> <span class="priceCurrency">DKK</span></td></tr>
+                                        <tr class="additionalStrapLine4"><td><span class="additionalStrapPriceValue additionalStrapPriceValue4">0</span> <span class="priceCurrency">DKK</span></td></tr>
+                                        <tr class="additionalStrapLine5"><td><span class="additionalStrapPriceValue additionalStrapPriceValue5">0</span> <span class="priceCurrency">DKK</span></td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -451,15 +459,15 @@ include("phpScripts/Preprocessing.php");
                                     <tbody>
                                         <tr class="grey smallRecapText">
                                             <td>SUBTOTAL:</td>
-                                            <td class="rightCell"><span class="priceValue"></span><span class="priceCurrency">DKK</span> </td>
+                                            <td class="rightCell"><span class="priceValue"></span><span class="priceCurrency"> DKK</span> </td>
                                         </tr>
                                         <tr class="grey smallRecapText">
                                             <td>SHIPPING:</td>
-                                            <td class="rightCell"><span class="shippingCostValue">60</span><span class="priceCurrency">DKK</span> </td>
+                                            <td class="rightCell"><span class="shippingCostValue">60</span><span class="priceCurrency"> DKK</span> </td>
                                         </tr>
                                         <tr class="grey promotionCodeRow smallRecapText">
                                             <td>PROMOTION CODE:</td>
-                                            <td class="rightCell"><span class="priceValue"></span><span class="priceCurrency">DKK</span> </td>
+                                            <td class="rightCell"><span class="promotionCodeDiscount"></span><span class="priceCurrency"> DKK</span> </td>
                                         </tr>
                                         <tr>
                                             <td>&nbsp;</td><td>&nbsp;</td>
@@ -469,7 +477,7 @@ include("phpScripts/Preprocessing.php");
                                                 TOTAL:
                                             </td>
                                             <td class="rightCell">
-                                                <span class="totalPriceValue"></span><span class="priceCurrency">DKK</span>
+                                                <span class="totalPriceValue"></span><span class="priceCurrency"> DKK</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -544,7 +552,10 @@ include("phpScripts/Preprocessing.php");
     </div>
     <div class="modalRecap">
         <span class="strapLine"><span class="strap1Title strapTitle">>Strap 1:</span><span class="strapModalValue strap1Value unselectedStrap">Please select</span><span class="clearButton"></span></span><br>
-        <span class="strapLine"><span class="strap2Title strapTitle">>Strap 2:</span><span class="strapModalValue strap2Value unselectedStrap">Please select</span><span class="clearButton"></span></span>
+        <span class="strapLine"><span class="strap2Title strapTitle">>Strap 2:</span><span class="strapModalValue strap2Value unselectedStrap">Please select</span><span class="clearButton"></span></span><br>
+        <span class="strapLine"><span class="strap3Title strapTitle">>Strap 3:</span><span class="strapModalValue strap3Value unselectedStrap">Please select</span><span class="clearButton"></span></span><br>
+        <span class="strapLine"><span class="strap4Title strapTitle">>Strap 4:</span><span class="strapModalValue strap4Value unselectedStrap">Please select</span><span class="clearButton"></span></span><br>
+        <span class="strapLine"><span class="strap5Title strapTitle">>Strap 5:</span><span class="strapModalValue strap5Value unselectedStrap">Please select</span><span class="clearButton"></span></span>
     </div>
 </div>
 
@@ -601,6 +612,10 @@ include("phpScripts/Preprocessing.php");
         </div>
     </div>
 
+</div>
+
+<div id="invalidPromotionCodeModal" title="PROMOTION CODE NOT FOUND">
+    <p>The promotion code you have entered was not found. Please make sure that the code is correct.</p>
 </div>
 </body>
 </html>

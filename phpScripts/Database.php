@@ -22,7 +22,7 @@ class Database {
      * Constructor
      */
     public function Database (){
-        $this->conn = mysqli_connect($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
+        $this->conn = new mysqli($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
         if($this->conn->connect_errno > 0){
             die('Unable to connect to database [' . $this->conn->connect_error . ']');
         }
