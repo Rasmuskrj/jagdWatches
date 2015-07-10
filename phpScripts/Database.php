@@ -34,44 +34,4 @@ class Database {
     public function getConnection() {
         return $this->conn;
     }
-
-    function prepareQuery()
-    {
-        $Query = "";
-        $ParameterNumber = 0;
-
-        if (func_num_args() && $Query = func_get_arg($ParameterNumber++))
-        {
-            while ($ParameterNumber < func_num_args())
-            {
-                $NextParameter = func_get_arg($ParameterNumber++);
-                $PlaceToInsertParameter = strpos($Query, '?');
-                if ($PlaceToInsertParameter !== false)
-                {
-                    $QuerySafeString = '';
-
-                    if (is_bool($NextParameter))
-                    {
-                        $QuerySafeString = $NextParameter ? 'TRUE' : 'FALSE';
-                    }
-                    else if (is_float($NextParameter) || is_int($NextParameter))
-                    {
-                        $QuerySafeString = $NextParameter;
-                    }
-                    else if (is_null($NextParameter))
-                    {
-                        $QuerySafeString = 'NULL';
-                    }
-                    else
-                    {
-                        $QuerySafeString = "'" . mysql_real_escape_string($NextParameter) . "'";
-                    }
-
-                    $Query = substr_replace($Query, $QuerySafeString, $PlaceToInsertParameter, 1);
-                }
-            }
-        }
-
-        return $Query;
-    }
 }

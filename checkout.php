@@ -35,6 +35,8 @@ include('phpScripts/checkoutPreprocessing.php');
     <script src="js/jquery.poptrox.min.js"></script>
     <script src="js/jquery.scrolly.min.js"></script>
     <script src="js/jquery.scrollgress.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
     <script src="js/watchBuilder.js"></script>
     <script src="js/checkout.js"></script>
     <script>
@@ -122,7 +124,7 @@ include('phpScripts/checkoutPreprocessing.php');
             <div class="watchElementContainer">
                 <?php
                 foreach($patternSrc as $main){
-                    echo "<img src='$main' class='watchPattern watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                    echo "<img src='$main' class='watchPattern watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "' style='transform: rotate(" . $state['patternRotation'] . "deg); -webkit-transform: rotate(" . $state['patternRotation'] . "deg);-moz-transform: rotate(" . $state['patternRotation'] . "deg);-ms-transform: rotate(" . $state['patternRotation'] . "deg);-o-transform: rotate(" . $state['patternRotation'] . "deg)'>";
                 }
                 ?>
             </div>
@@ -198,42 +200,42 @@ include('phpScripts/checkoutPreprocessing.php');
                         </div>
                         <div class="row">
                             <div class="cell ">
-                                <label for="billingFirstNAME">First Name</label><br>
-                                <input type="text" name="billingFirstNAME">
+                                <label for="billingFirstNAME">First Name</label><span class="errorMsg"></span><br>
+                                <input type="text" name="billingFirstNAME" required>
                             </div>
                             <div class="cell  rightCell">
-                                <label for="billingLastNAME">Last Name</label><br>
-                                <input name="billingLastNAME" type="text">
+                                <label for="billingLastNAME">Last Name</label><span class="errorMsg"></span><br>
+                                <input name="billingLastNAME" type="text" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="cell">
-                                <label for="billingAddress">Address</label><br>
-                                <input name="billingAddress" type="text">
+                                <label for="billingAddress">Address</label><span class="errorMsg"></span><br>
+                                <input name="billingAddress" type="text" required>
                             </div>
                             <div class="cell rightCell">
-                                <label for="billingPostalCode">Postal Code</label><br>
-                                <input name="billingPostalCode" type="text">
+                                <label for="billingPostalCode">Postal Code</label><span class="errorMsg"></span><br>
+                                <input name="billingPostalCode" type="text" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="cell">
-                                <label for="billingCity">City</label><br>
-                                <input name="billingCity" type="text">
+                                <label for="billingCity">City</label><span class="errorMsg"></span><br>
+                                <input name="billingCity" type="text" required>
                             </div>
                             <div class="cell rightCell">
-                                <label for="billingCountry">Country</label><br>
-                                <input name="billingCountry" type="text">
+                                <label for="billingCountry">Country</label><span class="errorMsg"></span><br>
+                                <input name="billingCountry" type="text" required>
                             </div>
                         </div>
                         <div class="row ">
                             <div class="cell">
-                                <label for="email">Email</label><br>
-                                <input name="email" type="email">
+                                <label for="email">Email</label><span class="errorMsg"></span><br>
+                                <input name="email" type="email" required>
                             </div>
                             <div class="cell newsletterCell">
                                 &nbsp;<br>
-                                <input type="checkbox"><span>Sign up for our newsletter</span>
+                                <input type="checkbox" name="sendNewsletters"><span>Sign up for our newsletter</span>
                             </div>
                         </div>
                         <div class="row">
@@ -254,7 +256,7 @@ include('phpScripts/checkoutPreprocessing.php');
                             <span class="policyText">By proceeding I accept the Privacy Policy and the Terms and Conditions</span>
                         </div>
                         <INPUT TYPE="hidden" NAME="test" value="1">
-                        <INPUT TYPE="hidden" NAME="accepturl" VALUE="http://www.jagdwatches.com/newsite/paymentValidated.php">
+                        <INPUT TYPE="hidden" NAME="accepturl" VALUE="http://www.jagdwatches.com/newsite/receipt.php">
                         <input type="hidden" name="decorator" value="responsive">
                         <input type="hidden" name="callbackurl" value="http://www.jagdwatches.com/newsite/phpScripts/dibsCallback.php">
                         <?php

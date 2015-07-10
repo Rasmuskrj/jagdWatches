@@ -32,8 +32,11 @@ $watchNumeralsFolder = "images/WatchBuilder/Numerals/";
 $watchIndexFolder = "images/WatchBuilder/Index/Thumbnails/";
 $watchIndexMainFolder = "images/WatchBuilder/Index/Main/";
 
+$util = new JagdUtility();
+
+
 $imgType = "png";
-$noneName = "None";
+$noneName = $util->noneName;
 
 $merchantId = '90197001';
 
@@ -67,7 +70,7 @@ $db = $dataBase->getConnection();
 $state = array();
 
 foreach($stateKeys as $key){
-    $state[$key] = $_POST[$key];
+    $state[$key] = @$_POST[$key];
 }
 
 /**
@@ -77,7 +80,11 @@ $caseSrc = glob($watchCaseMainFolder . $state['case']. "." . $imgType);
 $handsSrc = glob($watchHandsMainFolder . $state['hands']. "." . $imgType);
 $strapSrc = glob($watchStrapMainFolder . $state['straps']. "." . $imgType);
 $dialSrc = glob($watchDialMainFolder  . $state['dial']. "." . $imgType);
-$patternSrc = glob($patternMainFolder  . $state['pattern']. "." . $imgType);
+if($state['invertPattern'] == 'true'){
+    $patternSrc = glob($patternMainFolder  . $state['pattern']. " INV." . $imgType);
+} else {
+    $patternSrc = glob($patternMainFolder  . $state['pattern']. "." . $imgType);
+}
 $numeralsSrc = glob($watchNumeralsFolder  . $state['numerals']. "." . $imgType);
 $indexSrc = glob($watchIndexMainFolder  . $state['index']. "." . $imgType);
 
@@ -89,6 +96,7 @@ $price = 0;
 $amount = 0;
 $straps = 0;
 $strapPrice = 0;
+$deliveryPrice = 0;
 
 $sql = "SELECT * FROM prices WHERE id=";
 
@@ -114,16 +122,23 @@ while($row = $result->fetch_assoc()){
     $strapPrice = $row['price_dkk'];
 }
 
+$sql3 = "SELECT * FROM prices WHERE id=3";
+
+$result = $db->query($sql3);
+
+while($row = $result->fetch_assoc()){
+    $deliveryPrice = $row['price_dkk'];
+}
+
 $straps = $strapPrice * $state['noOfAdditionalStraps'];
 
-$price = $amount + $straps;
+$price = $amount + $straps + $deliveryPrice;
 
 $price *= 100; //multiply by 100 to get price with sub-currency;
 
 /**
  * Find new orderID
  */
-$util = new JagdUtility();
 $orderID = $util->generateOrderId();
 
 /**

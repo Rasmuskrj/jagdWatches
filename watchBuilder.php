@@ -267,7 +267,7 @@ include("phpScripts/Preprocessing.php");
                         <div class="priceContainer">
                             <div class="hline"></div>
                             <div class="price">
-                                <span class="priceLabel">Price:</span><span class="priceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span>
+                                <span class="priceLabel">Price:</span><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span>
                             </div>
                         </div>
                     </div>
@@ -330,7 +330,7 @@ include("phpScripts/Preprocessing.php");
                         <div class="priceContainer">
                             <div class="hline"></div>
                             <div class="price">
-                                <span class="priceLabel">Price:</span><span class="priceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span>
+                                <span class="priceLabel">Price:</span><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span>
                             </div>
                         </div>
                     </div>

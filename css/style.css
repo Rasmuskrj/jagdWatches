@@ -1583,6 +1583,7 @@ a.fancybox {
     text-shadow: none;
     display: inline-block;
     text-align: start;
+    height: 30px;
 }
 
 .checkoutForm .newsletterCell {
@@ -1631,6 +1632,12 @@ a.fancybox {
 
 .cardLogo {
     padding: 5px
+}
+
+.errorMsg {
+    font-size: 12px;
+    color: red;
+    float: right;
 }
 
 /**************************/

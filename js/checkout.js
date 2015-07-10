@@ -12,6 +12,12 @@ $(function(){
         form.submit();
     });
 
+    form.validate({
+        errorPlacement: function(error, element){
+            error.appendTo( element.parent('.cell').children('.errorMsg'));
+        }
+    });
+
     $(window).bind("load", function() {
 
         WatchBuilder.positionFooter();

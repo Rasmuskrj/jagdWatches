@@ -86,6 +86,7 @@ WatchBuilder = (function($) {
             self.el.buyStep2Button.button();
             if(Cookies.get('patternRotation') != undefined){
                 sliderValue = Cookies.get('patternRotation');
+                self.state.patternRotation = sliderValue;
             }
             self.el.patternRotationSlider.slider({
                 orientation: "horizontal",
@@ -563,12 +564,12 @@ WatchBuilder = (function($) {
             var self = builder;
             var totalPrice = 0;
             if(self.state.pattern == self.variables.noneName && self.state.numerals == self.variables.noneName && self.state.index == self.variables.noneName){
-                self.el.priceValue.text(self.formatPrice(pricePlainOneStrap + self.state.noOfAdditionalStraps * singleStrapCost));
+                self.el.priceValue.text(self.formatPrice(pricePlainOneStrap));
                 self.el.step1RecapTitle.text("JAGD WATCH - PLAIN DIAL");
                 self.el.additionalStrapPriceValue.text(100);
                 totalPrice = pricePlainOneStrap  + self.state.noOfAdditionalStraps * singleStrapCost;
             } else {
-                self.el.priceValue.text(self.formatPrice(priceEngravedOneStrap + self.state.noOfAdditionalStraps * singleStrapCost));
+                self.el.priceValue.text(self.formatPrice(priceEngravedOneStrap));
                 self.el.additionalStrapPriceValue.text(100);
                 self.el.step1RecapTitle.text("JAGD WATCH - ENGRAVED DIAL");
                 totalPrice = priceEngravedOneStrap  + self.state.noOfAdditionalStraps * singleStrapCost;
