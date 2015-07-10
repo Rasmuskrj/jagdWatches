@@ -265,7 +265,7 @@ include('phpScripts/checkoutPreprocessing.php');
                             echo "<input type='hidden' name='merchant'  value='$merchantId'>\n" .
                                  "<input type='hidden' name='orderid'  value='$orderID'>\n" .
                                  "<input type='hidden' name='amount'  value='$price'>\n" .
-                                 "<input type='hidden' name='currency'  value='208'>\n" .
+                                 "<input type='hidden' name='currency'  value='DKK'>\n" .
                                  "<input type='hidden' name='md5key'  value='$md5'>\n";
 
                         ?>
