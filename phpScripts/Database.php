@@ -34,4 +34,23 @@ class Database {
     public function getConnection() {
         return $this->conn;
     }
+
+    public function checkPromotionCode($code) {
+        $validPromotionCode = false;
+        $stmt = $this->conn->prepare("SELECT used FROM discount_codes WHERE code=?");
+
+        $stmt->bind_param('s', $code);
+
+        $stmt->execute();
+        $stmt->bind_result($used);
+
+        while($stmt->fetch()){
+            if($used == 1){
+                $validPromotionCode = false;
+            } else if($used == 0) {
+                $validPromotionCode = true;
+            }
+        }
+        return $validPromotionCode;
+    }
 }

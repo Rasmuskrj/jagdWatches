@@ -1765,6 +1765,63 @@ a.fancybox {
     border-right: none;
 }
 
+/**************************/
+/* receipt                 */
+/**************************/
+
+.watchContainer.receiptPosition{
+    left: 0;
+    width: 250px;
+    top: 265px;
+    height: 64%;
+}
+
+.watchContainer.receiptPosition .watchHeader {
+    display: inherit;
+}
+
+.watchRecap.buyStepContent.receiptPosition {
+    top: 204px;
+
+}
+
+.watchRecap.buyStepContent.receiptPosition .Cell>table {
+    line-height: 30px;
+    border-collapse: collapse;
+    border-spacing: 0 10px;
+}
+
+.watchRecap.buyStepContent.receiptPosition .rightCell>table {
+    text-align: right;
+}
+
+.customerInfo {
+    display: table;
+    width: 100%
+}
+
+.message,
+.address {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.address {
+    text-align: right;
+}
+
+.address p {
+    text-align: start;
+}
+
+.orderNo {
+    width: 100%
+}
+
+.orderNoSmall {
+    font-size: 16px;
+    white-space: nowrap;
+}
 /*********************************************************************************/
 /* Poptrox                                                                       */
 /*********************************************************************************/

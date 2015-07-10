@@ -48,13 +48,27 @@
 </head>
 
 <body>
+    <header id="header">
+
+        <!-- Logo -->
+        <img src="images/JAGD logo grey white.png" alt="" name="logo" height="40" class="image logo">
+
+        <!-- Nav -->
+        <nav id="nav">
+            <ul>
+                <li><a id="backButton" href="#">Back</a></li>
+                <li><a href="index.php">Back To Main</a></li>
+            </ul>
+        </nav>
+
+    </header>
     <div class="builderOuterContainer">
         <div class="builderInnerContainer centeredContent">
 
-            <div class="watchContainer buyPosition">
+            <div class="watchContainer receiptPosition">
                 <div class="watchHeader">
                     <span><b>YOUR ORDER:</b></span><br>
-                    <a href="watchBuilder.php"><span class="grey editButton">Edit</span></a>
+                    <span class="orderNoSmall grey">Order number: <?php echo $orderId; ?></span>
                 </div>
                 <div class="watchElementContainer">
                     <?php
@@ -87,7 +101,7 @@
                 <div class="watchElementContainer">
                     <?php
                     foreach($patternSrc as $main){
-                        echo "<img src='$main' class='watchPattern watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "' style='transform: rotate(" . $state['patternRotation'] . "deg); -webkit-transform: rotate(" . $state['patternRotation'] . "deg);-moz-transform: rotate(" . $state['patternRotation'] . "deg);-ms-transform: rotate(" . $state['patternRotation'] . "deg);-o-transform: rotate(" . $state['patternRotation'] . "deg)'>";
+                        echo "<img src='$main' class='watchPattern watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "' style='transform: rotate(" . $patternRotation . "deg); -webkit-transform: rotate(" . $patternRotation . "deg);-moz-transform: rotate(" . $patternRotation . "deg);-ms-transform: rotate(" . $patternRotation . "deg);-o-transform: rotate(" . $patternRotation . "deg)'>";
                     }
                     ?>
                 </div>
@@ -109,8 +123,32 @@
 
             <section class="buyStep1">
                 <div class="builderContent">
-
-                    <div class="watchRecap buyStepContent">
+                    <div class="customerInfo">
+                        <div class="orderNo row">
+                            <b>Order number: <?php echo $orderId ?></b>
+                        </div>
+                        <div class="row">
+                            <div class="message cell">
+                                <p>
+                                    <?php echo "Hi ". $billingFirstName . " " . $billingLastName . "<br><br>
+                                    Thank you for choosing Jagd Watches.<br>
+                                    You should receive your order within 10 working days from today.<br>
+                                    If you have any questions about your order please send us an email and we will get back to you as soon as we can"
+                                    ?>
+                                </p>
+                            </div>
+                            <div class="address rightCell">
+                                <?php
+                                    echo "<p class='grey'><b>Address:</b><br>
+                                          $billingFirstName $billingLastName<br>
+                                          $billingAddress<br>
+                                          $billingPostalCode $billingCity<br>
+                                          $billingCountry</p>";
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="watchRecap buyStepContent receiptPosition">
                         <div class="row">
                             <div class="cell watchRecapTitle">
                                 ITEM
@@ -123,41 +161,41 @@
                             <div class="cell">
                                 <table class="partRecapTable smallRecapText" border="0" cellspacing="0" cellpadding="0">
                                     <tbody>
-                                    <tr><td colspan="2" class="step1RecapTitle watchRecapTitle">JAGD WATCH - PLAIN DIAL</td></tr>
+                                    <tr><td colspan="2" class="step1RecapTitle watchRecapTitle"><?php echo $jagdTitle ?></td></tr>
 
-                                    <tr><td class="caseTitle partTitle">CASE:</td><td class="partValue caseValue grey"><?php echo $state['case']?></td></tr>
-                                    <tr><td class="handsTitle partTitle">HANDS:</td><td class="partValue handsValue grey"><?php echo $state['hands']?></td></tr>
-                                    <tr><td class="dialTitle partTitle">DIAL:</td><td class="partValue dialValue grey"><?php echo $state['dial']?></td></tr>
-                                    <tr><td class="strapsTitle partTitle">STRAP 1:</td><td class="partValue strapValue grey"><?php echo $state['straps']?></td></tr>
+                                    <tr><td class="caseTitle partTitle">CASE:</td><td class="partValue caseValue grey"><?php echo $case?></td></tr>
+                                    <tr><td class="handsTitle partTitle">HANDS:</td><td class="partValue handsValue grey"><?php echo $hands?></td></tr>
+                                    <tr><td class="dialTitle partTitle">DIAL:</td><td class="partValue dialValue grey"><?php echo $dial?></td></tr>
+                                    <tr><td class="strapsTitle partTitle">STRAP 1:</td><td class="partValue strapValue grey"><?php echo $strap?></td></tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="cell rightCell">
-                                <span class="priceValue"><?php echo $amount?></span><span class="priceCurrency"> DKK</span>
+                                <span class="priceValue"><?php echo $subtotal?></span><span class="priceCurrency"> DKK</span>
                             </div>
                         </div>
                         <?php
-                            if($state['noOfAdditionalStraps'] > 0) {
+                            if($noOfAdditionalStraps > 0) {
                                 echo '<div class="row additionalStrapsRowMain">
                             <div class="cell">
                                 <table class="partRecapTable smallRecapText" border="0" cellspacing="0" cellpadding="0">
                                     <tbody>
                                     <tr><td colspan="2" class="additionalStrapRecapTitle watchRecapTitle">ADDITIONAL STRAPS</td></tr>
                                     ';
-                                if($state['additionalStrap1'] != $util->noneName) {
-                                    echo '<tr class="additionalStrapLine1"><td class="additionalStrap1Title partTitle">STRAP 2:</td><td class="partValue additionalStrap1Value grey">' . $state['additionalStrap1'] . '</td></tr>';
+                                if($additionalStrap1 != $util->noneName && $additionalStrap1 != null) {
+                                    echo '<tr class="additionalStrapLine1"><td class="additionalStrap1Title partTitle">STRAP 2:</td><td class="partValue additionalStrap1Value grey">' . $additionalStrap1 . '</td></tr>';
                                 }
-                                if($state['additionalStrap2'] != $util->noneName) {
-                                    echo '<tr class="additionalStrapLine2"><td class="additionalStrap2Title partTitle">STRAP 3:</td><td class="partValue additionalStrap2Value grey">' . $state['additionalStrap2'] . '</td></tr>';
+                                if($additionalStrap2 != $util->noneName && $additionalStrap2 != null) {
+                                    echo '<tr class="additionalStrapLine2"><td class="additionalStrap2Title partTitle">STRAP 3:</td><td class="partValue additionalStrap2Value grey">' . $additionalStrap2 . '</td></tr>';
                                 }
-                                if($state['additionalStrap3'] != $util->noneName) {
-                                    echo '<tr class="additionalStrapLine3"><td class="additionalStrap3Title partTitle">STRAP 4:</td><td class="partValue additionalStrap3Value grey">' . $state['additionalStrap3'] . '</td></tr>';
+                                if($additionalStrap3 != $util->noneName && $additionalStrap3 != null) {
+                                    echo '<tr class="additionalStrapLine3"><td class="additionalStrap3Title partTitle">STRAP 4:</td><td class="partValue additionalStrap3Value grey">' . $additionalStrap3 . '</td></tr>';
                                 }
-                                if($state['additionalStrap4'] != $util->noneName) {
-                                    echo '<tr class="additionalStrapLine4"><td class="additionalStrap4Title partTitle">STRAP 5:</td><td class="partValue additionalStrap4Value grey">' . $state['additionalStrap4'] . '</td></tr>';
+                                if($additionalStrap4 != $util->noneName && $additionalStrap4 != null) {
+                                    echo '<tr class="additionalStrapLine4"><td class="additionalStrap4Title partTitle">STRAP 5:</td><td class="partValue additionalStrap4Value grey">' . $additionalStrap4 . '</td></tr>';
                                 }
-                                if($state['additionalStrap5'] != $util->noneName) {
-                                    echo '<tr class="additionalStrapLine5"><td class="additionalStrap5Title partTitle">STRAP 6:</td><td class="partValue additionalStrap5Value grey">' . $state['additionalStrap5'] . '</td></tr>';
+                                if($additionalStrap5 != $util->noneName && $additionalStrap5 != null) {
+                                    echo '<tr class="additionalStrapLine5"><td class="additionalStrap5Title partTitle">STRAP 6:</td><td class="partValue additionalStrap5Value grey">' . $additionalStrap5 . '</td></tr>';
                                 }
 
 
@@ -168,19 +206,19 @@
                                 <table>
                                     <tbody>
                                     <tr><td>&nbsp;</td></tr>';
-                                if($state['additionalStrap1'] != $util->noneName){
+                                if($additionalStrap1 != $util->noneName  && $additionalStrap1 != null){
                                     echo '<tr class="additionalStrapLine1"><td><span class="additionalStrapPriceValue additionalStrapPriceValue1">'.$strapPrice.'</span> <span class="priceCurrency">DKK</span></td></tr>';
                                 }
-                                if($state['additionalStrap2'] != $util->noneName){
+                                if($additionalStrap2 != $util->noneName  && $additionalStrap2 != null){
                                     echo '<tr class="additionalStrapLine2"><td><span class="additionalStrapPriceValue additionalStrapPriceValue2">'.$strapPrice.'</span> <span class="priceCurrency">DKK</span></td></tr>';
                                 }
-                                if($state['additionalStrap3'] != $util->noneName){
+                                if($additionalStrap3 != $util->noneName  && $additionalStrap3 != null){
                                     echo '<tr class="additionalStrapLine3"><td><span class="additionalStrapPriceValue additionalStrapPriceValue3">'.$strapPrice.'</span> <span class="priceCurrency">DKK</span></td></tr>';
                                 }
-                                if($state['additionalStrap4'] != $util->noneName){
+                                if($additionalStrap4 != $util->noneName  && $additionalStrap4 != null){
                                     echo '<tr class="additionalStrapLine4"><td><span class="additionalStrapPriceValue additionalStrapPriceValue4">'.$strapPrice.'</span> <span class="priceCurrency">DKK</span></td></tr>';
                                 }
-                                if($state['additionalStrap5'] != $util->noneName){
+                                if($additionalStrap5 != $util->noneName  && $additionalStrap5 != null){
                                     echo '<tr class="additionalStrapLine5"><td><span class="additionalStrapPriceValue additionalStrapPriceValue5">'.$strapPrice.'</span> <span class="priceCurrency">DKK</span></td></tr>';
                                 }
 
@@ -210,16 +248,22 @@
                                     <tbody>
                                     <tr class="grey smallRecapText">
                                         <td>SUBTOTAL:</td>
-                                        <td class="rightCell"><span class="priceValue"><?php echo $amount + $straps ?></span><span class="priceCurrency"> DKK</span> </td>
+                                        <td class="rightCell"><span class="priceValue"><?php echo $subtotal + $straps ?></span><span class="priceCurrency"> DKK</span> </td>
                                     </tr>
                                     <tr class="grey smallRecapText">
                                         <td>SHIPPING:</td>
                                         <td class="rightCell"><span class="shippingCostValue"><?php echo $deliveryPrice ?></span><span class="priceCurrency"> DKK</span> </td>
                                     </tr>
-                                    <tr class="grey promotionCodeRow smallRecapText">
+                                    <?php
+                                        if($validPromotionCode) {
+                                            $promotionValue = $amountTotal / 100;
+                                            echo '<tr class="grey promotionCodeRow smallRecapText">
                                         <td>PROMOTION CODE:</td>
-                                        <td class="rightCell"><span class="promotionCodeDiscount"></span><span class="priceCurrency"> DKK</span> </td>
-                                    </tr>
+                                        <td class="rightCell"><span class="promotionCodeDiscount">- ' . $promotionValue  . '</span><span class="priceCurrency"> DKK</span> </td>
+                                    </tr>';
+                                        }
+                                    ?>
+
                                     <tr>
                                         <td>&nbsp;</td><td>&nbsp;</td>
                                     </tr>
@@ -228,12 +272,11 @@
                                             TOTAL:
                                         </td>
                                         <td class="rightCell">
-                                            <span class="totalPriceValue"><?php echo $price / 100 ?></span><span class="priceCurrency"> DKK</span>
+                                            <span class="totalPriceValue"><?php echo $validPromotionCode ? ($amountTotal / 100) - $promotionValue : ($amountTotal / 100);  ?></span><span class="priceCurrency"> DKK</span>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div class="buyStep2Button watchRecapTitle">GO TO CHECKOUT</div>
                             </div>
                         </div>
                     </div>

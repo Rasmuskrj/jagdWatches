@@ -115,21 +115,21 @@ ORDER INFORMATION
 Order Id: $orderId
 
 Watch:
-Case:\t\t\t\t$case
-Hands:\t\t\t\t$hands
-Strap:\t\t\t\t$straps
-Dial:\t\t\t\t$dial
-Index:\t\t\t\t" . ($index == null ? $utility->noneName : $index) . "
-Numerals:\t\t\t\t" . ($numerals == null ? $utility->noneName : $numerals) . "
-Pattern:\t\t\t\t" . ($pattern == null ? $utility->noneName : $pattern) . "
-Pattern inverted:\t\t\t\t" . ($invertPattern == 0 ? 'No' : 'Yes') . "
-Pattern rotation:\t\t\t\t$patternRotation
+Case:               $case
+Hands:              $hands
+Strap:              $straps
+Dial:               $dial
+Index:              " . ($index == null ? $utility->noneName : $index) . "
+Numerals:           " . ($numerals == null ? $utility->noneName : $numerals) . "
+Pattern:            " . ($pattern == null ? $utility->noneName : $pattern) . "
+Pattern inverted:   " . ($invertPattern == 0 ? 'No' : 'Yes') . "
+Pattern rotation:   $patternRotation
 
-Extra strap 1:\t\t\t\t" . ($additionalStrap1 == null ? $utility->noneName : $additionalStrap1) . "
-Extra strap 2:\t\t\t\t" . ($additionalStrap2 == null ? $utility->noneName : $additionalStrap2) . "
-Extra strap 3:\t\t\t\t" . ($additionalStrap3 == null ? $utility->noneName : $additionalStrap3) . "
-Extra strap 4:\t\t\t\t" . ($additionalStrap4 == null ? $utility->noneName : $additionalStrap4) . "
-Extra strap 5:\t\t\t\t" . ($additionalStrap5 == null ? $utility->noneName : $additionalStrap5) . "
+Extra strap 1:      " . ($additionalStrap1 == null ? $utility->noneName : $additionalStrap1) . "
+Extra strap 2:      " . ($additionalStrap2 == null ? $utility->noneName : $additionalStrap2) . "
+Extra strap 3:      " . ($additionalStrap3 == null ? $utility->noneName : $additionalStrap3) . "
+Extra strap 4:      " . ($additionalStrap4 == null ? $utility->noneName : $additionalStrap4) . "
+Extra strap 5:      " . ($additionalStrap5 == null ? $utility->noneName : $additionalStrap5) . "
 
 
 Address:

@@ -9,31 +9,9 @@
 include('Database.php');
 include('JagdUtility.php');
 
-//Define folder paths
-/*************************************************************/
-//Watch Case
-$watchCaseFolder = "images/WatchBuilder/WatchCase/Thumbnails/";
-$watchCaseMainFolder = "images/WatchBuilder/WatchCase/Main/";
-//Watch Straps
-$watchStrapFolder = "images/WatchBuilder/Straps/Thumbnails/";
-$watchStrapMainFolder = "images/WatchBuilder/Straps/Main/";
-//Watch Hands
-$watchHandsFolder = "images/WatchBuilder/Hands/Thumbnails/";
-$watchHandsMainFolder = "images/WatchBuilder/Hands/Main/";
-//Watch Dial
-$watchDialFolder = "images/WatchBuilder/DialMaterial/Thumbnails/";
-$watchDialMainFolder = "images/WatchBuilder/DialMaterial/Main/";
-//Watch Pattern
-$patternFolder = "images/WatchBuilder/Patterns/Thumbnails/";
-$patternMainFolder = "images/WatchBuilder/Patterns/Standard/";
-//Watch Numerals
-$watchNumeralsFolder = "images/WatchBuilder/Numerals/";
-//Watch Index
-$watchIndexFolder = "images/WatchBuilder/Index/Thumbnails/";
-$watchIndexMainFolder = "images/WatchBuilder/Index/Main/";
-
 $util = new JagdUtility();
 
+$util->getFolderPaths($watchCaseFolder, $watchCaseMainFolder, $watchStrapFolder, $watchStrapMainFolder, $watchHandsFolder, $watchHandsMainFolder, $watchDialFolder, $watchDialMainFolder, $patternFolder, $patternMainFolder, $watchNumeralsFolder, $watchIndexFolder, $watchIndexMainFolder);
 
 $imgType = "png";
 $noneName = $util->noneName;
@@ -151,5 +129,9 @@ $parameter_string .= '&currency=' . "DKK";
 $parameter_string .= '&amount=' . $price;
 $md5 = $util->generateMD5($parameter_string );
 
+/**
+ * Check potential promotionCode
+ */
+$validPromotionCode = $dataBase->checkPromotionCode($state['addedPromotionCode']);
 
 

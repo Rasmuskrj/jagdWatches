@@ -189,7 +189,7 @@ include('phpScripts/checkoutPreprocessing.php');
             <div class="builderContent">
 
                 <div class="buyStepContent checkoutForm">
-                    <form class="paymentForm" action="https://payment.architrade.com/paymentweb/start.action" method="POST" charset="UTF-8">
+                    <form class="paymentForm" <?php if(!$validPromotionCode) {echo 'action="https://payment.architrade.com/paymentweb/start.action"';} else {echo 'action="receipt.php"';} ?> method="POST" charset="UTF-8">
                         <div>
                             <div class="cell">
                                 <b>SHIPPING ADDRESS:</b>
@@ -246,7 +246,7 @@ include('phpScripts/checkoutPreprocessing.php');
                                 <span class="cardLogo"><img src="images/logo-pack/amex_35.gif"></span>
                             </div>
                             <div class="cell">
-                                <span class="paymentButton">TO SECURE PAYMENT</span>
+                                <span class="paymentButton"><?php if(!$validPromotionCode) {echo 'TO SECURE PAYMENT';} else {echo 'PLACE ORDER';} ?></span>
                             </div>
                         </div>
                         <div>
