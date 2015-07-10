@@ -19,12 +19,11 @@ $amount = @$_POST['amount'];//'120000';
 $currency = '208';
 $dibsAuthKey = @$_POST['authkey'];//'c4f3385fbc1e7889c4a5715977f98730';
 $orderId = @$_POST['orderid'];//'20150710HvRl';
-$amount = @$_POST['amount'];//'120000';
 $dial = @$_POST['dial'];//'Walnut';
 $patternRotation = @$_POST['patternRotation'];//'0';
 $invertPattern = @$_POST['invertPattern'] == NULL ? 0 : @$_POST['invertPattern'];//'0';
 $hands = @$_POST['hands'];//'black';
-$billingPostalCode = @$_POST['billingsPostalCode'];//'2300';
+$billingPostalCode = @$_POST['billingPostalCode'];//'2300';
 $noOfAdditionalStraps = @$_POST['noOfAdditionalStraps'];//'0';
 $straps = @$_POST['straps'];//'Oily brown';
 $billingCity = @$_POST['billingCity'];//'København';
@@ -32,7 +31,7 @@ $billingCountry = @$_POST['billingCountry'];//'Danmark';
 $index = @$_POST['index'] == $utility->noneName ? NULL : @$_POST['index'];//NULL;
 $pattern = @$_POST['pattern'] == $utility->noneName ? NULL : @$_POST['pattern'];//NULL;
 $billingLastName = @$_POST['billingLastNAME'];//'Jørgensen';
-$email = //@$_POST['email'];//'rasmuskrj@gmail.com';
+$email = @$_POST['email'];//'rasmuskrj@gmail.com';
 $billingFirstName = @$_POST['billingFirstNAME'];//'Rasmus';
 $additionalStrap1 = @$_POST['additionalStrap1'] == $utility->noneName ? NULL : @$_POST['additionalStrap1'];//NULL;
 $additionalStrap2 = @$_POST['additionalStrap2'] == $utility->noneName ? NULL : @$_POST['additionalStrap2'];//NULL;
@@ -96,11 +95,13 @@ additional_strap_3,
 additional_strap_4,
 additional_strap_5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-echo $con->error;
 
 $stmt->bind_param('sisiiissssssssssssssiisssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
     $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
 
 
-//$stmt->execute();
+$stmt->execute();
+
+echo $con->error;
+
 
