@@ -69,11 +69,47 @@ $con = $db->getConnection();
 
 $query = $db->prepareQuery("SELECT * FROM WHERE order_id=?", $orderId);
 
+$stmt = $con->prepare("INSERT INTO orders (
+order_id,
+amount,
+currency,
+DIBS_transact,
+DIBS_approvalcode,
+DIBS_statuscode,
+first_name,
+last_name,
+address,
+postalcode,
+city,
+email,
+country,
+watch_case,
+hands,
+strap,
+dial,
+watch_index,
+numerals,
+pattern,
+invert_pattern,
+pattern_rotation,
+additional_strap_1,
+additional_strap_2,
+additional_strap_3,
+additional_strap_4,
+additional_strap_5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+echo $con->error;
+
+$stmt->bind_param('sisiiissssssssssssssiisssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+    $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
+
+
+$stmt->execute();
 
 //$result = $con->query($sql);
 
 //if($result->num_rows < 1 && $orderId != NULL) {
-    $query = $db->prepareQuery("INSERT INTO orders (
+    /*$query = $db->prepareQuery("INSERT INTO orders (
 order_id,
 amount,
 currency,
@@ -106,9 +142,10 @@ additional_strap_5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     //var_dump($query);
     //$con->query($query);
 
+
 if ($con->query($query) === TRUE) {
     echo "New record created successfully";
 } else {
     echo "Error: " . $query . "<br>" . $con->error;
-}
+}*/
 //}
