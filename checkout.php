@@ -254,9 +254,9 @@ include('phpScripts/checkoutPreprocessing.php');
                             <span class="policyText">By proceeding I accept the Privacy Policy and the Terms and Conditions</span>
                         </div>
                         <INPUT TYPE="hidden" NAME="test" value="1">
-                        <INPUT TYPE="hidden" NAME="accepturl" VALUE="http://www.jagdwatches.local/paymentValidated.php">
+                        <INPUT TYPE="hidden" NAME="accepturl" VALUE="http://www.jagdwatches.com/newsite/paymentValidated.php">
                         <input type="hidden" name="decorator" value="responsive">
-                        <input type="hidden" name="callbackurl" value="http://www.jagdwatches.local/phpScripts/dibsCallback.php">
+                        <input type="hidden" name="callbackurl" value="http://www.jagdwatches.com/newsite/phpScripts/dibsCallback.php">
                         <?php
                             foreach($state as $k=>$s){
                                 echo "<input type='hidden' name='$k' value='$s'>\n";

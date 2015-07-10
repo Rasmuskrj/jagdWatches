@@ -11,6 +11,8 @@ class JagdUtility {
 
     private $DIBS_MD5_CONTROL_KEY_2 = "~v2d9a8A6ao_pjA7ym!rLkw#FlpZB{z:";
 
+    public $noneName = "None";
+
     public function generateMD5($parameterString){
         return md5($this->DIBS_MD5_CONTROL_KEY_2 . md5($this->DIBS_MD5_CONTROL_KEY_1 . $parameterString));
     }
