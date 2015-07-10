@@ -14,36 +14,36 @@ $utility = new JagdUtility();
 /**
  * save POST vars
  */
-$transActionID = '1111950743';//@$_POST['transact'];
-$amount = '120000';//@$_POST['amount'];
-$currency = '208';//@$_POST['currency'];
-$dibsAuthKey = 'c4f3385fbc1e7889c4a5715977f98730';//@$_POST['authkey'];
-$orderId = '20150710HvRl';//@$_POST['orderid'];
-$amount = '120000';//@$_POST['amount'];
-$dial = 'Walnut';//@$_POST['dial'];
-$patternRotation = '0';//@$_POST['patternRotation'];
-$invertPattern = '0';//@$_POST['invertPattern'] == NULL ? 0 : @$_POST['invertPattern'];
-$hands = 'black';//@$_POST['hands'];
-$billingPostalCode = '2300';//@$_POST['billingsPostalCode'];
-$noOfAdditionalStraps = '0';//@$_POST['noOfAdditionalStraps'];
-$straps = 'Oily brown';//@$_POST['straps'];
-$billingCity = 'København';//@$_POST['billingCity'];
-$billingCountry = 'Danmark';//@$_POST['billingCountry'];
-$index = NULL;//@$_POST['index'] == $utility->noneName ? NULL : @$_POST['index'];
-$pattern = NULL;//@$_POST['pattern'] == $utility->noneName ? NULL : @$_POST['pattern'];
-$billingLastName = 'Jørgensen';//@$_POST['billingLastNAME'];
-$email = 'rasmuskrj@gmail.com';//@$_POST['email'];
-$billingFirstName = 'Rasmus';//@$_POST['billingFirstNAME'];
-$additionalStrap1 = NULL;//@$_POST['additionalStrap1'] == $utility->noneName ? NULL : @$_POST['additionalStrap1'];
-$additionalStrap2 = NULL;//@$_POST['additionalStrap2'] == $utility->noneName ? NULL : @$_POST['additionalStrap2'];
-$additionalStrap3 = NULL;//@$_POST['additionalStrap3'] == $utility->noneName ? NULL : @$_POST['additionalStrap3'];
-$additionalStrap4 = NULL;//@$_POST['additionalStrap4'] == $utility->noneName ? NULL : @$_POST['additionalStrap4'];
-$additionalStrap5 = NULL;//@$_POST['additionalStrap5'] == $utility->noneName ? NULL : @$_POST['additionalStrap5'];
-$billingAddress = 'Amagerbrogade 136, 3.th';//@$_POST['billingAddress'];
-$case = 'Gun metal';//@$_POST['case'];
-$numerals = NULL;//@$_POST['numerals'] == $utility->noneName ? NULL : @$_POST['numerals'];
-$approvalCode = '123456';//@$_POST['approvalcode'];
-$statusCode = '2';//@$_POST['statuscode'];
+$transActionID = @$_POST['transact'];//'1111950743';
+$amount = @$_POST['amount'];//'120000';
+$currency = '208';
+$dibsAuthKey = @$_POST['authkey'];//'c4f3385fbc1e7889c4a5715977f98730';
+$orderId = @$_POST['orderid'];//'20150710HvRl';
+$amount = @$_POST['amount'];//'120000';
+$dial = @$_POST['dial'];//'Walnut';
+$patternRotation = @$_POST['patternRotation'];//'0';
+$invertPattern = @$_POST['invertPattern'] == NULL ? 0 : @$_POST['invertPattern'];//'0';
+$hands = @$_POST['hands'];//'black';
+$billingPostalCode = @$_POST['billingsPostalCode'];//'2300';
+$noOfAdditionalStraps = @$_POST['noOfAdditionalStraps'];//'0';
+$straps = @$_POST['straps'];//'Oily brown';
+$billingCity = @$_POST['billingCity'];//'København';
+$billingCountry = @$_POST['billingCountry'];//'Danmark';
+$index = @$_POST['index'] == $utility->noneName ? NULL : @$_POST['index'];//NULL;
+$pattern = @$_POST['pattern'] == $utility->noneName ? NULL : @$_POST['pattern'];//NULL;
+$billingLastName = @$_POST['billingLastNAME'];//'Jørgensen';
+$email = //@$_POST['email'];//'rasmuskrj@gmail.com';
+$billingFirstName = @$_POST['billingFirstNAME'];//'Rasmus';
+$additionalStrap1 = @$_POST['additionalStrap1'] == $utility->noneName ? NULL : @$_POST['additionalStrap1'];//NULL;
+$additionalStrap2 = @$_POST['additionalStrap2'] == $utility->noneName ? NULL : @$_POST['additionalStrap2'];//NULL;
+$additionalStrap3 = @$_POST['additionalStrap3'] == $utility->noneName ? NULL : @$_POST['additionalStrap3'];//NULL;
+$additionalStrap4 = @$_POST['additionalStrap4'] == $utility->noneName ? NULL : @$_POST['additionalStrap4'];//NULL;
+$additionalStrap5 = @$_POST['additionalStrap5'] == $utility->noneName ? NULL : @$_POST['additionalStrap5'];//NULL;
+$billingAddress = @$_POST['billingAddress'];//'Amagerbrogade 136, 3.th';
+$case = @$_POST['case'];//'Gun metal';
+$numerals = @$_POST['numerals'] == $utility->noneName ? NULL : @$_POST['numerals'];//NULL;
+$approvalCode = @$_POST['approvalcode'];//'123456';
+$statusCode = @$_POST['statuscode'];//'2';
 
 
 /**
@@ -57,8 +57,6 @@ $parameter_string .= '&currency=' . $currency;
 
 $correctKey = $utility->generateMD5($parameter_string);
 
-echo $dibsAuthKey . "<br>";
-echo $correctKey . "<br>";
 
 if(strcmp($correctKey, $dibsAuthKey) != 0){
     die("Authentication Key is not valid");
@@ -104,48 +102,5 @@ $stmt->bind_param('sisiiissssssssssssssiisssss', $orderId, $amount, $currency, $
     $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
 
 
-$stmt->execute();
+//$stmt->execute();
 
-//$result = $con->query($sql);
-
-//if($result->num_rows < 1 && $orderId != NULL) {
-    /*$query = $db->prepareQuery("INSERT INTO orders (
-order_id,
-amount,
-currency,
-DIBS_transact,
-DIBS_approvalcode,
-DIBS_statuscode,
-first_name,
-last_name,
-address,
-postalcode,
-city,
-email,
-country,
-watch_case,
-hands,
-strap,
-dial,
-watch_index,
-numerals,
-pattern,
-invert_pattern,
-pattern_rotation,
-additional_strap_1,
-additional_strap_2,
-additional_strap_3,
-additional_strap_4,
-additional_strap_5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-        $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
-    //var_dump($query);
-    //$con->query($query);
-
-
-if ($con->query($query) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $query . "<br>" . $con->error;
-}*/
-//}
