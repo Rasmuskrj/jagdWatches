@@ -64,7 +64,7 @@ class Database {
                     }
                     else
                     {
-                        $QuerySafeString = "'" . mysqli_escape_string($NextParameter) . "'";
+                        $QuerySafeString = "'" . mysql_real_escape_string($NextParameter) . "'";
                     }
 
                     $Query = substr_replace($Query, $QuerySafeString, $PlaceToInsertParameter, 1);
