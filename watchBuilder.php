@@ -47,40 +47,32 @@ include("phpScripts/Preprocessing.php");
             dials = [],
             indices = [],
             numerals = [],
-            patterns = [];
+            patterns = [],
+            markers = [];
         <?php
             foreach($watchCaseThumbnails as $thumbnail) {
                 echo "cases.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
             }
-        ?>
-        <?php
             foreach($watchStrapsThumbnails as $thumbnail) {
                 echo "straps.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
             }
-        ?>
-        <?php
             foreach($watchHandsThumbnails as $thumbnail) {
                 echo "hands.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
             }
-        ?>
-        <?php
             foreach($watchDialThumbnails as $thumbnail) {
                 echo "dials.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
             }
-        ?>
-        <?php
             foreach($patternThumbnails as $thumbnail) {
                 echo "patterns.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
             }
-        ?>
-        <?php
             foreach($watchNumeralsThumbnails as $thumbnail) {
                 echo "numerals.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
             }
-        ?>
-        <?php
             foreach($watchIndexThumbnails as $thumbnail) {
                 echo "indices.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
+            }
+            foreach($watchMarkerThumbnails as $thumbnail) {
+                echo "markers.push('" . pathinfo($thumbnail,PATHINFO_FILENAME) . "');\n\t\t";
             }
         ?>
     </script>
@@ -141,35 +133,31 @@ include("phpScripts/Preprocessing.php");
             </section>
 
             <div class="watchContainer">
-                <div class="watchHeader">
-                    <span><b>YOUR ORDER:</b></span><br>
-                    <span class="grey editButton">Edit</span>
-                </div>
                 <div class="watchElementContainer">
                     <?php
                     foreach($watchStrapMains as $main){
-                        echo "<img src='$main' class='watchStrap watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchStrap watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
                 <div class="watchElementContainer">
                     <?php
                     foreach($watchCaseMains as $main){
-                        echo "<img src='$main' class='watchCase watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchCase watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
                 <div class="watchElementContainer">
                     <?php
                     foreach($watchDialMains as $main){
-                        echo "<img src='$main' class='watchDial watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchDial watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
                 <div class="watchElementContainer">
                     <?php
                     foreach($watchHandsMains as $main){
-                        echo "<img src='$main' class='watchHands watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchHands watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
@@ -183,14 +171,21 @@ include("phpScripts/Preprocessing.php");
                 <div class="watchElementContainer">
                     <?php
                     foreach($watchNumeralsMains as $main){
-                        echo "<img src='$main' class='watchNumerals watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchNumerals watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
                 <div class="watchElementContainer">
                     <?php
                     foreach($watchIndexMains as $main){
-                        echo "<img src='$main' class='watchIndex watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchIndex watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                    }
+                    ?>
+                </div>
+                <div class="watchElementContainer">
+                    <?php
+                    foreach($watchMarkerMains as $main){
+                        echo "<img src='$main' class='watchMarker watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
@@ -212,12 +207,14 @@ include("phpScripts/Preprocessing.php");
                             --><p class="partDescription grey"></p>
 
                         </div>
-                        <div class="thumbnails thumbnailsLeft hScrollable">
+                        <div class="thumbnails thumbnailsLeft">
+                            <span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='images/WatchBuilder/Misc/Arrow%20main.png' class='watchCaseThumbnail arrow leftArrow thumbnail leftSideThumbnail'></span></span>
                             <?php
                             foreach($watchCaseThumbnails as $thumbnail){
                                 echo "<span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='$thumbnail' class='watchCaseThumbnail thumbnail leftSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'></span></span>";
                             }
                             ?>
+                            <span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='images/WatchBuilder/Misc/Arrow%20main.png' class='watchCaseThumbnail arrow rightArrow thumbnail leftSideThumbnail'></span></span>
                         </div>
                     </div>
                     <div class="selectStrap leftSideSelector">
@@ -237,12 +234,14 @@ include("phpScripts/Preprocessing.php");
                         <div class="selectorHeader leftSideSelectorHeader">
                             <p class="watchBuilderText">HANDS COLOR</p><p class="partDescription grey"></p>
                         </div>
-                        <div class="thumbnails thumbnailsLeft hScrollable">
+                        <div class="thumbnails thumbnailsLeft">
+                            <span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='images/WatchBuilder/Misc/Arrow%20main.png' class='watchHandsThumbnail arrow leftArrow thumbnail leftSideThumbnail'></span></span>
                             <?php
                             foreach($watchHandsThumbnails as $thumbnail){
                                 echo "<span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='$thumbnail' class='watchHandsThumbnail thumbnail leftSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'></span></span>";
                             }
                             ?>
+                            <span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='images/WatchBuilder/Misc/Arrow%20main.png' class='watchHandsThumbnail arrow rightArrow thumbnail leftSideThumbnail'></span></span>
                         </div>
                     </div>
                     <div class="selectDial rightSideSelector">
@@ -285,24 +284,42 @@ include("phpScripts/Preprocessing.php");
                         <div class="selectorHeader leftSideSelectorHeader">
                             <p class="watchBuilderText">INDEX</p><p class="partDescription grey"></p>
                         </div>
-                        <div class="thumbnails thumbnailsLeft hScrollable">
+                        <div class="thumbnails thumbnailsLeft">
+                            <span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='images/WatchBuilder/Misc/Arrow%20main.png' class='watchIndexThumbnail arrow leftArrow thumbnail leftSideThumbnail'></span></span>
                             <?php
                             foreach($watchIndexThumbnails as $thumbnail){
                                 echo "<span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='$thumbnail' class='watchIndexThumbnail thumbnail leftSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'></span></span>";
                             }
                             ?>
+                            <span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='images/WatchBuilder/Misc/Arrow%20main.png' class='watchIndexThumbnail arrow rightArrow thumbnail leftSideThumbnail'></span></span>
                         </div>
                     </div>
                     <div class="selectNumerals leftSideSelector">
                         <div class="selectorHeader leftSideSelectorHeader">
                             <p class="watchBuilderText">NUMERALS</p><p class="partDescription grey"></p>
                         </div>
-                        <div class="thumbnails thumbnailsLeft hScrollable">
+                        <div class="thumbnails thumbnailsLeft ">
+                            <span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='images/WatchBuilder/Misc/Arrow%20main.png' class='watchNumeralsThumbnail arrow leftArrow thumbnail leftSideThumbnail'></span></span>
                             <?php
                             foreach($watchNumeralsThumbnails as $thumbnail){
                                 echo "<span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='$thumbnail' class='watchNumeralsThumbnail thumbnail leftSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'></span></span>";
                             }
                             ?>
+                            <span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='images/WatchBuilder/Misc/Arrow%20main.png' class='watchNumeralsThumbnail arrow rightArrow thumbnail leftSideThumbnail'></span></span>
+                        </div>
+                    </div>
+                    <div class="selectMarker leftSideSelector">
+                        <div class="selectorHeader leftSideSelectorHeader">
+                            <p class="watchBuilderText">MARKER</p><p class="partDescription grey"></p>
+                        </div>
+                        <div class="thumbnails thumbnailsLeft">
+                            <span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='images/WatchBuilder/Misc/Arrow%20main.png' class='watchNumeralsThumbnail arrow leftArrow thumbnail leftSideThumbnail'></span></span>
+                            <?php
+                            foreach($watchMarkerThumbnails as $thumbnail){
+                                echo "<span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='$thumbnail' class='watchMarkerThumbnail thumbnail leftSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'></span></span>";
+                            }
+                            ?>
+                            <span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='images/WatchBuilder/Misc/Arrow%20main.png' class='watchNumeralsThumbnail arrow rightArrow thumbnail leftSideThumbnail'></span></span>
                         </div>
                     </div>
                     <div class="selectPattern rightSideSelector">
@@ -351,6 +368,7 @@ include("phpScripts/Preprocessing.php");
                         <span class="dialTitle partTitle"><b>Dial:</b></span><span class="dialValue"></span><br>
                         <span class="indexTitle partTitle"><b>Index:</b></span><span class="indexValue"></span><br>
                         <span class="numeralsTitle partTitle"><b>Numerals:</b></span><span class="numeralsValue"></span><br>
+                        <span class="markerTitle partTitle"><b>Numerals:</b></span><span class="markerValue"></span><br>
                         <span class="patternTitle partTitle"><b>Pattern:</b></span><span class="patternValue"></span>
                         <span class="invertedTitle partTitle"><b>Inverted:</b></span><span class="invertedValue">No</span>
                         <span class="rotationTitle partTitle"><b>Rotation:</b></span><span class="rotationValue">0 degrees</span>
@@ -383,6 +401,10 @@ include("phpScripts/Preprocessing.php");
 
             <section class="buyStep1">
                 <div class="builderContent">
+                    <div class="watchHeader">
+                        <span><b>YOUR ORDER:</b></span><br>
+                        <span class="grey editButton">Edit</span>
+                    </div>
 
                     <div class="watchRecap buyStepContent">
                         <div class="row">
@@ -564,28 +586,28 @@ include("phpScripts/Preprocessing.php");
         <div class="watchElementContainer">
             <?php
             foreach($watchStrapMains as $main){
-                echo "<img src='$main' class='watchStrap watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                echo "<img src='$main' class='watchStrap watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
             }
             ?>
         </div>
         <div class="watchElementContainer">
             <?php
             foreach($watchCaseMains as $main){
-                echo "<img src='$main' class='watchCase watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                echo "<img src='$main' class='watchCase watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
             }
             ?>
         </div>
         <div class="watchElementContainer">
             <?php
             foreach($watchDialMains as $main){
-                echo "<img src='$main' class='watchDial watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                echo "<img src='$main' class='watchDial watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
             }
             ?>
         </div>
         <div class="watchElementContainer">
             <?php
             foreach($watchHandsMains as $main){
-                echo "<img src='$main' class='watchHands watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                echo "<img src='$main' class='watchHands watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
             }
             ?>
         </div>
@@ -599,14 +621,21 @@ include("phpScripts/Preprocessing.php");
         <div class="watchElementContainer">
             <?php
             foreach($watchNumeralsMains as $main){
-                echo "<img src='$main' class='watchNumerals watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                echo "<img src='$main' class='watchNumerals watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
             }
             ?>
         </div>
         <div class="watchElementContainer">
             <?php
             foreach($watchIndexMains as $main){
-                echo "<img src='$main' class='watchIndex watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                echo "<img src='$main' class='watchIndex watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+            }
+            ?>
+        </div>
+        <div class="watchElementContainer">
+            <?php
+            foreach($watchMarkerMains as $main){
+                echo "<img src='$main' class='watchMarker watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
             }
             ?>
         </div>

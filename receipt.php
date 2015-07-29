@@ -66,35 +66,31 @@
         <div class="builderInnerContainer centeredContent">
 
             <div class="watchContainer receiptPosition">
-                <div class="watchHeader">
-                    <span><b>YOUR ORDER:</b></span><br>
-                    <span class="orderNoSmall grey">Order number: <?php echo $orderId; ?></span>
-                </div>
                 <div class="watchElementContainer">
                     <?php
                     foreach($strapSrc as $main){
-                        echo "<img src='$main' class='watchStrap watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchStrap watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
                 <div class="watchElementContainer">
                     <?php
                     foreach($caseSrc as $main){
-                        echo "<img src='$main' class='watchCase watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchCase watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
                 <div class="watchElementContainer">
                     <?php
                     foreach($dialSrc as $main){
-                        echo "<img src='$main' class='watchDial watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchDial watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
                 <div class="watchElementContainer">
                     <?php
                     foreach($handsSrc as $main){
-                        echo "<img src='$main' class='watchHands watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchHands watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
@@ -108,21 +104,32 @@
                 <div class="watchElementContainer">
                     <?php
                     foreach($numeralsSrc as $main){
-                        echo "<img src='$main' class='watchNumerals watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchNumerals watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
                 <div class="watchElementContainer">
                     <?php
                     foreach($indexSrc as $main){
-                        echo "<img src='$main' class='watchIndex watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                        echo "<img src='$main' class='watchIndex watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                    }
+                    ?>
+                </div>
+                <div class="watchElementContainer">
+                    <?php
+                    foreach($markerSrc as $main){
+                        echo "<img src='$main' class='watchMarker watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                     }
                     ?>
                 </div>
             </div>
 
-            <section class="buyStep1">
+            <section class="buyStep1 receiptMainContent">
                 <div class="builderContent">
+                    <div class="watchHeader">
+                        <span><b>YOUR ORDER:</b></span><br>
+                        <span class="orderNoSmall grey">Order number: <?php echo $orderId; ?></span>
+                    </div>
                     <div class="customerInfo">
                         <div class="orderNo row">
                             <b>Order number: <?php echo $orderId ?></b>

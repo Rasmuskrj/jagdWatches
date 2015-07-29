@@ -11,7 +11,7 @@ include('JagdUtility.php');
 
 $util = new JagdUtility();
 
-$util->getFolderPaths($watchCaseFolder, $watchCaseMainFolder, $watchStrapFolder, $watchStrapMainFolder, $watchHandsFolder, $watchHandsMainFolder, $watchDialFolder, $watchDialMainFolder, $patternFolder, $patternMainFolder, $watchNumeralsFolder, $watchIndexFolder, $watchIndexMainFolder);
+$util->getFolderPaths($watchCaseFolder, $watchCaseMainFolder, $watchStrapFolder, $watchStrapMainFolder, $watchHandsFolder, $watchHandsMainFolder, $watchDialFolder, $watchDialMainFolder, $patternFolder, $patternMainFolder, $watchNumeralsFolder, $watchNumeralsMainFolder, $watchIndexFolder, $watchIndexMainFolder, $watchMarkerFolder, $watchMarkerMainFolder);
 
 $imgType = "png";
 $noneName = $util->noneName;
@@ -25,6 +25,7 @@ $stateKeys = array(
     "dial",
     "index",
     "numerals",
+    "marker",
     "pattern",
     "currentScreen",
     "lastScreen",
@@ -63,8 +64,9 @@ if($state['invertPattern'] == 'true'){
 } else {
     $patternSrc = glob($patternMainFolder  . $state['pattern']. "." . $imgType);
 }
-$numeralsSrc = glob($watchNumeralsFolder  . $state['numerals']. "." . $imgType);
+$numeralsSrc = glob($watchNumeralsMainFolder  . $state['numerals']. "." . $imgType);
 $indexSrc = glob($watchIndexMainFolder  . $state['index']. "." . $imgType);
+$markerSrc = glob($watchMarkerMainFolder . $state['marker'] . "." . $imgType);
 
 /**
  * Find the correct price

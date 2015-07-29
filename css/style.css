@@ -1069,9 +1069,11 @@ body, html {
 .watchContainer {
     position: absolute;
     top: 15px;
-    left: 295px;
-    width: 396px;
+    left: 274px;
+    width: 448px;
     height: 100%;
+
+    overflow-y: hidden;
 
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
@@ -1080,12 +1082,16 @@ body, html {
     transition: all .5s;
 }
 
+.largeWatchElement {
+    top: -70%;
+}
+
+
 .watchHeader {
     position: absolute;
-    top: -60px;
-    left: 51px;
+    top: 25px;
+    left: 170px;
     line-height: 25px;
-    display: none;
     z-index: 1050;
 }
 
@@ -1104,7 +1110,8 @@ body, html {
 
 .watchElement {
     position: absolute;
-    width: 100%;
+    width: 70%;
+    left: 15%;
 }
 
 .watchStrap {
@@ -1113,18 +1120,32 @@ body, html {
 
 .watchElement.watchPattern {
     z-index: 1003;
-    border-radius: 50%;
-    width: 76%;
-    top: 23%;
-    left: 12%;
+    left: 19%;
+    top: 25%;
+    width: 63%;
 }
 
-.watchContainer.buyPosition {
+.watchElement.step2WatchElement {
+    left: 21%;
+    top: 27%;
+    width: 59%;
+}
+
+/*.watchContainer.buyPosition {
     left: 2px;
     width: 250px;
     top: 122px;
     height: 64%;
+}*/
+
+.watchContainer.buyPosition {
+    -webkit-transform: translateX(-257px) translateY(-16px) scaleX(0.7) scaleY(0.7);
+    -moz-transform: translateX(-257px) translateY(-16px) scaleX(0.7) scaleY(0.7);
+    -ms-transform: translateX(-257px) translateY(-16px) scaleX(0.7) scaleY(0.7);
+    -o-transform: translateX(-257px) translateY(-16px) scaleX(0.7) scaleY(0.7);
+    transform: translateX(-257px) translateY(-16px) scaleX(0.7) scaleY(0.7);
 }
+
 
 .watchContainer.buyPosition .chooseArrowLeft {
     display: none;
@@ -1138,7 +1159,7 @@ body, html {
 .chooseArrowLeft {
     position: absolute;
     top: 218px;
-    left: -45px;
+    left: 0;
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
@@ -1151,7 +1172,7 @@ body, html {
 .chooseArrowRight {
     position: absolute;
     top: 231px;
-    left: 399px;
+    left: 390px;
     cursor: pointer;
     z-index: 1100;
 }
@@ -1173,6 +1194,10 @@ body, html {
 }
 
 .watchNumerals {
+    z-index: 1005;
+}
+
+.watchMarker {
     z-index: 1005;
 }
 
@@ -1267,6 +1292,7 @@ body, html {
 
 .thumbnail.rightSideThumbnail{
     width: 111px;
+    height: auto;
 }
 
 .rightSideSelector .thumbnails{
@@ -1279,8 +1305,8 @@ body, html {
 }
 
 .thumbnail {
-    width: 35px;
-    height: auto;
+    width: auto;
+    height: 44px;
     display: inline-block;
     border: solid;
     border-color: #000000;
@@ -1300,8 +1326,29 @@ body, html {
 }
 
 .thumbnail.watchStrapThumbnail {
-    width: 68px;
+    width: 50px;
+    height: auto;
 }
+
+.watchDialThumbnail,
+.watchHandsThumbnail {
+    border: none;
+}
+
+
+.leftArrow {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.arrow {
+    border: none;
+    cursor: pointer;
+}
+
 
 .selectCaseColor{
     position: absolute;
@@ -1326,6 +1373,11 @@ body, html {
 .selectIndex {
     position: absolute;
     top: 20px;
+}
+
+.selectMarker {
+    position: absolute;
+    top: 387px;
 }
 
 .selectNumerals {
@@ -1603,6 +1655,7 @@ a.fancybox {
 .checkoutForm.buyStepContent {
     border-collapse: separate;
     border-spacing: 10px 17px;
+    top: -10px;
 }
 
 .checkoutForm .paymentButton {
@@ -1720,12 +1773,21 @@ a.fancybox {
 .fullViewContainer .watchElement {
     height: 100%;
     width: auto;
+    top: 0;
+    left: 35%;
+}
+
+.fullViewContainer .watchElement.step2WatchElement {
+    width: 21%;
+    height: auto;
+    top: 181px;
+    left: 37%;
 }
 
 .fullViewContainer .watchElement.watchPattern {
-    height: 270px;
-    top: 129px;
-    left: 66px;
+    height: 93px;
+    top: 176px;
+    left: 144px;
 }
 
 .ui-dialog {
@@ -1769,15 +1831,24 @@ a.fancybox {
 /* receipt                 */
 /**************************/
 
-.watchContainer.receiptPosition{
+/*.watchContainer.receiptPosition{
     left: 0;
     width: 250px;
     top: 265px;
     height: 64%;
+}*/
+
+.watchContainer.receiptPosition {
+    -webkit-transform: translateX(-415px) translateY(160px) scaleX(0.7) scaleY(0.7);
+    -moz-transform: translateX(-415px) translateY(160px) scaleX(0.7) scaleY(0.7);
+    -ms-transform: translateX(-415px) translateY(160px) scaleX(0.7) scaleY(0.7);
+    -o-transform: translateX(-415px) translateY(160px) scaleX(0.7) scaleY(0.7);
+    transform: translateX(-415px) translateY(160px) scaleX(0.7) scaleY(0.7);
 }
 
-.watchContainer.receiptPosition .watchHeader {
-    display: inherit;
+.receiptMainContent .watchHeader {
+    left: 0;
+    top: 208px;
 }
 
 .watchRecap.buyStepContent.receiptPosition {

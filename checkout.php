@@ -89,35 +89,31 @@ include('phpScripts/checkoutPreprocessing.php');
 
 
         <div class="watchContainer buyPosition">
-            <div class="watchHeader">
-                <span><b>YOUR ORDER:</b></span><br>
-                <a href="watchBuilder.php"><span class="grey editButton">Edit</span></a>
-            </div>
             <div class="watchElementContainer">
                 <?php
                 foreach($strapSrc as $main){
-                    echo "<img src='$main' class='watchStrap watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                    echo "<img src='$main' class='watchStrap watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                 }
                 ?>
             </div>
             <div class="watchElementContainer">
                 <?php
                 foreach($caseSrc as $main){
-                    echo "<img src='$main' class='watchCase watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                    echo "<img src='$main' class='watchCase watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                 }
                 ?>
             </div>
             <div class="watchElementContainer">
                 <?php
                 foreach($dialSrc as $main){
-                    echo "<img src='$main' class='watchDial watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                    echo "<img src='$main' class='watchDial watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                 }
                 ?>
             </div>
             <div class="watchElementContainer">
                 <?php
                 foreach($handsSrc as $main){
-                    echo "<img src='$main' class='watchHands watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                    echo "<img src='$main' class='watchHands watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                 }
                 ?>
             </div>
@@ -131,14 +127,21 @@ include('phpScripts/checkoutPreprocessing.php');
             <div class="watchElementContainer">
                 <?php
                 foreach($numeralsSrc as $main){
-                    echo "<img src='$main' class='watchNumerals watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                    echo "<img src='$main' class='watchNumerals watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                 }
                 ?>
             </div>
             <div class="watchElementContainer">
                 <?php
                 foreach($indexSrc as $main){
-                    echo "<img src='$main' class='watchIndex watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                    echo "<img src='$main' class='watchIndex watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($markerSrc as $main){
+                    echo "<img src='$main' class='watchMarker watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
                 }
                 ?>
             </div>
@@ -187,7 +190,10 @@ include('phpScripts/checkoutPreprocessing.php');
 
         <section class="buyStep1">
             <div class="builderContent">
-
+                <div class="watchHeader">
+                    <span><b>YOUR ORDER:</b></span><br>
+                    <a href="watchBuilder.php"><span class="grey editButton">Edit</span></a>
+                </div>
                 <div class="buyStepContent checkoutForm">
                     <form class="paymentForm" <?php if(!$validPromotionCode) {echo 'action="https://payment.architrade.com/paymentweb/start.action"';} else {echo 'action="receipt.php"';} ?> method="POST" charset="UTF-8">
                         <div>

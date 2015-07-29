@@ -12,7 +12,7 @@ $dataBase = new Database();
 $db = $dataBase->getConnection();
 $util = new JagdUtility();
 
-$util->getFolderPaths($watchCaseFolder, $watchCaseMainFolder, $watchStrapFolder, $watchStrapMainFolder, $watchHandsFolder, $watchHandsMainFolder, $watchDialFolder, $watchDialMainFolder, $patternFolder, $patternMainFolder, $watchNumeralsFolder, $watchIndexFolder, $watchIndexMainFolder);
+$util->getFolderPaths($watchCaseFolder, $watchCaseMainFolder, $watchStrapFolder, $watchStrapMainFolder, $watchHandsFolder, $watchHandsMainFolder, $watchDialFolder, $watchDialMainFolder, $patternFolder, $patternMainFolder, $watchNumeralsFolder, $watchNumeralsMainFolder, $watchIndexFolder, $watchIndexMainFolder, $watchMarkerFolder, $watchMarkerMainFolder);
 $imgType = "png";
 
 $orderId = @$_POST['orderid'];
@@ -56,6 +56,7 @@ if($validPromotionCode) {
     $billingAddress = @$_POST['billingAddress'];//'Amagerbrogade 136, 3.th';
     $case = @$_POST['case'];//'Gun metal';
     $numerals = @$_POST['numerals'] == $util->noneName ? NULL : @$_POST['numerals'];//NULL;
+    $marker = @$_POST['marker'] == $util->noneName ? NULL : @$_POST['marker'];
     $approvalCode = @$_POST['approvalcode'];//'123456';
     $statusCode = @$_POST['statuscode'];//'2';
     $billingFirstName = $util->checkEncoding($billingFirstName);
@@ -97,20 +98,20 @@ if($validPromotionCode) {
 
     if($orderIdExists) {
         $stmt = $db->prepare("UPDATE orders SET amount=?, currency=?, DIBS_transact=?, DIBS_approvalcode=?, DIBS_statuscode=?, first_name=?, last_name=?, address=?, postalcode=?, city=?,
-                                      email=?, country=?, watch_case=?, hands=?, strap=?, dial=?, watch_index=?, numerals=?, pattern=?, invert_pattern=?, pattern_rotation=?, additional_strap_1=?,
+                                      email=?, country=?, watch_case=?, hands=?, strap=?, dial=?, watch_index=?, numerals=?, marker=?, pattern=?, invert_pattern=?, pattern_rotation=?, additional_strap_1=?,
                                        additional_strap_2=?, additional_strap_3=?, additional_strap_4=?, additional_strap_5=? promotion_code=? WHERE order_id=?;");
         echo $stmt->error;
         echo $db->error;
-        $stmt->bind_param('isiiissssssssssssssiisssssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-            $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promotionCode, $orderId);
+        $stmt->bind_param('isiiisssssssssssssssiissssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+            $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promotionCode, $orderId);
     } else {
         $stmt = $db->prepare("INSERT INTO orders (order_id,amount,currency,DIBS_transact,DIBS_approvalcode,DIBS_statuscode,first_name,last_name,address,postalcode,city,email,country,watch_case,
-                                hands,strap,dial,watch_index,numerals,pattern,invert_pattern,pattern_rotation,additional_strap_1,additional_strap_2,additional_strap_3,additional_strap_4,additional_strap_5, promotion_code)
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                hands,strap,dial,watch_index,numerals,marker,pattern,invert_pattern,pattern_rotation,additional_strap_1,additional_strap_2,additional_strap_3,additional_strap_4,additional_strap_5, promotion_code)
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 
-        $stmt->bind_param('sisiiissssssssssssssiissssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-            $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promotionCode);
+        $stmt->bind_param('sisiiisssssssssssssssiissssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+            $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promotionCode);
 
         $message = "Hi $billingFirstName $billingLastName
 Thank you for choosing Jagd Watches.
@@ -129,6 +130,7 @@ Strap:              $strap
 Dial:               $dial
 Index:              " . ($index == null ? $util->noneName : $index) . "
 Numerals:           " . ($numerals == null ? $util->noneName : $numerals) . "
+Marker:             " . ($marker == null ? $util->noneName : $marker) . "
 Pattern:            " . ($pattern == null ? $util->noneName : $pattern) . "
 Pattern inverted:   " . ($invertPattern == 0 ? 'No' : 'Yes') . "
 Pattern rotation:   $patternRotation
@@ -177,7 +179,7 @@ $stmt2->bind_param('s', $orderId);
 
 $stmt2->execute();
 $stmt2->bind_result($id, $orderId, $amountTotal, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-    $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promoCode, $shipped, $received);
+    $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promoCode, $shipped, $received);
 
 echo $stmt2->error;
 
@@ -211,8 +213,10 @@ if($invertPattern == 1){
 } else {
     $patternSrc = glob($patternMainFolder  . $pattern. "." . $imgType);
 }
-$numeralsSrc = glob($watchNumeralsFolder  . $numerals. "." . $imgType);
+$numeralsSrc = glob($watchNumeralsMainFolder  . $numerals. "." . $imgType);
 $indexSrc = glob($watchIndexMainFolder  . $index. "." . $imgType);
+$markerSrc = glob($watchMarkerMainFolder . $marker . "." . $imgType);
+
 
 /**
  * Find the correct price

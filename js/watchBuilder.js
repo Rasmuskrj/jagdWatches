@@ -31,11 +31,12 @@ WatchBuilder = (function($) {
 
         state: {
             case: 'Gun metal',
-            hands: 'Black',
-            straps: 'Croco black',
+            hands: 'Hands black',
+            straps: 'Aligator',
             dial: 'Bamboo',
             index: 'None',
             numerals: 'None',
+            marker: 'None',
             pattern: 'None',
             currentScreen: 'intro',
             lastScreen: 'intro',
@@ -124,6 +125,7 @@ WatchBuilder = (function($) {
             self.el.selectStrap = $('.selectStrap');
             self.el.selectHands = $('.selectHands');
             self.el.selectDial = $('.selectDial');
+            self.el.selectMarker = $('.selectMarker');
             self.el.watchPattern = $('.watchPattern');
             self.el.fullViewButton = $('#fullViewButton');
             self.el.patternRotationSlider = $('.patternRotatorSlider');
@@ -140,6 +142,7 @@ WatchBuilder = (function($) {
             self.el.partRecapDial = $('.dialValue');
             self.el.partRecapIndex = $('.indexValue');
             self.el.partRecapNumerals = $('.numeralsValue');
+            self.el.partRecapMarker = $('.markerValue');
             self.el.partRecapPattern = $('.patternValue');
             self.el.partRecapInverted = $('.invertedValue');
             self.el.partRecapRotation = $('.rotationValue');
@@ -166,6 +169,7 @@ WatchBuilder = (function($) {
             self.partLists.indices = indices;
             self.partLists.numerals = numerals;
             self.partLists.patterns = patterns;
+            self.partLists.markers = markers;
             self.el.additionalStrapsButton = $('.additionalStrapModalButton');
             self.el.additionalStrapsDialog = $('#additionalStrapDialog');
             self.el.clearButtons = $('.clearButton');
@@ -189,13 +193,14 @@ WatchBuilder = (function($) {
 
             self.el.startButton.on('click', self.enterStep1);
             self.el.step2Button.on('click', self.enterStep2);
-            self.bindSelectorEvents('.selectCaseColor', '.watchCase');
-            self.bindSelectorEvents('.selectStrap', '.watchStrap');
-            self.bindSelectorEvents('.selectHands', '.watchHands');
-            self.bindSelectorEvents('.selectDial', '.watchDial');
-            self.bindSelectorEvents('.selectIndex', '.watchIndex');
-            self.bindSelectorEvents('.selectNumerals', '.watchNumerals');
-            self.bindSelectorEvents('.selectPattern', '.watchPattern');
+            self.bindSelectorEvents('.selectCaseColor', '.watchCase', true, self.partLists.cases);
+            self.bindSelectorEvents('.selectStrap', '.watchStrap', false, self.partLists.straps);
+            self.bindSelectorEvents('.selectHands', '.watchHands', true, self.partLists.hands);
+            self.bindSelectorEvents('.selectDial', '.watchDial', false);
+            self.bindSelectorEvents('.selectIndex', '.watchIndex', true, self.partLists.indices);
+            self.bindSelectorEvents('.selectNumerals', '.watchNumerals', true, self.partLists.numerals);
+            self.bindSelectorEvents('.selectPattern', '.watchPattern', false);
+            self.bindSelectorEvents('.selectMarker', '.watchMarker', true, self.partLists.markers);
             self.el.backButton.on('click', function(){
                 if(self.state.lastScreen == 'intro' || self.state.currentScreen == 'step1'){
                     self.enterIntro();
@@ -416,67 +421,111 @@ WatchBuilder = (function($) {
             self.positionFooter();
         },
 
-        bindSelectorEvents: function(container, target){
+        bindSelectorEvents: function(container, target, arrowSelect, partArray){
             var self = builder;
-            $(container + ' > .thumbnails > .thumbnailContainer > .thumbnailInnerContainer > .thumbnail').each(function(index){
-                var partType = $(this).data('parttype');
-                $(this).on('click', function(e){
-                    e.preventDefault();
-                    $(container).find('.selected').each(function(){
-                        $(this).removeClass('selected');
-                    });
-                    $(container + ' > .selectorHeader > .partDescription').text(partType);
-                    $(this).parent().addClass('selected');
-                    //$(this).addClass('selected');
-                    $(target).each(function(index){
-                        if($(this).data('parttype') == partType && !(self.state.invertPattern && target == '.watchPattern') || self.state.invertPattern && $(this).data('parttype') == partType + " INV"){
-                            $(this).show();
-                        } else {
-                            $(this).hide();
+            $(container + ' > .thumbnails > .thumbnailContainer > .thumbnailInnerContainer > .thumbnail').each(function(index) {
+                if ($(this).hasClass('arrow')) {
+                    $(this).on('click', function (e) {
+                        e.preventDefault();
+                        var index = 0;
+                        if($(this).hasClass('leftArrow')) {
+                            for(var i = 0; 0 < partArray.length; i++){
+                                if(partArray[i] == $(container + ' > .selectorHeader > .partDescription').text()){
+                                    index = i - 1;
+                                    break;
+                                }
+                            }
+                            if(index < 0) {
+                                index = partArray.length - 1;
+                            }
+                        } else if($(this).hasClass('rightArrow')){
+                            for(var i = 0; 0 < partArray.length; i++){
+                                if(partArray[i] == $(container + ' > .selectorHeader > .partDescription').text()){
+                                    index = i + 1;
+                                    break;
+                                }
+                            }
+                            if(index > partArray.length - 1) {
+                                index = 0;
+                            }
                         }
+                        $(container + " img[data-parttype='" + partArray[index] + "']").trigger('click');
                     });
-                    switch (container) {
-                        case '.selectCaseColor':
-                            self.state.case = partType;
-                            self.el.partRecapCase.html(partType);
-                            Cookies.set('case', partType, {expires: 30, path: '/'});
-                            break;
-                        case '.selectStrap':
-                            self.state.straps = partType;
-                            self.el.partRecapStrap.html(partType);
-                            Cookies.set('straps', partType, {expires: 30, path: '/'});
-                            break;
-                        case '.selectHands':
-                            self.state.hands = partType;
-                            self.el.partRecapHands.html(partType);
-                            Cookies.set('hands', partType, {expires: 30, path: '/'});
-                            break;
-                        case '.selectDial':
-                            self.state.dial = partType;
-                            self.el.partRecapDial.html(partType);
-                            Cookies.set('dial', partType, {expires: 30, path: '/'});
-                            break;
-                        case '.selectIndex':
-                            self.state.index = partType;
-                            self.el.partRecapIndex.html(partType);
-                            Cookies.set('index', partType, {expires: 30, path: '/'});
-                            break;
-                        case '.selectNumerals':
-                            self.state.numerals = partType;
-                            self.el.partRecapNumerals.html(partType);
-                            Cookies.set('numerals', partType, {expires: 30, path: '/'});
-                            break;
-                        case '.selectPattern':
-                            self.state.pattern = partType;
-                            self.el.partRecapPattern.html(partType);
-                            Cookies.set('pattern', partType, {expires: 30, path: '/'});
-                            break;
-                        default:
-                            console.log("Error: State not changed");
-                    }
-                    self.updatePrice();
-                });
-
+                } else {
+                    var partType = $(this).data('parttype');
+                    $(this).on('click', function (e) {
+                        e.preventDefault();
+                        if(!arrowSelect) {
+                            $(container).find('.selected').each(function () {
+                                $(this).removeClass('selected');
+                            });
+                            $(this).parent().addClass('selected');
+                        } else {
+                            console.log($(container));
+                            $(container + ' > .thumbnails > .thumbnailContainer').each(function() {
+                                var child = $(this).find('.thumbnail');
+                                if(!child.hasClass('arrow')){
+                                    console.log(child);
+                                    $(this).hide();
+                                }
+                            });
+                            $(this).closest('.thumbnailContainer').show();
+                        }
+                        $(container + ' > .selectorHeader > .partDescription').text(partType);
+                        $(target).each(function (index) {
+                            if ($(this).data('parttype') == partType && !(self.state.invertPattern && target == '.watchPattern') || self.state.invertPattern && $(this).data('parttype') == partType + " INV") {
+                                $(this).show();
+                            } else {
+                                $(this).hide();
+                            }
+                        });
+                        switch (container) {
+                            case '.selectCaseColor':
+                                self.state.case = partType;
+                                self.el.partRecapCase.html(partType);
+                                Cookies.set('case', partType, {expires: 30, path: '/'});
+                                break;
+                            case '.selectStrap':
+                                self.state.straps = partType;
+                                self.el.partRecapStrap.html(partType);
+                                Cookies.set('straps', partType, {expires: 30, path: '/'});
+                                break;
+                            case '.selectHands':
+                                self.state.hands = partType;
+                                self.el.partRecapHands.html(partType);
+                                Cookies.set('hands', partType, {expires: 30, path: '/'});
+                                break;
+                            case '.selectDial':
+                                self.state.dial = partType;
+                                self.el.partRecapDial.html(partType);
+                                Cookies.set('dial', partType, {expires: 30, path: '/'});
+                                break;
+                            case '.selectIndex':
+                                self.state.index = partType;
+                                self.el.partRecapIndex.html(partType);
+                                Cookies.set('index', partType, {expires: 30, path: '/'});
+                                break;
+                            case '.selectNumerals':
+                                self.state.numerals = partType;
+                                self.el.partRecapNumerals.html(partType);
+                                Cookies.set('numerals', partType, {expires: 30, path: '/'});
+                                break;
+                            case '.selectPattern':
+                                self.state.pattern = partType;
+                                self.el.partRecapPattern.html(partType);
+                                Cookies.set('pattern', partType, {expires: 30, path: '/'});
+                                break;
+                            case '.selectMarker':
+                                self.state.marker = partType;
+                                self.el.partRecapMarker.html(partType);
+                                Cookies.set('marker', partType, {expires: 30, path: '/'});
+                                break;
+                            default:
+                                console.log("Error: State not changed");
+                        }
+                        self.updatePrice();
+                    });
+                }
             });
         },
 
@@ -533,6 +582,7 @@ WatchBuilder = (function($) {
             $(".selectIndex img[data-parttype='" + self.state.index + "']").trigger('click');
             $(".selectNumerals img[data-parttype='" + self.state.numerals + "']").trigger('click');
             $(".selectPattern img[data-parttype='" + self.state.pattern + "']").trigger('click');
+            $(".selectMarker img[data-parttype='" + self.state.marker + "']").trigger('click');
 
         },
         randomizeParts: function() {
@@ -545,6 +595,7 @@ WatchBuilder = (function($) {
             $(".selectIndex img[data-parttype='" + self.partLists.indices[Math.floor(self.partLists.indices.length * Math.random())] + "']").trigger('click');
             $(".selectNumerals img[data-parttype='" + self.partLists.numerals[Math.floor(self.partLists.numerals.length * Math.random())] + "']").trigger('click');
             $(".selectPattern img[data-parttype='" + self.partLists.patterns[Math.floor(self.partLists.patterns.length * Math.random())] + "']").trigger('click');
+            $(".selectMarker img[data-parttype='" + self.partLists.markers[Math.floor(self.partLists.markers.length * Math.random())] + "']").trigger('click');
         },
 
         formatPrice: function(number) {
@@ -592,7 +643,7 @@ WatchBuilder = (function($) {
 
             self.el.additionalStrapsDialog.dialog({
                 autoOpen: false,
-                height: 500,
+                height: 600,
                 width: 700,
                 modal: true,
                 buttons: [

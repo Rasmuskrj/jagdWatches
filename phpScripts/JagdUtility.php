@@ -31,7 +31,7 @@ class JagdUtility {
         return $dateStr . $rand;
     }
 
-    function getFolderPaths(&$watchCaseFolder, &$watchCaseMainFolder, &$watchStrapFolder, &$watchStrapMainFolder, &$watchHandsFolder, &$watchHandsMainFolder, &$watchDialFolder, &$watchDialMainFolder, &$patternFolder, &$patternMainFolder, &$watchNumeralsFolder, &$watchIndexFolder, &$watchIndexMainFolder){
+    function getFolderPaths(&$watchCaseFolder, &$watchCaseMainFolder, &$watchStrapFolder, &$watchStrapMainFolder, &$watchHandsFolder, &$watchHandsMainFolder, &$watchDialFolder, &$watchDialMainFolder, &$patternFolder, &$patternMainFolder, &$watchNumeralsFolder, &$watchNumeralsMainFolder, &$watchIndexFolder, &$watchIndexMainFolder, &$watchMarkerFolder, &$watchMarkerMainFolder){
         //Watch Case
         $watchCaseFolder = "images/WatchBuilder/WatchCase/Thumbnails/";
         $watchCaseMainFolder = "images/WatchBuilder/WatchCase/Main/";
@@ -48,10 +48,14 @@ class JagdUtility {
         $patternFolder = "images/WatchBuilder/Patterns/Thumbnails/";
         $patternMainFolder = "images/WatchBuilder/Patterns/Standard/";
         //Watch Numerals
-        $watchNumeralsFolder = "images/WatchBuilder/Numerals/";
+        $watchNumeralsFolder = "images/WatchBuilder/Numerals/Thumbnails/";
+        $watchNumeralsMainFolder = "images/WatchBuilder/Numerals/Main/";
         //Watch Index
         $watchIndexFolder = "images/WatchBuilder/Index/Thumbnails/";
         $watchIndexMainFolder = "images/WatchBuilder/Index/Main/";
+        //Watch Markers
+        $watchMarkerFolder = "images/WatchBuilder/Markers/Thumbnails/";
+        $watchMarkerMainFolder = "images/WatchBuilder/Markers/Main/";
     }
 
     public function checkEncoding($string) {

@@ -9,11 +9,11 @@ $util = new JagdUtility();
 $db = $dataBase->getConnection();
 
 
-$util->getFolderPaths($watchCaseFolder, $watchCaseMainFolder, $watchStrapFolder, $watchStrapMainFolder, $watchHandsFolder, $watchHandsMainFolder, $watchDialFolder, $watchDialMainFolder, $patternFolder, $patternMainFolder, $watchNumeralsFolder, $watchIndexFolder, $watchIndexMainFolder);
+$util->getFolderPaths($watchCaseFolder, $watchCaseMainFolder, $watchStrapFolder, $watchStrapMainFolder, $watchHandsFolder, $watchHandsMainFolder, $watchDialFolder, $watchDialMainFolder, $patternFolder, $patternMainFolder, $watchNumeralsFolder, $watchNumeralsMainFolder, $watchIndexFolder, $watchIndexMainFolder, $watchMarkerFolder, $watchMarkerMainFolder);
 
 
 //find all files, and put them in arrays
-$watchCaseThumbnails = glob($watchCaseFolder . "*.jpg");
+$watchCaseThumbnails = glob($watchCaseFolder . "*.png");
 $watchCaseMains = glob($watchCaseMainFolder . "*.png");
 $watchStrapsThumbnails = glob($watchStrapFolder . "*.png");
 $watchStrapMains = glob($watchStrapMainFolder . "*.png");
@@ -26,10 +26,13 @@ $patternThumbnails = moveValueByIndex($patternThumbnails, $patternFolder . "None
 $patternMains = glob($patternMainFolder . "*.png");
 $watchNumeralsThumbnails = glob($watchNumeralsFolder . "*.png");
 $watchNumeralsThumbnails = moveValueByIndex($watchNumeralsThumbnails, $watchNumeralsFolder . "None.png");
-$watchNumeralsMains = glob($watchNumeralsFolder . "*.png");
+$watchNumeralsMains = glob($watchNumeralsMainFolder . "*.png");
 $watchIndexThumbnails = glob($watchIndexFolder . "*.png");
 $watchIndexThumbnails = moveValueByIndex($watchIndexThumbnails, $watchIndexFolder . "None.png");
 $watchIndexMains = glob($watchIndexMainFolder . "*.png");
+$watchMarkerThumbnails = glob($watchMarkerFolder . "*.png");
+$watchMarkerThumbnails = moveValueByIndex($watchMarkerThumbnails, $watchMarkerFolder . "None.png");
+$watchMarkerMains = glob($watchMarkerMainFolder . "*.png");
 
 /**
  * 1: Plain dial

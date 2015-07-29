@@ -41,6 +41,7 @@ $additionalStrap5 = @$_POST['additionalStrap5'] == $utility->noneName ? NULL : @
 $billingAddress = @$_POST['billingAddress'];//'Amagerbrogade 136, 3.th';
 $case = @$_POST['case'];//'Gun metal';
 $numerals = @$_POST['numerals'] == $utility->noneName ? NULL : @$_POST['numerals'];//NULL;
+$marker = @$_POST['marker'] == $utility->noneName ? NULL : @$_POST['marker'];
 $approvalCode = @$_POST['approvalcode'];//'123456';
 $statusCode = @$_POST['statuscode'];//'2';
 
@@ -89,20 +90,20 @@ $stmtOrderId->close();
 if($statusCode != 1 && $statusCode != 4 && $statusCode != 17) {
     if($orderIdExists) {
         $stmt = $con->prepare("UPDATE orders SET amount=?, currency=?, DIBS_transact=?, DIBS_approvalcode=?, DIBS_statuscode=?, first_name=?, last_name=?, address=?, postalcode=?, city=?,
-                                      email=?, country=?, watch_case=?, hands=?, strap=?, dial=?, watch_index=?, numerals=?, pattern=?, invert_pattern=?, pattern_rotation=?, additional_strap_1=?,
+                                      email=?, country=?, watch_case=?, hands=?, strap=?, dial=?, watch_index=?, numerals=?, marker=?, pattern=?, invert_pattern=?, pattern_rotation=?, additional_strap_1=?,
                                        additional_strap_2=?, additional_strap_3=?, additional_strap_4=?, additional_strap_5=? WHERE order_id=?;");
         echo $stmt->error;
         echo $con->error;
-        $stmt->bind_param('isiiissssssssssssssiissssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-            $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $orderId);
+        $stmt->bind_param('isiiisssssssssssssssiissssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+            $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $orderId);
     } else {
         $stmt = $con->prepare("INSERT INTO orders (order_id,amount,currency,DIBS_transact,DIBS_approvalcode,DIBS_statuscode,first_name,last_name,address,postalcode,city,email,country,watch_case,
-                                hands,strap,dial,watch_index,numerals,pattern,invert_pattern,pattern_rotation,additional_strap_1,additional_strap_2,additional_strap_3,additional_strap_4,additional_strap_5)
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                hands,strap,dial,watch_index,numerals,marker,pattern,invert_pattern,pattern_rotation,additional_strap_1,additional_strap_2,additional_strap_3,additional_strap_4,additional_strap_5)
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 
-        $stmt->bind_param('sisiiissssssssssssssiisssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-            $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
+        $stmt->bind_param('sisiiisssssssssssssssiissssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+            $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
 
         $message = "Hi $billingFirstName $billingLastName
 Thank you for choosing Jagd Watches.
@@ -121,6 +122,7 @@ Strap:              $straps
 Dial:               $dial
 Index:              " . ($index == null ? $utility->noneName : $index) . "
 Numerals:           " . ($numerals == null ? $utility->noneName : $numerals) . "
+Marker:             " . ($marker == null ? $util->noneName : $marker) . "
 Pattern:            " . ($pattern == null ? $utility->noneName : $pattern) . "
 Pattern inverted:   " . ($invertPattern == 0 ? 'No' : 'Yes') . "
 Pattern rotation:   $patternRotation
