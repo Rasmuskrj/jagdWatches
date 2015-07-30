@@ -603,6 +603,7 @@ WatchBuilder = (function($) {
                     self.el.partRecapAdditionStrapsTable.hide();
                 }
             }
+            console.log(self.state.straps);
             if(self.state.straps == self.variables.outlineName) {
                 $('.watchStrap').each(function (index) {
                     if ($(this).data('parttype') == self.variables.outlineName) {
