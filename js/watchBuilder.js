@@ -26,14 +26,18 @@ WatchBuilder = (function($) {
             animationType: "fade",
             animationSpeed: 500,
             checkoutURL: 'checkout.php',
-            possibleStrapAmount: 5
+            possibleStrapAmount: 5,
+            outlineName: "Outline",
+            introDelay: 2500,
+            introChangeInterval: 1250,
+            introNoOfChanges: 3
         },
 
         state: {
-            case: 'Gun metal',
-            hands: 'Hands black',
-            straps: 'Aligator',
-            dial: 'Bamboo',
+            case: 'Outline',
+            hands: 'Black',
+            straps: 'Outline',
+            dial: 'White',
             index: 'None',
             numerals: 'None',
             marker: 'None',
@@ -107,6 +111,9 @@ WatchBuilder = (function($) {
             });
             if(Cookies.get('userID') == undefined){
                 Cookies.set('userID', generateUUID(), {expires: 30, path: '/'});
+                self.animateIntro();
+            } else {
+                self.enterStep1();
             }
         },
 
@@ -133,9 +140,10 @@ WatchBuilder = (function($) {
             self.el.invertButton = $('#invertPattern');
             self.el.buyNowButton = $('.buyNowButton');
             self.el.priceValue = $('.priceValue');
+            self.el.subtotalValue = $('.subtotalValue');
             self.el.leftArrow = $('.chooseArrowLeft');
             self.el.rightArrow = $('.chooseArrowRight');
-            self.el.openGallery = $('.openGallery');
+            self.el.openGallery = $('.openGalleryText');
             self.el.partRecapCase = $('.caseValue');
             self.el.partRecapHands = $('.handsValue');
             self.el.partRecapStrap = $('.strapValue');
@@ -186,13 +194,20 @@ WatchBuilder = (function($) {
             self.el.step1RecapTitle = $('.step1RecapTitle');
             self.el.additionalStrapPriceValue = $('.additionalStrapPriceValue');
             self.el.totalPriceValue = $('.totalPriceValue');
+            self.el.invalidselectionsModal = $('#invalidSelectionsModal');
         },
 
         bindEvents: function() {
             var self = builder;
 
             self.el.startButton.on('click', self.enterStep1);
-            self.el.step2Button.on('click', self.enterStep2);
+            self.el.step2Button.on('click', function() {
+                if (self.state.case != self.variables.outlineName && self.state.straps != self.variables.outlineName) {
+                    self.enterStep2();
+                } else {
+                    self.el.invalidselectionsModal.dialog('open');
+                }
+            });
             self.bindSelectorEvents('.selectCaseColor', '.watchCase', true, self.partLists.cases);
             self.bindSelectorEvents('.selectStrap', '.watchStrap', false, self.partLists.straps);
             self.bindSelectorEvents('.selectHands', '.watchHands', true, self.partLists.hands);
@@ -202,9 +217,7 @@ WatchBuilder = (function($) {
             self.bindSelectorEvents('.selectPattern', '.watchPattern', false);
             self.bindSelectorEvents('.selectMarker', '.watchMarker', true, self.partLists.markers);
             self.el.backButton.on('click', function(){
-                if(self.state.lastScreen == 'intro' || self.state.currentScreen == 'step1'){
-                    self.enterIntro();
-                } else if(self.state.lastScreen == 'step1' || self.state.currentScreen == 'step2'){
+                if(self.state.lastScreen == 'step1' || self.state.currentScreen == 'step2'){
                     self.enterStep1();
                 } else if(self.state.lastScreen == 'step2'){
                     self.enterStep2();
@@ -230,9 +243,15 @@ WatchBuilder = (function($) {
                     }
                 }
             });
-            self.el.buyNowButton.on('click', self.enterBuyStep1);
+            self.el.buyNowButton.on('click', function() {
+                if (self.state.case != self.variables.outlineName && self.state.straps != self.variables.outlineName) {
+                    self.enterBuyStep1();
+                } else {
+                    self.el.invalidselectionsModal.dialog('open');
+                }
+            });
             self.el.leftArrow.on('click', function(){
-                if(self.state.currentScreen == 'step1'){
+                if(self.state.currentScreen == 'step1' || self.state.currentScreen == 'intro'){
                     var index = 0;
                     for(var i = 0; 0 < self.partLists.dials.length; i++){
                         if(self.partLists.dials[i] == self.state.dial){
@@ -261,7 +280,7 @@ WatchBuilder = (function($) {
                 }
             });
             self.el.rightArrow.on('click', function(){
-                if(self.state.currentScreen == 'step1'){
+                if(self.state.currentScreen == 'step1'  || self.state.currentScreen == 'intro'){
                     var index = 0;
                     for(var i = 0; 0 < self.partLists.dials.length; i++){
                         if(self.partLists.dials[i] == self.state.dial){
@@ -363,6 +382,9 @@ WatchBuilder = (function($) {
                 $('body').append(postFormEle);
                 postFormEle.submit();
             });
+            self.el.openGallery.on('click', function(){
+                $('html, body').animate({scrollTop: 500}, 1000);
+            });
         },
 
         enterIntro: function(){
@@ -370,6 +392,7 @@ WatchBuilder = (function($) {
             self.el.intro.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.removeClass('buyPosition');
+            self.el.watchContainer.addClass('watchIntro');
             self.el.step2.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step1.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.bottomGallery.hide(self.variables.animationType, self.variables.animationSpeed);
@@ -387,6 +410,7 @@ WatchBuilder = (function($) {
             self.el.bottomGallery.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.removeClass('buyPosition');
+            self.el.watchContainer.removeClass('watchIntro');
             self.el.buyStep1.hide(self.variables.animationType, self.variables.animationSpeed);
             self.state.lastScreen = self.state.currentScreen;
             self.state.currentScreen = 'step1';
@@ -402,6 +426,7 @@ WatchBuilder = (function($) {
             self.el.watchContainer.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.buyStep1.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.removeClass('buyPosition');
+            self.el.watchContainer.removeClass('watchIntro');
             self.state.lastScreen = self.state.currentScreen;
             self.state.currentScreen = 'step2';
             self.positionFooter();
@@ -415,6 +440,7 @@ WatchBuilder = (function($) {
             self.el.bottomGallery.hide(self.variables.animationType, self.variables.animationSpeed);
             //self.el.watchContainer.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.addClass('buyPosition');
+            self.el.watchContainer.removeClass('watchIntro');
             self.el.buyStep1.show(self.variables.animationType, self.variables.animationSpeed);
             self.state.lastScreen = self.state.currentScreen;
             self.state.currentScreen = 'CustomerDetails';
@@ -461,12 +487,15 @@ WatchBuilder = (function($) {
                             });
                             $(this).parent().addClass('selected');
                         } else {
-                            console.log($(container));
                             $(container + ' > .thumbnails > .thumbnailContainer').each(function() {
                                 var child = $(this).find('.thumbnail');
                                 if(!child.hasClass('arrow')){
-                                    console.log(child);
                                     $(this).hide();
+                                }
+                                if(child.data('parttype') == self.variables.outlineName && partType != self.variables.outlineName) {
+                                    $(this).remove();
+                                    var ind = partArray.indexOf(self.variables.outlineName);
+                                    partArray.splice(ind, 1);
                                 }
                             });
                             $(this).closest('.thumbnailContainer').show();
@@ -574,9 +603,20 @@ WatchBuilder = (function($) {
                     self.el.partRecapAdditionStrapsTable.hide();
                 }
             }
+            if(self.state.straps == self.variables.outlineName) {
+                $('.watchStrap').each(function (index) {
+                    if ($(this).data('parttype') == self.variables.outlineName) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                Cookies.set('straps', self.variables.outlineName);
+            } else {
+                $(".selectStrap img[data-parttype='" + self.state.straps + "']").trigger('click');
+            }
 
             $(".selectCaseColor img[data-parttype='" + self.state.case + "']").trigger('click');
-            $(".selectStrap img[data-parttype='" + self.state.straps + "']").trigger('click');
             $(".selectHands img[data-parttype='" + self.state.hands + "']").trigger('click');
             $(".selectDial img[data-parttype='" + self.state.dial + "']").trigger('click');
             $(".selectIndex img[data-parttype='" + self.state.index + "']").trigger('click');
@@ -617,15 +657,16 @@ WatchBuilder = (function($) {
             if(self.state.pattern == self.variables.noneName && self.state.numerals == self.variables.noneName && self.state.index == self.variables.noneName){
                 self.el.priceValue.text(self.formatPrice(pricePlainOneStrap));
                 self.el.step1RecapTitle.text("JAGD WATCH - PLAIN DIAL");
-                self.el.additionalStrapPriceValue.text(100);
+                self.el.additionalStrapPriceValue.text(singleStrapCost);
                 totalPrice = pricePlainOneStrap  + self.state.noOfAdditionalStraps * singleStrapCost;
             } else {
                 self.el.priceValue.text(self.formatPrice(priceEngravedOneStrap));
-                self.el.additionalStrapPriceValue.text(100);
+                self.el.additionalStrapPriceValue.text(singleStrapCost);
                 self.el.step1RecapTitle.text("JAGD WATCH - ENGRAVED DIAL");
                 totalPrice = priceEngravedOneStrap  + self.state.noOfAdditionalStraps * singleStrapCost;
             }
             self.el.promotionCodeDiscount.text("-" + self.formatPrice(totalPrice + shippingCost));
+            self.el.subtotalValue.text(totalPrice);
             if(self.state.validPromotionCodeAdded) {
                 totalPrice = 0;
                 self.el.totalPriceValue.text(self.formatPrice(totalPrice));
@@ -721,7 +762,39 @@ WatchBuilder = (function($) {
                         $(this).dialog('close');
                     }
                 }
-            })
+            });
+
+            self.el.invalidselectionsModal.dialog({
+                autoOpen: false,
+                height: 500,
+                width: 500,
+                modal: true,
+                buttons: {
+                    "OK": function() {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+        },
+
+        animateIntro: function () {
+            var self = builder;
+
+            var func = function () {
+                var i = 0;
+                var innerFunc = function () {
+                    self.el.rightArrow.trigger('click');
+                    i++;
+                    if(i < self.variables.introNoOfChanges){
+                        setTimeout(innerFunc, self.variables.introChangeInterval);
+                    } else {
+                        self.enterStep1();
+                    }
+                };
+                innerFunc();
+            };
+
+            setTimeout(func, self.variables.introDelay);
         },
 
         positionFooter: function () {

@@ -290,8 +290,8 @@ include('phpScripts/checkoutPreprocessing.php');
 <div class="footer">
     <div class="innerFooter">
         <span class="footerElement"><a href="info/Terms%20and%20Conditions.pdf">Terms and Conditions</a></span>
-        <span class="footerElement">About Us</span>
-        <span class="footerElement lastFooterElement">Contact Us</span>
+        <span class="footerElement"><a href="about.html">About Us</a></span>
+        <span class="footerElement lastFooterElement"><a href="contact.html">Contact Us</a></span>
     </div>
 </div>
 

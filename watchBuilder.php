@@ -132,7 +132,7 @@ include("phpScripts/Preprocessing.php");
                 <span id="startButton"><span><b>Build my watch</b></span></span>
             </section>
 
-            <div class="watchContainer">
+            <div class="watchContainer watchIntro">
                 <div class="watchElementContainer">
                     <?php
                     foreach($watchStrapMains as $main){
@@ -204,7 +204,7 @@ include("phpScripts/Preprocessing.php");
                     <div class="selectCaseColor leftSideSelector">
                         <div class="selectorHeader leftSideSelectorHeader">
                             <p class="watchBuilderText">CASE COLOR</p><!--
-                            --><p class="partDescription grey"></p>
+                            --><p class="partDescription grey">Outline</p>
 
                         </div>
                         <div class="thumbnails thumbnailsLeft">
@@ -219,8 +219,8 @@ include("phpScripts/Preprocessing.php");
                     </div>
                     <div class="selectStrap leftSideSelector">
                         <div class="selectorHeader leftSideSelectorHeader">
-                            <p class="watchBuilderText">STRAP MATERIAL</p><p class="partDescription grey"></p>
-                            <span class="additionalStrapModalButton">+<b>ADD</b> MORE</span>
+                            <p class="watchBuilderText">STRAP MATERIAL</p><p class="partDescription grey">Outline</p>
+                            <span class="additionalStrapModalButton">+<b>ADD MORE</b></span>
                         </div>
                         <div class="thumbnails thumbnailsLeft hScrollable">
                             <?php
@@ -271,7 +271,7 @@ include("phpScripts/Preprocessing.php");
                         </div>
                     </div>
                     <div class="galleryTextContainer">
-                        <span class="openGalleryText"><b>Gallery</b></span><span> - See examples of real JAGD Watches</span>
+                        <span class="openGalleryText"><img src="images/WatchBuilder/Misc/Arrow%20main.png" class="galleryArrow"><b>Gallery</b></span><span> - See examples of real JAGD Watches</span>
                     </div>
                 </div>
                 <div class="hline endline"></div>
@@ -352,7 +352,7 @@ include("phpScripts/Preprocessing.php");
                         </div>
                     </div>
                     <div class="galleryTextContainer">
-                        <span class="openGalleryText"><b>Gallery</b></span><span> - See examples of real JAGD Watches</span>
+                        <span class="openGalleryText"><img src="images/WatchBuilder/Misc/Arrow%20main.png" class="galleryArrow"><b>Gallery</b></span><span> - See examples of real JAGD Watches</span>
                     </div>
                 </div>
                 <div class="hline endline"></div>
@@ -481,7 +481,7 @@ include("phpScripts/Preprocessing.php");
                                     <tbody>
                                         <tr class="grey smallRecapText">
                                             <td>SUBTOTAL:</td>
-                                            <td class="rightCell"><span class="priceValue"></span><span class="priceCurrency"> DKK</span> </td>
+                                            <td class="rightCell"><span class="subtotalValue"></span><span class="priceCurrency"> DKK</span> </td>
                                         </tr>
                                         <tr class="grey smallRecapText">
                                             <td>SHIPPING:</td>
@@ -550,8 +550,8 @@ include("phpScripts/Preprocessing.php");
 <div class="footer">
     <div class="innerFooter">
         <span class="footerElement"><a href="info/Terms%20and%20Conditions.pdf">Terms and Conditions</a></span>
-        <span class="footerElement">About Us</span>
-        <span class="footerElement lastFooterElement">Contact Us</span>
+        <span class="footerElement"><a href="about.html">About Us</a></span>
+        <span class="footerElement lastFooterElement"><a href="contact.html">Contact Us</a></span>
     </div>
 </div>
 
@@ -559,7 +559,7 @@ include("phpScripts/Preprocessing.php");
 
 <!-- Footer -->
 <div id="additionalStrapDialog" title="ADDITIONAL STRAP SELECTION">
-    <p>You can add <b>2 additional straps</b> for 100 DKK.</p>
+    <p>You can add up to <b>5 additional straps</b> for 100 DKK each.</p>
     <div class="modalSelector">
         <div class="selectorHeader leftSideSelectorHeader">
             <p class="watchBuilderText">STRAP MATERIAL</p><p class="partDescription"></p>
@@ -645,6 +645,10 @@ include("phpScripts/Preprocessing.php");
 
 <div id="invalidPromotionCodeModal" title="PROMOTION CODE NOT FOUND">
     <p>The promotion code you have entered was not found. Please make sure that the code is correct.</p>
+</div>
+
+<div id="invalidSelectionsModal" title="INVALID SELECTIONS">
+    <p>You must choose a strap and a watch casing in order to continue</p>
 </div>
 </body>
 </html>
