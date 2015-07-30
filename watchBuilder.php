@@ -471,7 +471,7 @@ include("phpScripts/Preprocessing.php");
                                         Return cost is 60 DKK but exchange is FREE<br>
                                     </p>
                                     <p class="grey">
-                                        Read about shipping and return policies <a>here</a><br>
+                                        Read about shipping and return policies <a href="info/Shipping%20and%20return%20policies.pdf">here</a><br>
                                         Do you need help? Call us at +45 25 32 91 58<br>
                                     </p>
                                 </div>
@@ -549,7 +549,7 @@ include("phpScripts/Preprocessing.php");
 
 <div class="footer">
     <div class="innerFooter">
-        <span class="footerElement">Terms and Conditions</span>
+        <span class="footerElement"><a href="info/Terms%20and%20Conditions.pdf">Terms and Conditions</a></span>
         <span class="footerElement">About Us</span>
         <span class="footerElement lastFooterElement">Contact Us</span>
     </div>

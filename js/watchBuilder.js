@@ -705,10 +705,9 @@ WatchBuilder = (function($) {
                 height: 700,
                 width: 400,
                 modal: true,
+                resizable: false,
                 buttons: {
-                    "OK": function() {
-                        $(this).dialog('close');
-                    }
+
                 }
             });
 

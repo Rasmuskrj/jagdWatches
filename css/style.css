@@ -1568,6 +1568,10 @@ a.fancybox {
     font-size: 20px;
 }
 
+.orderingInformation a {
+    color: inherit;
+}
+
 .orderingInformation p {
     font-size: 12px;
     line-height: 18px;
@@ -1679,6 +1683,10 @@ a.fancybox {
     text-align: center;
 }
 
+.checkoutForm .policyText a {
+    color: inherit;
+}
+
 .checkoutForm {
     margin-bottom: 42px;
 }
@@ -1778,16 +1786,16 @@ a.fancybox {
 }
 
 .fullViewContainer .watchElement.step2WatchElement {
-    width: 21%;
+    width: 26%;
     height: auto;
-    top: 181px;
-    left: 37%;
+    top: 223px;
+    left: 37.5%;
 }
 
 .fullViewContainer .watchElement.watchPattern {
-    height: 93px;
-    top: 176px;
-    left: 144px;
+    height: 114px;
+    top: 218px;
+    left: 145px;
 }
 
 .ui-dialog {
@@ -1810,6 +1818,15 @@ a.fancybox {
     color: #B9C5CB;
     text-align: center;
     font-size: 16px;
+}
+
+.footer a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }
 
 .innerFooter {

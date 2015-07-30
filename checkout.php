@@ -259,7 +259,7 @@ include('phpScripts/checkoutPreprocessing.php');
                             <br><br><br>
                         </div>
                         <div>
-                            <span class="policyText">By proceeding I accept the Privacy Policy and the Terms and Conditions</span>
+                            <span class="policyText">By proceeding I accept the <a href="info/Privacy%20Policy.pdf">Privacy Policy</a> and the <a href="info/Terms%20and%20Conditions.pdf">Terms and Conditions</a></span>
                         </div>
                         <INPUT TYPE="hidden" NAME="test" value="1">
                         <INPUT TYPE="hidden" NAME="accepturl" VALUE="http://www.jagdwatches.com/newsite/receipt.php">
@@ -289,7 +289,7 @@ include('phpScripts/checkoutPreprocessing.php');
 
 <div class="footer">
     <div class="innerFooter">
-        <span class="footerElement">Terms and Conditions</span>
+        <span class="footerElement"><a href="info/Terms%20and%20Conditions.pdf">Terms and Conditions</a></span>
         <span class="footerElement">About Us</span>
         <span class="footerElement lastFooterElement">Contact Us</span>
     </div>
