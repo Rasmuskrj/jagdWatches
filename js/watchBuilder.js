@@ -603,7 +603,6 @@ WatchBuilder = (function($) {
                     self.el.partRecapAdditionStrapsTable.hide();
                 }
             }
-            console.log(self.state.straps);
             if(self.state.straps == self.variables.outlineName) {
                 $('.watchStrap').each(function (index) {
                     if ($(this).data('parttype') == self.variables.outlineName) {
@@ -612,7 +611,7 @@ WatchBuilder = (function($) {
                         $(this).hide();
                     }
                 });
-                Cookies.set('straps', self.variables.outlineName);
+                Cookies.set('straps', self.variables.outlineName, {expires: 30, path: '/'});
             } else {
                 $(".selectStrap img[data-parttype='" + self.state.straps + "']").trigger('click');
             }
