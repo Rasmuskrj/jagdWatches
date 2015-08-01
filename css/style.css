@@ -1863,7 +1863,7 @@ a.fancybox {
 }
 
 /**************************/
-/* receipt                 */
+/* receipt                */
 /**************************/
 
 /*.watchContainer.receiptPosition{
@@ -1928,6 +1928,49 @@ a.fancybox {
     font-size: 16px;
     white-space: nowrap;
 }
+
+/**************************/
+/* receipt                */
+/**************************/
+
+.cookieNotice {
+    position: fixed;
+    bottom: 0;
+    height: 90px;
+    width: 100%;
+    background-color: #B9C5CB;
+    opacity: 0.9;
+
+}
+
+.cookieNotice p {
+    display: inline;
+    font-size: 19px;
+}
+
+.cookieNotice .noticeContainer {
+    text-align: center;
+}
+
+.cookieNotice .closeCookieNotice {
+    font-size: 12px;
+}
+
+.cookieNotice .redText {
+    color: red;
+    font-weight: bold;
+}
+
+.cookieNotice a {
+    color: inherit;
+    cursor: pointer;
+}
+
+.cookieNotice a:hover {
+    text-decoration: underline;
+}
+
+
 /*********************************************************************************/
 /* Poptrox                                                                       */
 /*********************************************************************************/

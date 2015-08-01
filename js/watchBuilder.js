@@ -109,6 +109,7 @@ WatchBuilder = (function($) {
                     self.el.partRecapRotation.html(ui.value + " degrees");
                 }
             });
+            self.handleCookieNotice();
             if(Cookies.get('userID') == undefined){
                 Cookies.set('userID', generateUUID(), {expires: 30, path: '/'});
                 self.animateIntro();
@@ -195,6 +196,9 @@ WatchBuilder = (function($) {
             self.el.additionalStrapPriceValue = $('.additionalStrapPriceValue');
             self.el.totalPriceValue = $('.totalPriceValue');
             self.el.invalidselectionsModal = $('#invalidSelectionsModal');
+
+            self.el.cookieNotice = $('.cookieNotice');
+            self.el.closeCookieNotice = $('.closeCookieNotice');
         },
 
         bindEvents: function() {
@@ -384,6 +388,11 @@ WatchBuilder = (function($) {
             });
             self.el.openGallery.on('click', function(){
                 $('html, body').animate({scrollTop: 500}, 1000);
+            });
+            self.el.closeCookieNotice.button();
+            self.el.closeCookieNotice.on('click', function () {
+                self.el.cookieNotice.hide('fade', 1000);
+                Cookies.set('cookiesAccepted', true, {expires: 30, path: '/'});
             });
         },
 
@@ -795,6 +804,13 @@ WatchBuilder = (function($) {
             };
 
             setTimeout(func, self.variables.introDelay);
+        },
+
+        handleCookieNotice: function () {
+            var self = builder;
+            if(Cookies.get('cookiesAccepted') != undefined){
+                self.el.cookieNotice.hide();
+            }
         },
 
         positionFooter: function () {

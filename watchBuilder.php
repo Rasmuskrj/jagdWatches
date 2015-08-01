@@ -555,6 +555,13 @@ include("phpScripts/Preprocessing.php");
     </div>
 </div>
 
+<div class="cookieNotice">
+    <div class="noticeContainer">
+        <p><b>This site uses cookies.</b> We use cookies to save your design and to ensure that we give you the best experience.</p><p class="redText">Find out more about cookies <a href="info/AboutCookies.pdf">here</a>.</p>
+        <span class="closeCookieNotice">Continue</span>
+    </div>
+</div>
+
 
 
 <!-- Footer -->
@@ -648,7 +655,7 @@ include("phpScripts/Preprocessing.php");
 </div>
 
 <div id="invalidSelectionsModal" title="INVALID SELECTIONS">
-    <p>You must choose a strap and a watch casing in order to continue</p>
+    <p>You must choose a <b>strap</b> and a <b>watch casing</b> in order to continue</p>
 </div>
 </body>
 </html>
