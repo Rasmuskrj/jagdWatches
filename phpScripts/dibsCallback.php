@@ -94,7 +94,7 @@ if($statusCode != 1 && $statusCode != 4 && $statusCode != 17) {
                                        additional_strap_2=?, additional_strap_3=?, additional_strap_4=?, additional_strap_5=? WHERE order_id=?;");
         echo $stmt->error;
         echo $con->error;
-        $stmt->bind_param('isiiisssssssssssssssiissssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+        $stmt->bind_param('isiiisssssssssssssssiisssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
             $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $orderId);
     } else {
         $stmt = $con->prepare("INSERT INTO orders (order_id,amount,currency,DIBS_transact,DIBS_approvalcode,DIBS_statuscode,first_name,last_name,address,postalcode,city,email,country,watch_case,
@@ -102,7 +102,7 @@ if($statusCode != 1 && $statusCode != 4 && $statusCode != 17) {
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 
-        $stmt->bind_param('sisiiisssssssssssssssiissssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+        $stmt->bind_param('sisiiisssssssssssssssiisssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
             $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
 
         $message = "Hi $billingFirstName $billingLastName
