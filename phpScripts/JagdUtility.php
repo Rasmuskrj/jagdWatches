@@ -95,7 +95,7 @@ class JagdUtility {
      * @param $billingCountry
      * @param $email
      */
-    function sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $strap, $dial, $index, $util, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email)
+    function sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email)
     {
         $message = "Hi $billingFirstName $billingLastName
 Thank you for choosing Jagd Watches.
@@ -112,18 +112,18 @@ Case:               $case
 Hands:              $hands
 Strap:              $strap
 Dial:               $dial
-Index:              " . ($index == null ? $util->noneName : $index) . "
-Numerals:           " . ($numerals == null ? $util->noneName : $numerals) . "
-Marker:             " . ($marker == null ? $util->noneName : $marker) . "
-Pattern:            " . ($pattern == null ? $util->noneName : $pattern) . "
+Index:              " . ($index == null ? $this->noneName : $index) . "
+Numerals:           " . ($numerals == null ? $this->noneName : $numerals) . "
+Marker:             " . ($marker == null ? $this->noneName : $marker) . "
+Pattern:            " . ($pattern == null ? $this->noneName : $pattern) . "
 Pattern inverted:   " . ($invertPattern == 0 ? 'No' : 'Yes') . "
 Pattern rotation:   $patternRotation
 
-Extra strap 1:      " . ($additionalStrap1 == null ? $util->noneName : $additionalStrap1) . "
-Extra strap 2:      " . ($additionalStrap2 == null ? $util->noneName : $additionalStrap2) . "
-Extra strap 3:      " . ($additionalStrap3 == null ? $util->noneName : $additionalStrap3) . "
-Extra strap 4:      " . ($additionalStrap4 == null ? $util->noneName : $additionalStrap4) . "
-Extra strap 5:      " . ($additionalStrap5 == null ? $util->noneName : $additionalStrap5) . "
+Extra strap 1:      " . ($additionalStrap1 == null ? $this->noneName : $additionalStrap1) . "
+Extra strap 2:      " . ($additionalStrap2 == null ? $this->noneName : $additionalStrap2) . "
+Extra strap 3:      " . ($additionalStrap3 == null ? $this->noneName : $additionalStrap3) . "
+Extra strap 4:      " . ($additionalStrap4 == null ? $this->noneName : $additionalStrap4) . "
+Extra strap 5:      " . ($additionalStrap5 == null ? $this->noneName : $additionalStrap5) . "
 
 
 Address:
