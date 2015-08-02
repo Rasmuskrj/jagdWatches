@@ -1511,6 +1511,7 @@ a.fancybox {
     border-collapse: collapse;
     border-spacing: 0 10px;
     line-height: 30px;
+    margin-bottom: 50px;
 }
 
 .watchRecap .row {
