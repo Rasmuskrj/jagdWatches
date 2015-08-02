@@ -189,7 +189,8 @@ $deliveryPrice = 0;
 
 $sql = "SELECT * FROM prices WHERE id=";
 
-if($index == $util->noneName && $numerals == $util->noneName && $pattern == $util->noneName){
+
+if($index == null && $numerals == null && $pattern == null && $marker == null){
     $id = 1;
     $sql .= $id;
     $jagdTitle = "JAGD WATCH - PLAIN DIAL";
