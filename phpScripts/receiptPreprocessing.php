@@ -97,7 +97,7 @@ if($validPromotionCode != false) {
     if($orderIdExists) {
         $stmt = $db->prepare("UPDATE orders SET amount=?, currency=?, DIBS_transact=?, DIBS_approvalcode=?, DIBS_statuscode=?, first_name=?, last_name=?, address=?, postalcode=?, city=?,
                                       email=?, country=?, watch_case=?, hands=?, strap=?, dial=?, watch_index=?, numerals=?, marker=?, pattern=?, invert_pattern=?, pattern_rotation=?, additional_strap_1=?,
-                                       additional_strap_2=?, additional_strap_3=?, additional_strap_4=?, additional_strap_5=? promotion_code=? WHERE order_id=?;");
+                                       additional_strap_2=?, additional_strap_3=?, additional_strap_4=?, additional_strap_5=?, promotion_code=? WHERE order_id=?;");
         echo $stmt->error;
         echo $db->error;
         $stmt->bind_param('isiiisssssssssssssssiissssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
