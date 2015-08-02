@@ -122,6 +122,15 @@ $price *= 100; //multiply by 100 to get price with sub-currency;
 $orderID = $util->generateOrderId();
 
 /**
+ * Check potential promotionCode
+ */
+$validPromotionCode = $dataBase->checkPromotionCode($state['addedPromotionCode']);
+
+if($validPromotionCode != false) {
+    $price -= $validPromotionCode;
+}
+
+/**
  * Generate MD5 key for DIBS validation
  */
 $parameter_string = '';
@@ -131,9 +140,6 @@ $parameter_string .= '&currency=' . "DKK";
 $parameter_string .= '&amount=' . $price;
 $md5 = $util->generateMD5($parameter_string );
 
-/**
- * Check potential promotionCode
- */
-$validPromotionCode = $dataBase->checkPromotionCode($state['addedPromotionCode']);
+
 
 

@@ -30,7 +30,8 @@ WatchBuilder = (function($) {
             outlineName: "Outline",
             introDelay: 2500,
             introChangeInterval: 1250,
-            introNoOfChanges: 3
+            introNoOfChanges: 3,
+            discountAmount: 0
         },
 
         state: {
@@ -356,6 +357,7 @@ WatchBuilder = (function($) {
                         self.state.validPromotionCodeAdded = true;
                         self.el.promotionCodeTableRow.show();
                         self.state.addedPromotionCode = self.el.addPromotionCodeInput.val();
+                        self.variables.discountAmount = data.amount / 100;
                         self.updatePrice();
                     } else {
                         self.state.validPromotionCodeAdded = false;
@@ -674,10 +676,10 @@ WatchBuilder = (function($) {
                 self.el.step1RecapTitle.text("JAGD WATCH - ENGRAVED DIAL");
                 totalPrice = priceEngravedOneStrap  + self.state.noOfAdditionalStraps * singleStrapCost;
             }
-            self.el.promotionCodeDiscount.text("-" + self.formatPrice(totalPrice + shippingCost));
+            self.el.promotionCodeDiscount.text("-" + self.formatPrice(self.variables.discountAmount));
             self.el.subtotalValue.text(totalPrice);
             if(self.state.validPromotionCodeAdded) {
-                totalPrice = 0;
+                totalPrice = totalPrice + shippingCost - self.variables.discountAmount;
                 self.el.totalPriceValue.text(self.formatPrice(totalPrice));
                 self.state.totalPrice = totalPrice
             } else {

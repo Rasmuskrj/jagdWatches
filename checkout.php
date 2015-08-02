@@ -195,7 +195,7 @@ include('phpScripts/checkoutPreprocessing.php');
                     <a href="watchBuilder.php"><span class="grey editButton">Edit</span></a>
                 </div>
                 <div class="buyStepContent checkoutForm">
-                    <form class="paymentForm" <?php if(!$validPromotionCode) {echo 'action="https://payment.architrade.com/paymentweb/start.action"';} else {echo 'action="receipt.php"';} ?> method="POST" charset="UTF-8">
+                    <form class="paymentForm" <?php if($price > 0) {echo 'action="https://payment.architrade.com/paymentweb/start.action"';} else {echo 'action="receipt.php"';} ?> method="POST" charset="UTF-8">
                         <div>
                             <div class="cell">
                                 <b>SHIPPING ADDRESS:</b>
@@ -252,7 +252,7 @@ include('phpScripts/checkoutPreprocessing.php');
                                 <span class="cardLogo"><img src="images/logo-pack/amex_35.gif"></span>
                             </div>
                             <div class="cell">
-                                <span class="paymentButton"><?php if(!$validPromotionCode) {echo 'TO SECURE PAYMENT';} else {echo 'PLACE ORDER';} ?></span>
+                                <span class="paymentButton"><?php if($price > 0) {echo 'TO SECURE PAYMENT';} else {echo 'PLACE ORDER';} ?></span>
                             </div>
                         </div>
                         <div>

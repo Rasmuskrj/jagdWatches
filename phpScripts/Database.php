@@ -35,21 +35,40 @@ class Database {
         return $this->conn;
     }
 
+    /**
+     * @param $code
+     * @return mixed
+     */
     public function checkPromotionCode($code) {
         $validPromotionCode = false;
-        $stmt = $this->conn->prepare("SELECT used FROM discount_codes WHERE code=?");
+        $stmt = $this->conn->prepare("SELECT used,amount FROM discount_codes WHERE code=?");
 
         $stmt->bind_param('s', $code);
 
         $stmt->execute();
-        $stmt->bind_result($used);
+        $stmt->bind_result($used, $amount);
 
         while($stmt->fetch()){
             if($used == 1){
                 $validPromotionCode = false;
             } else if($used == 0) {
-                $validPromotionCode = true;
+                $validPromotionCode = $amount;
             }
+        }
+        return $validPromotionCode;
+    }
+
+    public function getPromotionCodeValue($code) {
+        $validPromotionCode = false;
+        $stmt = $this->conn->prepare("SELECT used,amount FROM discount_codes WHERE code=?");
+
+        $stmt->bind_param('s', $code);
+
+        $stmt->execute();
+        $stmt->bind_result($used, $amount);
+
+        while($stmt->fetch()){
+            $validPromotionCode = $amount;
         }
         return $validPromotionCode;
     }

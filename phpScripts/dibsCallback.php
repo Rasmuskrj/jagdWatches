@@ -105,46 +105,7 @@ if($statusCode != 1 && $statusCode != 4 && $statusCode != 17) {
         $stmt->bind_param('sisiiisssssssssssssssiisssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
             $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
 
-        $message = "Hi $billingFirstName $billingLastName
-Thank you for choosing Jagd Watches.
-You should receive your order within 10 working days from today.
-If you have any questions about your order please send us an email and we will get back to you as soon as we can
-
-ORDER INFORMATION
-----------------------------------------------------------------------------------------------------------------
-
-Order Id: $orderId
-
-Watch:
-Case:               $case
-Hands:              $hands
-Strap:              $straps
-Dial:               $dial
-Index:              " . ($index == null ? $utility->noneName : $index) . "
-Numerals:           " . ($numerals == null ? $utility->noneName : $numerals) . "
-Marker:             " . ($marker == null ? $util->noneName : $marker) . "
-Pattern:            " . ($pattern == null ? $utility->noneName : $pattern) . "
-Pattern inverted:   " . ($invertPattern == 0 ? 'No' : 'Yes') . "
-Pattern rotation:   $patternRotation
-
-Extra strap 1:      " . ($additionalStrap1 == null ? $utility->noneName : $additionalStrap1) . "
-Extra strap 2:      " . ($additionalStrap2 == null ? $utility->noneName : $additionalStrap2) . "
-Extra strap 3:      " . ($additionalStrap3 == null ? $utility->noneName : $additionalStrap3) . "
-Extra strap 4:      " . ($additionalStrap4 == null ? $utility->noneName : $additionalStrap4) . "
-Extra strap 5:      " . ($additionalStrap5 == null ? $utility->noneName : $additionalStrap5) . "
-
-
-Address:
-$billingFirstName $billingLastName
-$billingAddress
-$billingPostalCode $billingCity
-$billingCountry
-
-We hope you will enjoy your purchase.
-
-Sincerely,
-Jagd Watches";
-        mail($email,"JAGD Watches receipt",$message, "From: noreply@jagdwatches.com" . "\r\n");
+        $util->sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $straps, $dial, $index, $util, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email);
     }
     $stmt->execute();
     echo $con->error;

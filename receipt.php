@@ -263,8 +263,8 @@
                                         <td class="rightCell"><span class="shippingCostValue"><?php echo $deliveryPrice ?></span><span class="priceCurrency"> DKK</span> </td>
                                     </tr>
                                     <?php
-                                        if($validPromotionCode) {
-                                            $promotionValue = $amountTotal / 100;
+                                        if($promotionCodeValue != false) {
+                                            $promotionValue = $promotionCodeValue / 100;
                                             echo '<tr class="grey promotionCodeRow smallRecapText">
                                         <td>PROMOTION CODE:</td>
                                         <td class="rightCell"><span class="promotionCodeDiscount">- ' . $promotionValue  . '</span><span class="priceCurrency"> DKK</span> </td>
@@ -280,7 +280,7 @@
                                             TOTAL:
                                         </td>
                                         <td class="rightCell">
-                                            <span class="totalPriceValue"><?php echo $validPromotionCode ? ($amountTotal / 100) - $promotionValue : ($amountTotal / 100);  ?></span><span class="priceCurrency"> DKK</span>
+                                            <span class="totalPriceValue"><?php echo $amountTotal / 100;  ?></span><span class="priceCurrency"> DKK</span>
                                         </td>
                                     </tr>
                                     </tbody>

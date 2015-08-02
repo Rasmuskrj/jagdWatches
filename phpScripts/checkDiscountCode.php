@@ -26,7 +26,7 @@ while($row = $result->fetch_assoc()){
 
 foreach($res as $r) {
     if($r['used'] == 0) {
-        echo json_encode(array("response" => true));
+        echo json_encode(array("response" => true, 'amount' => $r['amount']));
         exit;
     }
 }

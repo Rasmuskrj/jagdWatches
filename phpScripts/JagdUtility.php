@@ -68,4 +68,74 @@ class JagdUtility {
             return utf8_encode($string);
         }
     }
+
+    /**
+     * @param $billingFirstName
+     * @param $billingLastName
+     * @param $orderId
+     * @param $case
+     * @param $hands
+     * @param $strap
+     * @param $dial
+     * @param $index
+     * @param $util
+     * @param $numerals
+     * @param $marker
+     * @param $pattern
+     * @param $invertPattern
+     * @param $patternRotation
+     * @param $additionalStrap1
+     * @param $additionalStrap2
+     * @param $additionalStrap3
+     * @param $additionalStrap4
+     * @param $additionalStrap5
+     * @param $billingAddress
+     * @param $billingPostalCode
+     * @param $billingCity
+     * @param $billingCountry
+     * @param $email
+     */
+    function sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $strap, $dial, $index, $util, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email)
+    {
+        $message = "Hi $billingFirstName $billingLastName
+Thank you for choosing Jagd Watches.
+You should receive your order within 10 working days from today.
+If you have any questions about your order please send us an email and we will get back to you as soon as we can
+
+ORDER INFORMATION
+----------------------------------------------------------------------------------------------------------------
+
+Order Id: $orderId
+
+Watch:
+Case:               $case
+Hands:              $hands
+Strap:              $strap
+Dial:               $dial
+Index:              " . ($index == null ? $util->noneName : $index) . "
+Numerals:           " . ($numerals == null ? $util->noneName : $numerals) . "
+Marker:             " . ($marker == null ? $util->noneName : $marker) . "
+Pattern:            " . ($pattern == null ? $util->noneName : $pattern) . "
+Pattern inverted:   " . ($invertPattern == 0 ? 'No' : 'Yes') . "
+Pattern rotation:   $patternRotation
+
+Extra strap 1:      " . ($additionalStrap1 == null ? $util->noneName : $additionalStrap1) . "
+Extra strap 2:      " . ($additionalStrap2 == null ? $util->noneName : $additionalStrap2) . "
+Extra strap 3:      " . ($additionalStrap3 == null ? $util->noneName : $additionalStrap3) . "
+Extra strap 4:      " . ($additionalStrap4 == null ? $util->noneName : $additionalStrap4) . "
+Extra strap 5:      " . ($additionalStrap5 == null ? $util->noneName : $additionalStrap5) . "
+
+
+Address:
+$billingFirstName $billingLastName
+$billingAddress
+$billingPostalCode $billingCity
+$billingCountry
+
+We hope you will enjoy your purchase.
+
+Sincerely,
+Jagd Watches";
+        mail($email, "JAGD Watches receipt", $message, "From: noreply@jagdwatches.com" . "\r\n");
+    }
 }
