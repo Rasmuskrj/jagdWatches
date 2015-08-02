@@ -594,6 +594,9 @@ WatchBuilder = (function($) {
                 for(var i = 1; i < self.variables.possibleStrapAmount + 1; i++){
                     if(Cookies.get('additionalStrap' + i) != undefined){
                         self.state['additionalStrap' + i] = Cookies.get('additionalStrap' + i);
+                        if(Cookies.get('additionalStrap' + i) != self.variables.noneName){
+                            self.el.additionalStrapsDialog.find('.strap' + i + 'Value').html(Cookies.get('additionalStrap' + i)).addClass('selectedStrap').removeClass('unselectedStrap');
+                        }
                     }
 
                     if(self.state['additionalStrap' + i] != self.variables.noneName){
@@ -698,6 +701,7 @@ WatchBuilder = (function($) {
                 height: 600,
                 width: 700,
                 modal: true,
+                open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide() },
                 buttons: [
                     {
                         id: 'StrapButtonDone',
@@ -722,6 +726,7 @@ WatchBuilder = (function($) {
                                     amountOfStraps++;
                                 } else {
                                     self.el['partRecapAdditionalStrapRow' + (i+1)].hide();
+                                    self.state['additionalStrap' + (i + 1)] = self.variables.noneName;
                                     Cookies.set('additionalStrap' + (i + 1), self.variables.noneName, {expires: 30, path: '/'});
                                 }
                             }
