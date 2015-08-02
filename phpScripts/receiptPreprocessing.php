@@ -66,7 +66,7 @@ if($validPromotionCode != false) {
     /**
      * Check if the order exists
      */
-
+     
 
     /*check encodings*/
     $billingFirstName = utf8_decode($billingFirstName);
@@ -100,7 +100,7 @@ if($validPromotionCode != false) {
                                        additional_strap_2=?, additional_strap_3=?, additional_strap_4=?, additional_strap_5=?, promotion_code=? WHERE order_id=?;");
         echo $stmt->error;
         echo $db->error;
-        $stmt->bind_param('isiiisssssssssssssssiissssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+        $stmt->bind_param('isiiisssssssssssssssiisssssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
             $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promotionCode, $orderId);
     } else {
         $stmt = $db->prepare("INSERT INTO orders (order_id,amount,currency,DIBS_transact,DIBS_approvalcode,DIBS_statuscode,first_name,last_name,address,postalcode,city,email,country,watch_case,
