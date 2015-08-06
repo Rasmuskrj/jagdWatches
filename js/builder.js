@@ -21,6 +21,8 @@ $(function(){
             alwaysShowScrollbar: 2,
             autoDraggerLength: true
         });
+        $('#cover').hide();
+        WatchBuilder.startIntro();
     });
 
     $(window).bind("load", function() {

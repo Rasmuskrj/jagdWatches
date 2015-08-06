@@ -10,7 +10,9 @@ $db = $dataBase->getConnection();
 
 
 $util->getFolderPaths($watchCaseFolder, $watchCaseMainFolder, $watchStrapFolder, $watchStrapMainFolder, $watchHandsFolder, $watchHandsMainFolder, $watchDialFolder, $watchDialMainFolder, $patternFolder, $patternMainFolder, $watchNumeralsFolder, $watchNumeralsMainFolder, $watchIndexFolder, $watchIndexMainFolder, $watchMarkerFolder, $watchMarkerMainFolder);
-
+//Watch back folder paths
+$watchCaseBackMainFolder = "images/WatchBuilder/WatchCaseBacks/";
+$watchStrapEndingsMainFolder = "images/WatchBuilder/StrapEndings/";
 
 //find all files, and put them in arrays
 $watchCaseThumbnails = glob($watchCaseFolder . "*.png");
@@ -33,6 +35,8 @@ $watchIndexMains = glob($watchIndexMainFolder . "*.png");
 $watchMarkerThumbnails = glob($watchMarkerFolder . "*.png");
 $watchMarkerThumbnails = moveValueByIndex($watchMarkerThumbnails, $watchMarkerFolder . "None.png");
 $watchMarkerMains = glob($watchMarkerMainFolder . "*.png");
+$watchCaseBackMains = glob($watchCaseBackMainFolder . "*.png");
+$watchStrapEndingsMains = glob($watchStrapEndingsMainFolder . "*.png");
 
 /**
  * 1: Plain dial

@@ -646,6 +646,27 @@ include("phpScripts/Preprocessing.php");
             }
             ?>
         </div>
+        <div class="watchElementContainer">
+            <?php
+            foreach($watchCaseBackMains as $main){
+                echo "<img src='$main' class='watchCase watchElement largeWatchElement backElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+            }
+            ?>
+        </div>
+        <div class="watchElementContainer">
+            <?php
+            foreach($watchStrapEndingsMains as $main){
+                echo "<img src='$main' class='watchStrap watchElement largeWatchElement backElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+            }
+            ?>
+        </div>
+        <div class="watchElementContainer">
+            <?php
+            foreach($watchStrapMains as $main){
+                echo "<img src='$main' class='watchStrap watchElement largeWatchElement backElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+            }
+            ?>
+        </div>
     </div>
 
 </div>
@@ -656,6 +677,9 @@ include("phpScripts/Preprocessing.php");
 
 <div id="invalidSelectionsModal" title="INVALID SELECTIONS">
     <p>You must choose a <b>strap</b> and a <b>watch casing</b> in order to continue</p>
+</div>
+
+<div id="cover">
 </div>
 </body>
 </html>

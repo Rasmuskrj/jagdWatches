@@ -19,6 +19,8 @@ WatchBuilder = (function($) {
 
     var builder = {
 
+        newUser: true,
+
         el: {},
 
         variables: {
@@ -113,8 +115,8 @@ WatchBuilder = (function($) {
             self.handleCookieNotice();
             if(Cookies.get('userID') == undefined){
                 Cookies.set('userID', generateUUID(), {expires: 30, path: '/'});
-                self.animateIntro();
             } else {
+                self.newUser = false;
                 self.enterStep1();
             }
         },
@@ -795,22 +797,23 @@ WatchBuilder = (function($) {
 
         animateIntro: function () {
             var self = builder;
-
-            var func = function () {
-                var i = 0;
-                var innerFunc = function () {
-                    self.el.rightArrow.trigger('click');
-                    i++;
-                    if(i < self.variables.introNoOfChanges){
-                        setTimeout(innerFunc, self.variables.introChangeInterval);
-                    } else {
-                        self.enterStep1();
-                    }
+            if(self.newUser) {
+                var func = function () {
+                    var i = 0;
+                    var innerFunc = function () {
+                        self.el.rightArrow.trigger('click');
+                        i++;
+                        if (i < self.variables.introNoOfChanges) {
+                            setTimeout(innerFunc, self.variables.introChangeInterval);
+                        } else {
+                            self.enterStep1();
+                        }
+                    };
+                    innerFunc();
                 };
-                innerFunc();
-            };
 
-            setTimeout(func, self.variables.introDelay);
+                setTimeout(func, self.variables.introDelay);
+            }
         },
 
         handleCookieNotice: function () {
@@ -843,6 +846,10 @@ WatchBuilder = (function($) {
 
         positionFooter: function() {
             builder.positionFooter();
+        },
+
+        startIntro: function(){
+            builder.animateIntro();
         }
     };
 
