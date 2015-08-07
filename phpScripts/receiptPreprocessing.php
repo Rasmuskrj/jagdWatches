@@ -17,6 +17,7 @@ $imgType = "png";
 
 $orderId = @$_POST['orderid'];
 $promotionCode = @$_POST['addedPromotionCode'];
+$regionEU = @$_POST['regionEU'] == 'true' ? true : false;
 
 /**
  * If paid by promotion code, then inset order into database

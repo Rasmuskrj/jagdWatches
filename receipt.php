@@ -179,7 +179,7 @@
                                 </table>
                             </div>
                             <div class="cell rightCell">
-                                <span class="priceValue"><?php echo $subtotal?></span><span class="priceCurrency"> DKK</span>
+                                <span class="priceValue"><?php echo number_format($subtotal, 2, ',', '.'); ?></span><span class="priceCurrency"> DKK</span>
                             </div>
                         </div>
                         <?php
@@ -215,19 +215,19 @@
                                     <tbody>
                                     <tr><td>&nbsp;</td></tr>';
                                 if($additionalStrap1 != $util->noneName  && $additionalStrap1 != null){
-                                    echo '<tr class="additionalStrapLine1"><td><span class="additionalStrapPriceValue additionalStrapPriceValue1">'.$strapPrice.'</span> <span class="priceCurrency">DKK</span></td></tr>';
+                                    echo '<tr class="additionalStrapLine1"><td><span class="additionalStrapPriceValue additionalStrapPriceValue1">'.number_format($strapPrice, 2, ',', '.').'</span> <span class="priceCurrency">DKK</span></td></tr>';
                                 }
                                 if($additionalStrap2 != $util->noneName  && $additionalStrap2 != null){
-                                    echo '<tr class="additionalStrapLine2"><td><span class="additionalStrapPriceValue additionalStrapPriceValue2">'.$strapPrice.'</span> <span class="priceCurrency">DKK</span></td></tr>';
+                                    echo '<tr class="additionalStrapLine2"><td><span class="additionalStrapPriceValue additionalStrapPriceValue2">'.number_format($strapPrice, 2, ',', '.').'</span> <span class="priceCurrency">DKK</span></td></tr>';
                                 }
                                 if($additionalStrap3 != $util->noneName  && $additionalStrap3 != null){
-                                    echo '<tr class="additionalStrapLine3"><td><span class="additionalStrapPriceValue additionalStrapPriceValue3">'.$strapPrice.'</span> <span class="priceCurrency">DKK</span></td></tr>';
+                                    echo '<tr class="additionalStrapLine3"><td><span class="additionalStrapPriceValue additionalStrapPriceValue3">'.number_format($strapPrice, 2, ',', '.').'</span> <span class="priceCurrency">DKK</span></td></tr>';
                                 }
                                 if($additionalStrap4 != $util->noneName  && $additionalStrap4 != null){
-                                    echo '<tr class="additionalStrapLine4"><td><span class="additionalStrapPriceValue additionalStrapPriceValue4">'.$strapPrice.'</span> <span class="priceCurrency">DKK</span></td></tr>';
+                                    echo '<tr class="additionalStrapLine4"><td><span class="additionalStrapPriceValue additionalStrapPriceValue4">'.number_format($strapPrice, 2, ',', '.').'</span> <span class="priceCurrency">DKK</span></td></tr>';
                                 }
                                 if($additionalStrap5 != $util->noneName  && $additionalStrap5 != null){
-                                    echo '<tr class="additionalStrapLine5"><td><span class="additionalStrapPriceValue additionalStrapPriceValue5">'.$strapPrice.'</span> <span class="priceCurrency">DKK</span></td></tr>';
+                                    echo '<tr class="additionalStrapLine5"><td><span class="additionalStrapPriceValue additionalStrapPriceValue5">'.number_format($strapPrice, 2, ',', '.').'</span> <span class="priceCurrency">DKK</span></td></tr>';
                                 }
 
 
@@ -256,19 +256,27 @@
                                     <tbody>
                                     <tr class="grey smallRecapText">
                                         <td>SUBTOTAL:</td>
-                                        <td class="rightCell"><span class="priceValue"><?php echo $subtotal + $straps ?></span><span class="priceCurrency"> DKK</span> </td>
+                                        <td class="rightCell"><span class="priceValue"><?php echo number_format($subtotal + $straps, 2, ',', '.'); ?></span><span class="priceCurrency"> DKK</span> </td>
                                     </tr>
                                     <tr class="grey smallRecapText">
                                         <td>SHIPPING:</td>
-                                        <td class="rightCell"><span class="shippingCostValue"><?php echo $deliveryPrice ?></span><span class="priceCurrency"> DKK</span> </td>
+                                        <td class="rightCell"><span class="shippingCostValue"><?php echo number_format($deliveryPrice, 2, ',', '.') ?></span><span class="priceCurrency"> DKK</span> </td>
                                     </tr>
                                     <?php
                                         if($promotionCodeValue != false) {
                                             $promotionValue = $promotionCodeValue / 100;
                                             echo '<tr class="grey promotionCodeRow smallRecapText">
                                         <td>PROMOTION CODE:</td>
-                                        <td class="rightCell"><span class="promotionCodeDiscount">- ' . $promotionValue  . '</span><span class="priceCurrency"> DKK</span> </td>
+                                        <td class="rightCell"><span class="promotionCodeDiscount">- ' . number_format($promotionValue, 2, ',', '.')  . '</span><span class="priceCurrency"> DKK</span> </td>
                                     </tr>';
+                                        }
+                                        if($regionEU){
+                                            $vatAmount = number_format(($price / 100) * 0.25, 2, ',', '.');
+                                            echo '<tr class="grey vatRow smallRecapText">
+                                        <td>VAT:</td>
+                                        <td class="rightCell"><span class="vatValue">' . $vatAmount  . '</span><span class="priceCurrency"> DKK</span> </td>
+                                    </tr>';
+                                            $price *= 1.25;
                                         }
                                     ?>
 
@@ -280,7 +288,7 @@
                                             TOTAL:
                                         </td>
                                         <td class="rightCell">
-                                            <span class="totalPriceValue"><?php echo $amountTotal / 100;  ?></span><span class="priceCurrency"> DKK</span>
+                                            <span class="totalPriceValue"><?php echo number_format($price / 100, 2, ',', '.');  ?></span><span class="priceCurrency"> DKK</span>
                                         </td>
                                     </tr>
                                     </tbody>

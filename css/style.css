@@ -1943,23 +1943,28 @@ a.fancybox {
     white-space: nowrap;
 }
 
+
 /**************************/
-/* receipt                */
+/* Cookie notice          */
 /**************************/
 
 .cookieNotice {
     position: fixed;
     bottom: 0;
     height: 90px;
-    width: 100%;
+    width: 66%;
     background-color: #B9C5CB;
-    opacity: 0.9;
+    opacity: 0.95;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
 .cookieNotice p {
     display: inline;
-    font-size: 19px;
+    font-size: 17px;
 }
 
 .cookieNotice .noticeContainer {
@@ -1984,6 +1989,21 @@ a.fancybox {
     text-decoration: underline;
 }
 
+/**************************/
+/* set region             */
+/**************************/
+
+.regionRadioContainer {
+    display: block;
+    text-align: center;
+}
+
+.setRegionButton {
+    width: 199px;
+    height: 39px;
+    font-size: 16px;
+    padding-top: 5px;
+}
 
 /*********************************************************************************/
 /* Poptrox                                                                       */

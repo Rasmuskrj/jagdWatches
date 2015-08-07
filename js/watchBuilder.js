@@ -57,7 +57,9 @@ WatchBuilder = (function($) {
             additionalStrap5: "None",
             validPromotionCodeAdded: false,
             totalPrice: 0,
-            addedPromotionCode: ''
+            addedPromotionCode: '',
+            regionSet: false,
+            regionEU: false
         },
 
         partLists: {},
@@ -84,7 +86,7 @@ WatchBuilder = (function($) {
             $('.fancybox').fancybox({
                 type: "image"
             });
-            self.el.shippingCostValue = self.formatPrice(shippingCost);
+            self.el.shippingCostValue.text(self.formatPrice(shippingCost.toFixed(2)));
             self.el.startButton.button();
             self.el.fullViewButton.button();
             self.el.step2Button.button();
@@ -198,10 +200,16 @@ WatchBuilder = (function($) {
             self.el.step1RecapTitle = $('.step1RecapTitle');
             self.el.additionalStrapPriceValue = $('.additionalStrapPriceValue');
             self.el.totalPriceValue = $('.totalPriceValue');
+            self.el.vatValue = $('.vatValue');
+            self.el.vatRow = $('.vatRow');
             self.el.invalidselectionsModal = $('#invalidSelectionsModal');
 
             self.el.cookieNotice = $('.cookieNotice');
             self.el.closeCookieNotice = $('.closeCookieNotice');
+            self.el.setRegionButton = $('.setRegionButton');
+            self.el.setRegionModal = $('#chooseRegionModal');
+            self.el.setRegionRadios = $('#chooseRegionRadio');
+            self.el.priceValueContainer = $('.priceValueContainer');
         },
 
         bindEvents: function() {
@@ -398,6 +406,11 @@ WatchBuilder = (function($) {
                 self.el.cookieNotice.hide('fade', 1000);
                 Cookies.set('cookiesAccepted', true, {expires: 30, path: '/'});
             });
+            self.el.setRegionButton.button();
+            self.el.setRegionButton.on('click', function(){
+                self.el.setRegionModal.dialog('open');
+            });
+            self.el.setRegionRadios.buttonset();
         },
 
         enterIntro: function(){
@@ -584,6 +597,8 @@ WatchBuilder = (function($) {
                 self.state.index = Cookies.get('index');
                 self.state.numerals = Cookies.get('numerals');
                 self.state.pattern = Cookies.get('pattern');
+                self.state.regionEU = Cookies.get('regionEU');
+                self.state.regionSet = Cookies.get('regionSet');
                 if(Cookies.get('patternRotation') != undefined) {
                     $('.watchPattern').css("transform", "rotate(" + Cookies.get('patternRotation') + "deg)");
                 }
@@ -619,6 +634,7 @@ WatchBuilder = (function($) {
                     self.el.partRecapAdditionStrapsTable.hide();
                 }
             }
+            self.insertPrice();
             if(self.state.straps == self.variables.outlineName) {
                 $('.watchStrap').each(function (index) {
                     if ($(this).data('parttype') == self.variables.outlineName) {
@@ -656,7 +672,7 @@ WatchBuilder = (function($) {
 
         formatPrice: function(number) {
             number = number + '';
-            var arr = number.split(',');
+            var arr = number.split('.');
             var n1 = arr[0];
             var n2 = arr.length > 1 ? ',' + arr[1] : ',00';
             var rgx = /(\d+)(\d{3})/;
@@ -681,17 +697,18 @@ WatchBuilder = (function($) {
                 self.el.step1RecapTitle.text("JAGD WATCH - ENGRAVED DIAL");
                 totalPrice = priceEngravedOneStrap  + self.state.noOfAdditionalStraps * singleStrapCost;
             }
+            self.el.subtotalValue.text(self.formatPrice(totalPrice.toFixed(2)));
+            totalPrice = totalPrice + shippingCost;
             self.el.promotionCodeDiscount.text("-" + self.formatPrice(self.variables.discountAmount));
-            self.el.subtotalValue.text(totalPrice);
-            if(self.state.validPromotionCodeAdded) {
-                totalPrice = totalPrice + shippingCost - self.variables.discountAmount;
-                self.el.totalPriceValue.text(self.formatPrice(totalPrice));
-                self.state.totalPrice = totalPrice
-            } else {
-                totalPrice = totalPrice + shippingCost;
-                self.el.totalPriceValue.text(self.formatPrice(totalPrice));
-                self.state.totalPrice = totalPrice;
+            self.el.vatValue.text(self.formatPrice((totalPrice * 0.25).toFixed(2)));
+            if(self.state.regionEU) {
+                totalPrice *= 1.25;
             }
+            if(self.state.validPromotionCodeAdded) {
+                totalPrice = totalPrice - self.variables.discountAmount;
+            }
+            self.el.totalPriceValue.text(self.formatPrice(totalPrice.toFixed(2)));
+            self.state.totalPrice = totalPrice;
 
         },
 
@@ -793,6 +810,46 @@ WatchBuilder = (function($) {
                     }
                 }
             });
+
+            self.el.setRegionModal.dialog({
+                autoOpen: false,
+                height: 500,
+                width: 500,
+                modal: true,
+                open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide() },
+                buttons: {
+                    "OK": function() {
+                        if($("#chooseRegionRadio :radio:checked").attr('id') == "chooseRegionEU"){
+                            self.state.regionEU = true;
+                            self.state.regionSet = true;
+                            self.el.vatRow.show();
+                            Cookies.set('regionEU', true, {expires: 30, path: '/'});
+                            Cookies.set('regionSet', true, {expires: 30, path: '/'});
+                        } else {
+                            self.state.regionEU = false;
+                            self.state.regionSet = true;
+                            self.el.vatRow.hide();
+                            Cookies.set('regionEU', false, {expires: 30, path: '/'});
+                            Cookies.set('regionSet', true, {expires: 30, path: '/'});
+                        }
+                        self.insertPrice();
+                        $(this).dialog('close');
+                    }
+                }
+            })
+        },
+
+        insertPrice: function() {
+            var self = builder;
+
+            if(self.state.regionSet) {
+                self.el.setRegionButton.hide();
+                self.el.priceValueContainer.show();
+            } else {
+                self.el.setRegionButton.show();
+                self.el.priceValueContainer.hide();
+            }
+            self.updatePrice();
         },
 
         animateIntro: function () {

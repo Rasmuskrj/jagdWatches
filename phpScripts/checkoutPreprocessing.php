@@ -39,7 +39,8 @@ $stateKeys = array(
     "additionalStrap5",
     "validPromotionCodeAdded",
     "totalPrice",
-    "addedPromotionCode"
+    "addedPromotionCode",
+    "regionEU"
 );
 
 $dataBase = new Database();

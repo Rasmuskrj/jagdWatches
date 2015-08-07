@@ -266,7 +266,7 @@ include("phpScripts/Preprocessing.php");
                         <div class="priceContainer">
                             <div class="hline"></div>
                             <div class="price">
-                                <span class="priceLabel">Price:</span><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span>
+                                <span class="priceLabel">Price:</span><span class="setRegionButton">Set Region to see price</span><span class="priceValueContainer"><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span></span>
                             </div>
                         </div>
                     </div>
@@ -347,7 +347,7 @@ include("phpScripts/Preprocessing.php");
                         <div class="priceContainer">
                             <div class="hline"></div>
                             <div class="price">
-                                <span class="priceLabel">Price:</span><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span>
+                                <span class="priceLabel">Price:</span><span class="setRegionButton">Set Region to see price</span><span class="priceValueContainer"><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span></span>
                             </div>
                         </div>
                     </div>
@@ -490,6 +490,10 @@ include("phpScripts/Preprocessing.php");
                                         <tr class="grey promotionCodeRow smallRecapText">
                                             <td>PROMOTION CODE:</td>
                                             <td class="rightCell"><span class="promotionCodeDiscount"></span><span class="priceCurrency"> DKK</span> </td>
+                                        </tr>
+                                        <tr class="grey vatRow smallRecapText">
+                                            <td>VAT</td>
+                                            <td class="rightCell"><span class="vatValue"></span><span class="priceCurrency"> DKK</span></td>
                                         </tr>
                                         <tr>
                                             <td>&nbsp;</td><td>&nbsp;</td>
@@ -680,6 +684,16 @@ include("phpScripts/Preprocessing.php");
 </div>
 
 <div id="cover">
+</div>
+
+<div id="chooseRegionModal" title="CHOOSE A REGION">
+    <p>Please choose EU or rest of the world</p>
+    <div class="regionRadioContainer">
+        <div id="chooseRegionRadio">
+            <input type="radio" id="chooseRegionEU" name="radio" value="EU" checked="checked"><label for="chooseRegionEU">EU</label>
+            <input type="radio" id="chooseRegionNon_EU" name="radio" value="non-EU"><label for="chooseRegionNon_EU">Rest of world</label>
+        </div>
+    </div>
 </div>
 </body>
 </html>
