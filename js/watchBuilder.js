@@ -211,7 +211,7 @@ WatchBuilder = (function($) {
             self.el.setRegionRadios = $('#chooseRegionRadio');
             self.el.noRegionSelectedModal = $('#noRegionSelectedModal');
             self.el.priceValueContainer = $('.priceValueContainer');
-            self.el.setRegionButtons = $('.setRegion');
+            self.el.setRegionButtonSet = $('.setRegion');
             self.el.euFlag = $('.euFlag');
         },
 
@@ -412,7 +412,7 @@ WatchBuilder = (function($) {
                 Cookies.set('cookiesAccepted', true, {expires: 30, path: '/'});
             });
             self.el.setRegionButton.button();
-            self.el.setRegionButtons.on('click', function(){
+            self.el.setRegionButtonSet.on('click', function(){
                 self.el.setRegionModal.dialog('open');
             });
             self.el.setRegionRadios.buttonset();
