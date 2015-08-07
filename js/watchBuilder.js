@@ -213,6 +213,9 @@ WatchBuilder = (function($) {
             self.el.priceValueContainer = $('.priceValueContainer');
             self.el.setRegionButtonSet = $('.setRegion');
             self.el.euFlag = $('.euFlag');
+
+            self.el.downloadImageButton = $('#downloadImageButton');
+            self.el.downloadImageModal = $('#downloadImageModal');
         },
 
         bindEvents: function() {
@@ -416,6 +419,23 @@ WatchBuilder = (function($) {
                 self.el.setRegionModal.dialog('open');
             });
             self.el.setRegionRadios.buttonset();
+            self.el.downloadImageButton.button();
+            self.el.downloadImageButton.on('click', function () {
+                html2canvas($("#watch"), {
+                    onrendered: function(canvas) {
+                        theCanvas = canvas;
+                        document.body.appendChild(canvas);
+
+                        // Convert and download as image
+
+                        $("#imageContainer").append(Canvas2Image.convertToPNG(canvas));
+                        //$('#imageContainer').append("<a href='" + canvas.toDataURL() + "' download target='_blank'>click</a>");
+                        // Clean up
+                        document.body.removeChild(canvas);
+                    }
+                });
+                self.el.downloadImageModal.dialog('open');
+            });
         },
 
         enterIntro: function(){
@@ -853,7 +873,22 @@ WatchBuilder = (function($) {
                         $(this).dialog('close');
                     }
                 }
-            })
+            });
+
+            self.el.downloadImageModal.dialog({
+                autoOpen: false,
+                height: 800,
+                width: 500,
+                modal: true,
+                close: function () {
+                    $(this).find('#imageContainer').empty();
+                },
+                buttons: {
+                    "OK": function() {
+                        $(this).dialog('close');
+                    }
+                }
+            });
         },
 
         insertPrice: function() {
