@@ -105,6 +105,8 @@ include("phpScripts/Preprocessing.php");
     <!-- Nav -->
     <nav id="nav">
         <ul>
+            <li><img class="euFlag" src="images/eu-flag.gif"></li>
+            <li><a class="setRegion" href="#">Set region</a></li>
             <li><a id="backButton" href="#">Back</a></li>
             <li><a href="index.php">Back To Main</a></li>
         </ul>
@@ -266,7 +268,7 @@ include("phpScripts/Preprocessing.php");
                         <div class="priceContainer">
                             <div class="hline"></div>
                             <div class="price">
-                                <span class="priceLabel">Price:</span><span class="setRegionButton">Set Region to see price</span><span class="priceValueContainer"><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span></span>
+                                <span class="priceLabel">Price:</span><span class="setRegionButton setRegion">Set Region to see price</span><span class="priceValueContainer"><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span></span>
                             </div>
                         </div>
                     </div>
@@ -347,7 +349,7 @@ include("phpScripts/Preprocessing.php");
                         <div class="priceContainer">
                             <div class="hline"></div>
                             <div class="price">
-                                <span class="priceLabel">Price:</span><span class="setRegionButton">Set Region to see price</span><span class="priceValueContainer"><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span></span>
+                                <span class="priceLabel">Price:</span><span class="setRegionButton setRegion">Set Region to see price</span><span class="priceValueContainer"><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span></span>
                             </div>
                         </div>
                     </div>
@@ -697,7 +699,7 @@ include("phpScripts/Preprocessing.php");
 </div>
 
 <div id="noRegionSelectedModal" TITLE="NO REGION SELECTED">
-    <p>Before you can continue, you must first select a region by clicking the button 'Set region to see price'.</p>
+    <p>Before you can continue, you must first select a region.</p>
 </div>
 </body>
 </html>

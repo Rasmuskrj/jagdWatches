@@ -211,6 +211,8 @@ WatchBuilder = (function($) {
             self.el.setRegionRadios = $('#chooseRegionRadio');
             self.el.noRegionSelectedModal = $('#noRegionSelectedModal');
             self.el.priceValueContainer = $('.priceValueContainer');
+            self.el.setRegionButtons = $('.setRegion');
+            self.el.euFlag = $('.euFlag');
         },
 
         bindEvents: function() {
@@ -410,7 +412,7 @@ WatchBuilder = (function($) {
                 Cookies.set('cookiesAccepted', true, {expires: 30, path: '/'});
             });
             self.el.setRegionButton.button();
-            self.el.setRegionButton.on('click', function(){
+            self.el.setRegionButtons.on('click', function(){
                 self.el.setRegionModal.dialog('open');
             });
             self.el.setRegionRadios.buttonset();
@@ -863,6 +865,11 @@ WatchBuilder = (function($) {
             } else {
                 self.el.setRegionButton.show();
                 self.el.priceValueContainer.hide();
+            }
+            if(self.state.regionEU) {
+                self.el.euFlag.show();
+            } else {
+                self.el.euFlag.hide();
             }
             self.updatePrice();
         },

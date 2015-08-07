@@ -115,6 +115,10 @@ $straps = $strapPrice * $state['noOfAdditionalStraps'];
 
 $price = $amount + $straps + $deliveryPrice;
 
+if($state['regionEU'] == 'true'){
+    $price *= 1.25;
+}
+
 $price *= 100; //multiply by 100 to get price with sub-currency;
 
 /**
