@@ -695,5 +695,9 @@ include("phpScripts/Preprocessing.php");
         </div>
     </div>
 </div>
+
+<div id="noRegionSelectedModal" TITLE="NO REGION SELECTED">
+    <p>Before you can continue, you must first select a region by clicking the button 'Set region to see price'.</p>
+</div>
 </body>
 </html>

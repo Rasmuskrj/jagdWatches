@@ -209,6 +209,7 @@ WatchBuilder = (function($) {
             self.el.setRegionButton = $('.setRegionButton');
             self.el.setRegionModal = $('#chooseRegionModal');
             self.el.setRegionRadios = $('#chooseRegionRadio');
+            self.el.noRegionSelectedModal = $('#noRegionSelectedModal');
             self.el.priceValueContainer = $('.priceValueContainer');
         },
 
@@ -259,8 +260,10 @@ WatchBuilder = (function($) {
                 }
             });
             self.el.buyNowButton.on('click', function() {
-                if (self.state.case != self.variables.outlineName && self.state.straps != self.variables.outlineName) {
+                if (self.state.case != self.variables.outlineName && self.state.straps != self.variables.outlineName && self.state.regionSet) {
                     self.enterBuyStep1();
+                } else if (!self.state.regionSet){
+                    self.el.noRegionSelectedModal.dialog('open');
                 } else {
                     self.el.invalidselectionsModal.dialog('open');
                 }
@@ -833,6 +836,18 @@ WatchBuilder = (function($) {
                             Cookies.set('regionSet', true, {expires: 30, path: '/'});
                         }
                         self.insertPrice();
+                        $(this).dialog('close');
+                    }
+                }
+            });
+
+            self.el.noRegionSelectedModal.dialog({
+                autoOpen: false,
+                height: 500,
+                width: 500,
+                modal: true,
+                buttons: {
+                    "OK": function() {
                         $(this).dialog('close');
                     }
                 }
