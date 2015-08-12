@@ -1916,11 +1916,11 @@ a.fancybox {
 }*/
 
 .watchContainer.receiptPosition {
-    -webkit-transform: translateX(-415px) translateY(160px) scaleX(0.7) scaleY(0.7);
-    -moz-transform: translateX(-415px) translateY(160px) scaleX(0.7) scaleY(0.7);
-    -ms-transform: translateX(-415px) translateY(160px) scaleX(0.7) scaleY(0.7);
-    -o-transform: translateX(-415px) translateY(160px) scaleX(0.7) scaleY(0.7);
-    transform: translateX(-415px) translateY(160px) scaleX(0.7) scaleY(0.7);
+    -webkit-transform: translateX(-440px) translateY(160px) scaleX(0.7) scaleY(0.7);
+    -moz-transform: translateX(-440px) translateY(160px) scaleX(0.7) scaleY(0.7);
+    -ms-transform: translateX(-440px) translateY(160px) scaleX(0.7) scaleY(0.7);
+    -o-transform: translateX(-440px) translateY(160px) scaleX(0.7) scaleY(0.7);
+    transform: translateX(-440px) translateY(160px) scaleX(0.7) scaleY(0.7);
 }
 
 .receiptMainContent .watchHeader {
