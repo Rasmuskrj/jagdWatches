@@ -107,10 +107,8 @@ include("phpScripts/Preprocessing.php");
     <!-- Nav -->
     <nav id="nav">
         <ul>
-            <li><img class="euFlag" src="images/eu-flag.gif"></li>
             <li><a class="setRegion" href="#">Set region</a></li>
             <li><a id="backButton" href="#">Back</a></li>
-            <li><a href="index.php">Back To Main</a></li>
         </ul>
     </nav>
 
@@ -275,7 +273,7 @@ include("phpScripts/Preprocessing.php");
                         <div class="priceContainer">
                             <div class="hline"></div>
                             <div class="price">
-                                <span class="priceLabel">Price:</span><span class="setRegionButton setRegion">Set Region to see price</span><span class="priceValueContainer"><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span></span>
+                                <span class="priceLabel">Price:</span><span class="setRegionButton euButton">EU</span><span class="setRegionButton restOfWorldButton type2">Rest Of World</span><span class="priceValueContainer"><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span></span>
                             </div>
                         </div>
                     </div>
@@ -356,7 +354,7 @@ include("phpScripts/Preprocessing.php");
                         <div class="priceContainer">
                             <div class="hline"></div>
                             <div class="price">
-                                <span class="priceLabel">Price:</span><span class="setRegionButton setRegion">Set Region to see price</span><span class="priceValueContainer"><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span></span>
+                                <span class="priceLabel">Price:</span><span class="setRegionButton euButton">EU</span><span class="setRegionButton restOfWorldButton type2">Rest Of World</span><span class="priceValueContainer"><span class="totalPriceValue priceValueBuilder"> 200</span> <span class="priceCurrency priceCurrencyBuilder">DKK</span></span>
                             </div>
                         </div>
                     </div>
@@ -570,7 +568,7 @@ include("phpScripts/Preprocessing.php");
 
 <div class="cookieNotice">
     <div class="noticeContainer">
-        <p><b>This site uses cookies.</b> We use cookies to save your design and to ensure that we give you the best experience.</p><p class="redText">Find out more about cookies <a href="info/AboutCookies.pdf">here</a>.</p>
+        <p><b>This site uses cookies.</b> We use cookies to save your design and to ensure that we give you the best experience.</p><br><p class="redText">Find out more about cookies <a href="info/AboutCookies.pdf">here</a>.</p>
         <span class="closeCookieNotice">Continue</span>
     </div>
 </div>
@@ -674,11 +672,8 @@ include("phpScripts/Preprocessing.php");
             ?>
         </div>
         <div class="watchElementContainer">
-            <?php
-            foreach($watchStrapMains as $main){
-                echo "<img src='$main' class='watchStrap watchElement largeWatchElement backElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
+            <img src='images/WatchBuilder/Straps/Main/Outline.png' class='watchStrapBack watchElement largeWatchElement backElement' data-partType='Outline'>
+            <img src='images/WatchBuilder/StrapBack/StandardStrapBack.png' class='watchStrapBack watchElement largeWatchElement backElement' data-partType='Standard'>
         </div>
     </div>
 

@@ -1054,10 +1054,10 @@ body, html {
 
 .lowerRightButton {
     display: block;
-    padding: 4px 12px;
-    margin-bottom: 8%;
+    padding: 4px 0;
+    margin-bottom: 11%;
     cursor: pointer;
-    width: 186px;
+    width: 100%;
     height: 40px;
     text-align: center;
     font-size: 19px;
@@ -1066,9 +1066,13 @@ body, html {
 
 .invertPattern {
     position: absolute;
-    right: 40px;
+    right: 16px;
     top: 5px;
-    font-size: 14px;
+    font-size: 0.52em;
+}
+
+.ui-button {
+    border: none;
 }
 
 /**************************/
@@ -1079,7 +1083,7 @@ body, html {
 .watchContainer {
     position: absolute;
     top: 15px;
-    left: 274px;
+    left: 310px;
     width: 448px;
     height: 100%;
 
@@ -1149,11 +1153,11 @@ body, html {
 }*/
 
 .watchContainer.buyPosition {
-    -webkit-transform: translateX(-257px) translateY(-16px) scaleX(0.7) scaleY(0.7);
-    -moz-transform: translateX(-257px) translateY(-16px) scaleX(0.7) scaleY(0.7);
-    -ms-transform: translateX(-257px) translateY(-16px) scaleX(0.7) scaleY(0.7);
-    -o-transform: translateX(-257px) translateY(-16px) scaleX(0.7) scaleY(0.7);
-    transform: translateX(-257px) translateY(-16px) scaleX(0.7) scaleY(0.7);
+    -webkit-transform: translateX(-285px) translateY(-16px) scaleX(0.7) scaleY(0.7);
+    -moz-transform: translateX(-285px) translateY(-16px) scaleX(0.7) scaleY(0.7);
+    -ms-transform: translateX(-285px) translateY(-16px) scaleX(0.7) scaleY(0.7);
+    -o-transform: translateX(-285px) translateY(-16px) scaleX(0.7) scaleY(0.7);
+    transform: translateX(-285px) translateY(-16px) scaleX(0.7) scaleY(0.7);
 }
 
 
@@ -1219,9 +1223,9 @@ body, html {
 
 .buttonsContainer {
     position: absolute;
-    left: 819px;
-    top: 365px;
-    width: 430px;
+    right: 0;
+    top: 362px;
+    width: 366px;
     height: 155px;
     line-height: 1.4em;
     z-index: 500;
@@ -1240,7 +1244,7 @@ body, html {
     position: absolute;
     width: 48%;
     top: 4px;
-    right: 1%;
+    right: 0;
 }
 
 .step2ButtonHelperText {
@@ -1248,14 +1252,14 @@ body, html {
     position: absolute;
     width: 48%;
     text-align: center;
-    top: 74px;
+    top: 76px;
 }
 
 .step2Buttons {
     position: absolute;
     width: 48%;
-    top: 69px;
-    right: 1%;
+    top: 71px;
+    right: 0;
 }
 
 .hline {
@@ -1303,7 +1307,7 @@ body, html {
 }
 
 .thumbnail.rightSideThumbnail{
-    width: 111px;
+    width: 100px;
     height: auto;
 }
 
@@ -1374,7 +1378,7 @@ body, html {
 
 .selectHands {
     position: absolute;
-    top: 190px;
+    top: 195px;
 }
 
 .selectDial {
@@ -1387,14 +1391,26 @@ body, html {
     top: 20px;
 }
 
+.selectIndex .partDescription {
+    display: none;
+}
+
 .selectMarker {
     position: absolute;
-    top: 387px;
+    top: 195px;
+}
+
+.selectMarker .partDescription {
+    display: none;
 }
 
 .selectNumerals {
     position: absolute;
-    top: 190px;
+    top: 387px;
+}
+
+.selectNumerals .partDescription {
+    display: none;
 }
 
 .selectPattern {
@@ -1402,11 +1418,19 @@ body, html {
     top: 20px;
 }
 
+.selectPattern .partDescription {
+    display: none;
+}
+
+.selectPattern .thumbnails {
+    top: 24px;
+}
+
 .patternRotator {
     position: absolute;
     right: 18px;
     top: 320px;
-    width: 399px;
+    width: 329px;
     line-height: 10px;
     z-index: 600;
 }
@@ -1435,10 +1459,10 @@ body, html {
 }
 
 .rightSideSelector {
-    width: 430px;
+    width: 366px;
     height: 240px;
     text-align: left;
-    left: 819px;
+    right: 0;
 }
 
 .selected {
@@ -1838,6 +1862,10 @@ a.fancybox {
     font-weight: normal !important;
 }
 
+.ui-button {
+    outline: none;
+}
+
 /**************************/
 /* footer                 */
 /**************************/
@@ -1954,11 +1982,12 @@ a.fancybox {
     height: 90px;
     width: 66%;
     background-color: #B9C5CB;
-    opacity: 0.95;
+    opacity: 0.98;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
+    z-index: 20000;
 
 }
 
@@ -1999,14 +2028,15 @@ a.fancybox {
 }
 
 .setRegionButton {
-    width: 199px;
-    height: 39px;
     font-size: 16px;
-    padding-top: 5px;
 }
 
-.euFlag {
-    width: 24px;
+.euButton {
+    background-color: #4B809B;
+}
+
+.euButton:hover {
+    background-color: #6DB8DE;
 }
 
 /**************************/

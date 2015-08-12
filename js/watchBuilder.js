@@ -59,7 +59,9 @@ WatchBuilder = (function($) {
             totalPrice: 0,
             addedPromotionCode: '',
             regionSet: false,
-            regionEU: false
+            regionEU: false,
+            introDone: false,
+            outlinesRemoved: false
         },
 
         partLists: {},
@@ -71,6 +73,8 @@ WatchBuilder = (function($) {
             self.state.totalPrice = shippingCost + pricePlainOneStrap;
             self.cacheElements();
             self.bindEvents();
+            var oldInd = cases.indexOf(self.variables.outlineName);
+            self.partLists.cases.splice(self.partLists.cases.length - 1, 0, self.partLists.cases.splice(oldInd, 1)[0]);
             self.el.step1.hide();
             self.el.step2.hide();
             self.el.bottomGallery.hide();
@@ -212,7 +216,6 @@ WatchBuilder = (function($) {
             self.el.noRegionSelectedModal = $('#noRegionSelectedModal');
             self.el.priceValueContainer = $('.priceValueContainer');
             self.el.setRegionButtonSet = $('.setRegion');
-            self.el.euFlag = $('.euFlag');
 
             self.el.downloadImageButton = $('#downloadImageButton');
             self.el.downloadImageModal = $('#downloadImageModal');
@@ -415,6 +418,14 @@ WatchBuilder = (function($) {
                 Cookies.set('cookiesAccepted', true, {expires: 30, path: '/'});
             });
             self.el.setRegionButton.button();
+            self.el.setRegionButton.on('click', function () {
+                if($(this).hasClass('euButton')) {
+                    self.setRegion(true);
+                } else {
+                    self.setRegion(false);
+                }
+                self.insertPrice();
+            });
             self.el.setRegionButtonSet.on('click', function(){
                 self.el.setRegionModal.dialog('open');
             });
@@ -455,6 +466,7 @@ WatchBuilder = (function($) {
 
         enterStep1: function(){
             var self = builder;
+            self.state.introDone = true;
             self.el.intro.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step2.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step1.show(self.variables.animationType, self.variables.animationSpeed);
@@ -543,10 +555,13 @@ WatchBuilder = (function($) {
                                 if(!child.hasClass('arrow')){
                                     $(this).hide();
                                 }
-                                if(child.data('parttype') == self.variables.outlineName && partType != self.variables.outlineName) {
-                                    $(this).remove();
-                                    var ind = partArray.indexOf(self.variables.outlineName);
-                                    partArray.splice(ind, 1);
+                                if(self.state.introDone && !self.state.outlinesRemoved) {
+                                    if (child.data('parttype') == self.variables.outlineName && partType != self.variables.outlineName) {
+                                        $(this).remove();
+                                        var ind = partArray.indexOf(self.variables.outlineName);
+                                        partArray.splice(ind, 1);
+                                        self.state.outlinesRemoved = true;
+                                    }
                                 }
                             });
                             $(this).closest('.thumbnailContainer').show();
@@ -622,7 +637,7 @@ WatchBuilder = (function($) {
                 self.state.index = Cookies.get('index');
                 self.state.numerals = Cookies.get('numerals');
                 self.state.pattern = Cookies.get('pattern');
-                self.state.regionEU = Cookies.get('regionEU');
+                self.state.regionEU = Cookies.get('regionEU') == 'true' ? true : false;
                 self.state.regionSet = Cookies.get('regionSet');
                 if(Cookies.get('patternRotation') != undefined) {
                     $('.watchPattern').css("transform", "rotate(" + Cookies.get('patternRotation') + "deg)");
@@ -745,7 +760,7 @@ WatchBuilder = (function($) {
                 height: 600,
                 width: 700,
                 modal: true,
-                open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide() },
+                open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); $('.ui-widget-overlay').bind('click', function(){ $(this).siblings('.ui-dialog').find('.ui-dialog-content').dialog('close'); }); },
                 buttons: [
                     {
                         id: 'StrapButtonDone',
@@ -807,6 +822,7 @@ WatchBuilder = (function($) {
                 width: 400,
                 modal: true,
                 resizable: false,
+                open: function(event, ui) { $('.ui-widget-overlay').bind('click', function(){ $(this).siblings('.ui-dialog').find('.ui-dialog-content').dialog('close'); }); },
                 buttons: {
 
                 }
@@ -817,6 +833,7 @@ WatchBuilder = (function($) {
                 height: 500,
                 width: 500,
                 modal: true,
+                open: function(event, ui) { $('.ui-widget-overlay').bind('click', function(){ $(this).siblings('.ui-dialog').find('.ui-dialog-content').dialog('close'); }); },
                 buttons: {
                     "OK": function() {
                         $(this).dialog('close');
@@ -829,6 +846,7 @@ WatchBuilder = (function($) {
                 height: 500,
                 width: 500,
                 modal: true,
+                open: function(event, ui) { $('.ui-widget-overlay').bind('click', function(){ $(this).siblings('.ui-dialog').find('.ui-dialog-content').dialog('close'); }); },
                 buttons: {
                     "OK": function() {
                         $(this).dialog('close');
@@ -841,21 +859,13 @@ WatchBuilder = (function($) {
                 height: 500,
                 width: 500,
                 modal: true,
-                open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide() },
+                open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); $('.ui-widget-overlay').bind('click', function(){ $(this).siblings('.ui-dialog').find('.ui-dialog-content').dialog('close'); }); },
                 buttons: {
                     "OK": function() {
                         if($("#chooseRegionRadio :radio:checked").attr('id') == "chooseRegionEU"){
-                            self.state.regionEU = true;
-                            self.state.regionSet = true;
-                            self.el.vatRow.show();
-                            Cookies.set('regionEU', true, {expires: 30, path: '/'});
-                            Cookies.set('regionSet', true, {expires: 30, path: '/'});
+                            self.setRegion(true);
                         } else {
-                            self.state.regionEU = false;
-                            self.state.regionSet = true;
-                            self.el.vatRow.hide();
-                            Cookies.set('regionEU', false, {expires: 30, path: '/'});
-                            Cookies.set('regionSet', true, {expires: 30, path: '/'});
+                            self.setRegion(false);
                         }
                         self.insertPrice();
                         $(this).dialog('close');
@@ -868,6 +878,7 @@ WatchBuilder = (function($) {
                 height: 500,
                 width: 500,
                 modal: true,
+                open: function(event, ui) { $('.ui-widget-overlay').bind('click', function(){ $(this).siblings('.ui-dialog').find('.ui-dialog-content').dialog('close'); }); },
                 buttons: {
                     "OK": function() {
                         $(this).dialog('close');
@@ -880,6 +891,7 @@ WatchBuilder = (function($) {
                 height: 800,
                 width: 500,
                 modal: true,
+                open: function(event, ui) { $('.ui-widget-overlay').bind('click', function(){ $(this).siblings('.ui-dialog').find('.ui-dialog-content').dialog('close'); }); },
                 close: function () {
                     $(this).find('#imageContainer').empty();
                 },
@@ -901,12 +913,24 @@ WatchBuilder = (function($) {
                 self.el.setRegionButton.show();
                 self.el.priceValueContainer.hide();
             }
-            if(self.state.regionEU) {
-                self.el.euFlag.show();
-            } else {
-                self.el.euFlag.hide();
-            }
             self.updatePrice();
+        },
+
+        setRegion: function (isEU) {
+            var self = builder;
+            if(isEU) {
+                self.state.regionEU = true;
+                self.state.regionSet = true;
+                self.el.vatRow.show();
+                Cookies.set('regionEU', true, {expires: 30, path: '/'});
+                Cookies.set('regionSet', true, {expires: 30, path: '/'});
+            } else {
+                self.state.regionEU = false;
+                self.state.regionSet = true;
+                self.el.vatRow.hide();
+                Cookies.set('regionEU', false, {expires: 30, path: '/'});
+                Cookies.set('regionSet', true, {expires: 30, path: '/'});
+            }
         },
 
         animateIntro: function () {
@@ -915,11 +939,26 @@ WatchBuilder = (function($) {
                 var func = function () {
                     var i = 0;
                     var innerFunc = function () {
-                        self.el.rightArrow.trigger('click');
+                        $(".selectCaseColor img[data-parttype='" + self.partLists.cases[i] + "']").trigger('click');
+                        $(".selectStrap img[data-parttype='" + self.partLists.straps[i] + "']").trigger('click');
+                        $(".selectDial img[data-parttype='" + self.partLists.dials[i] + "']").trigger('click');
+                        //self.el.rightArrow.trigger('click');
                         i++;
                         if (i < self.variables.introNoOfChanges) {
                             setTimeout(innerFunc, self.variables.introChangeInterval);
                         } else {
+                            //Reset strap to outline
+                            self.el.selectStrap.find('.partDescription').text("Outline");
+                            self.el.selectStrap.find('.selected').removeClass('selected');
+                            $('.watchStrap').each(function (index) {
+                                if ($(this).data('parttype') == self.variables.outlineName) {
+                                    $(this).show();
+                                } else {
+                                    $(this).hide();
+                                }
+                            });
+                            $(".selectDial img[data-parttype='" + "White" + "']").trigger('click');
+                            $(".selectCaseColor img[data-parttype='" + "Outline" + "']").trigger('click');
                             self.enterStep1();
                         }
                     };
