@@ -106,9 +106,9 @@ if($statusCode != 1 && $statusCode != 4 && $statusCode != 17) {
 
 
         $stmt->bind_param('sisiiisssssssssssssssiisssssssi', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-            $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $textUpper, $textLower, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
+            $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $textUpper, $textLower, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $sendNewsletters);
 
-        $utility->sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $textUpper, $textLower, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email);
+        $utility->sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $textUpper, $textLower, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email);
     }
     $stmt->execute();
     echo $con->error;
