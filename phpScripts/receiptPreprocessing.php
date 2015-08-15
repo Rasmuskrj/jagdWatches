@@ -18,7 +18,8 @@ $imgType = "png";
 $orderId = @$_POST['orderid'];
 $promotionCode = @$_POST['addedPromotionCode'];
 $regionEU = @$_POST['regionEU'] == 'true' ? true : false;
-
+$textUpper = @$_POST['textUpper'] != null ? @$_POST['textUpper'] : '';
+$textLower = @$_POST['textLower'] != null ? @$_POST['textLower'] : '';
 /**
  * If paid by promotion code, then inset order into database
  */
@@ -59,6 +60,7 @@ if($validPromotionCode != false) {
     $marker = @$_POST['marker'] == $util->noneName ? NULL : @$_POST['marker'];
     $approvalCode = @$_POST['approvalcode'];//'123456';
     $statusCode = @$_POST['statuscode'];//'2';
+    $sendNewsletters = @$_POST['sendNewsletters'] == 'on' ? true : false;
     $billingFirstName = $util->checkEncoding($billingFirstName);
     $billingLastName = $util->checkEncoding($billingLastName);
     $billingCity = $util->checkEncoding($billingCity);
@@ -97,22 +99,22 @@ if($validPromotionCode != false) {
 
     if($orderIdExists) {
         $stmt = $db->prepare("UPDATE orders SET amount=?, currency=?, DIBS_transact=?, DIBS_approvalcode=?, DIBS_statuscode=?, first_name=?, last_name=?, address=?, postalcode=?, city=?,
-                                      email=?, country=?, watch_case=?, hands=?, strap=?, dial=?, watch_index=?, numerals=?, marker=?, pattern=?, invert_pattern=?, pattern_rotation=?, additional_strap_1=?,
-                                       additional_strap_2=?, additional_strap_3=?, additional_strap_4=?, additional_strap_5=?, promotion_code=? WHERE order_id=?;");
+                                      email=?, country=?, watch_case=?, hands=?, strap=?, dial=?, watch_index=?, numerals=?, marker=?, pattern=?, invert_pattern=?, pattern_rotation=?, text_upper=?, text_lower=?, additional_strap_1=?,
+                                       additional_strap_2=?, additional_strap_3=?, additional_strap_4=?, additional_strap_5=?, send_newsletters=?, promotion_code=? WHERE order_id=?;");
         echo $stmt->error;
         echo $db->error;
-        $stmt->bind_param('isiiisssssssssssssssiisssssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-            $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promotionCode, $orderId);
+        $stmt->bind_param('isiiisssssssssssssssiisssssssiss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+            $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $textUpper, $textLower, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promotionCode, $sendNewsletters, $orderId);
     } else {
         $stmt = $db->prepare("INSERT INTO orders (order_id,amount,currency,DIBS_transact,DIBS_approvalcode,DIBS_statuscode,first_name,last_name,address,postalcode,city,email,country,watch_case,
-                                hands,strap,dial,watch_index,numerals,marker,pattern,invert_pattern,pattern_rotation,additional_strap_1,additional_strap_2,additional_strap_3,additional_strap_4,additional_strap_5, promotion_code)
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                hands,strap,dial,watch_index,numerals,marker,pattern,invert_pattern,pattern_rotation,text_upper,text_lower, additional_strap_1,additional_strap_2,additional_strap_3,additional_strap_4,additional_strap_5, send_newsletters, promotion_code)
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 
-        $stmt->bind_param('sisiiisssssssssssssssiissssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-            $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promotionCode);
+        $stmt->bind_param('sisiiisssssssssssssssiisssssssis', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+            $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $textUpper, $textLower, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $sendNewsletters, $promotionCode);
 
-        $util->sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email);
+        $util->sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $textUpper, $textLower, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email);
     }
     $stmt->execute();
     $stmt->reset();
@@ -139,7 +141,7 @@ $stmt2->bind_param('s', $orderId);
 
 $stmt2->execute();
 $stmt2->bind_result($id, $orderId, $amountTotal, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-    $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $promoCode, $shipped, $received);
+    $billingCountry, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $textUpper, $textLower, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $sendNewsletters, $promoCode, $shipped, $received);
 
 echo $stmt2->error;
 

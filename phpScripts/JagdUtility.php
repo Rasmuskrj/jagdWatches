@@ -70,32 +70,33 @@ class JagdUtility {
     }
 
     /**
-     * @param $billingFirstName
-     * @param $billingLastName
-     * @param $orderId
-     * @param $case
-     * @param $hands
-     * @param $strap
-     * @param $dial
-     * @param $index
-     * @param $util
-     * @param $numerals
-     * @param $marker
-     * @param $pattern
-     * @param $invertPattern
-     * @param $patternRotation
-     * @param $additionalStrap1
-     * @param $additionalStrap2
-     * @param $additionalStrap3
-     * @param $additionalStrap4
-     * @param $additionalStrap5
-     * @param $billingAddress
-     * @param $billingPostalCode
-     * @param $billingCity
-     * @param $billingCountry
-     * @param $email
+     * @param string $billingFirstName
+     * @param string $billingLastName
+     * @param string $orderId
+     * @param string $case
+     * @param string $hands
+     * @param string $strap
+     * @param string $dial
+     * @param string $index
+     * @param string $numerals
+     * @param string $marker
+     * @param string $pattern
+     * @param boolean $invertPattern
+     * @param integer $patternRotation
+     * @param string $textUpper
+     * @param string $textLower
+     * @param string $additionalStrap1
+     * @param string $additionalStrap2
+     * @param string $additionalStrap3
+     * @param string $additionalStrap4
+     * @param string $additionalStrap5
+     * @param string $billingAddress
+     * @param string $billingPostalCode
+     * @param string $billingCity
+     * @param string $billingCountry
+     * @param string $email
      */
-    function sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email)
+    function sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $strap, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $textUpper, $textLower, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email)
     {
         $message = "Hi $billingFirstName $billingLastName
 Thank you for choosing Jagd Watches.
@@ -118,6 +119,8 @@ Marker:             " . ($marker == null ? $this->noneName : $marker) . "
 Pattern:            " . ($pattern == null ? $this->noneName : $pattern) . "
 Pattern inverted:   " . ($invertPattern == 0 ? 'No' : 'Yes') . "
 Pattern rotation:   $patternRotation
+Text Upper:         $textUpper
+Text Lower:         $textLower
 
 Extra strap 1:      " . ($additionalStrap1 == null ? $this->noneName : $additionalStrap1) . "
 Extra strap 2:      " . ($additionalStrap2 == null ? $this->noneName : $additionalStrap2) . "

@@ -1202,7 +1202,7 @@ body, html {
 }
 
 .watchHands {
-    z-index: 1005;
+    z-index: 1006;
 }
 
 .watchIndex {
@@ -1217,6 +1217,56 @@ body, html {
     z-index: 1005;
 }
 
+.watchText {
+    position: absolute;
+    top: 218px;
+    z-index: 1005;
+    left: 158px;
+    width: 139px;
+    height: auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.8em;
+    color: black;
+}
+
+.watchText.lowerText {
+    top: 326px;
+}
+
+input.watchText {
+    border: dashed;
+    background-color: rgba(0,0,0,0);
+}
+
+p.watchText {
+    left: 161px;
+    top: 216px;
+}
+
+p.watchText.lowerText {
+    top: 324px;
+}
+
+.watchText:focus {
+    outline: none;
+}
+
+.watchContainer ::-webkit-input-placeholder {
+    color: #eb3755;
+}
+
+.watchContainer :-moz-placeholder {
+    color: #eb3755;
+}
+
+.watchContainer ::-moz-placeholder {
+    color: #eb3755;
+}
+
+.watchContainer :-ms-input-placeholder {
+    color: #eb3755;
+}
 /**************************/
 /* Content                */
 /**************************/
@@ -1852,6 +1902,16 @@ a.fancybox {
 
 .fullViewContainer .watchElement.backElement {
     left: 60%;
+}
+
+.fullViewContainer p.watchText {
+    font-size: 7px;
+    left: 35px;
+    top: 234px;
+}
+
+.fullViewContainer p.watchText.lowerText{
+    top: 275px;
 }
 
 .ui-dialog {

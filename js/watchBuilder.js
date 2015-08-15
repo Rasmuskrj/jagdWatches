@@ -49,6 +49,8 @@ WatchBuilder = (function($) {
             lastScreen: 'intro',
             invertPattern: false,
             patternRotation: 0,
+            textUpper: '',
+            textLower: '',
             noOfAdditionalStraps: 0,
             additionalStrap1: "None",
             additionalStrap2: "None",
@@ -219,6 +221,10 @@ WatchBuilder = (function($) {
 
             self.el.downloadImageButton = $('#downloadImageButton');
             self.el.downloadImageModal = $('#downloadImageModal');
+
+            self.el.textboxes = $('input.watchText');
+            self.el.watchText = $('p.watchText');
+            self.el.mainWatchText = $('.builderPText');
         },
 
         bindEvents: function() {
@@ -447,6 +453,23 @@ WatchBuilder = (function($) {
                 });
                 self.el.downloadImageModal.dialog('open');
             });
+            self.el.textboxes.on('change', function() {
+                var textVal = $(this).val(),
+                    lower = $(this).hasClass('lowerText');
+                self.el.watchText.each(function(){
+                    if($(this).hasClass('lowerText') && lower){
+                        $(this).text(textVal);
+                        self.state.textLower = textVal;
+                        Cookies.set('textLower', textVal, {expires: 30, path: '/'});
+                        self.updatePrice();
+                    } else if (!$(this).hasClass('lowerText') && !lower) {
+                        $(this).text(textVal);
+                        self.state.textUpper = textVal;
+                        Cookies.set('textUpper', textVal, {expires: 30, path: '/'});
+                        self.updatePrice();
+                    }
+                });
+            });
         },
 
         enterIntro: function(){
@@ -470,6 +493,7 @@ WatchBuilder = (function($) {
             self.el.intro.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step2.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step1.show(self.variables.animationType, self.variables.animationSpeed);
+            self.el.mainWatchText.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.bottomGallery.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.removeClass('buyPosition');
@@ -485,6 +509,7 @@ WatchBuilder = (function($) {
             self.el.intro.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step1.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step2.show(self.variables.animationType, self.variables.animationSpeed);
+            self.el.mainWatchText.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.bottomGallery.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.buyStep1.hide(self.variables.animationType, self.variables.animationSpeed);
@@ -500,6 +525,7 @@ WatchBuilder = (function($) {
             self.el.intro.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step1.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.step2.hide(self.variables.animationType, self.variables.animationSpeed);
+            self.el.mainWatchText.show(self.variables.animationType, self.variables.animationSpeed);
             self.el.bottomGallery.hide(self.variables.animationType, self.variables.animationSpeed);
             //self.el.watchContainer.hide(self.variables.animationType, self.variables.animationSpeed);
             self.el.watchContainer.addClass('buyPosition');
@@ -639,6 +665,8 @@ WatchBuilder = (function($) {
                 self.state.pattern = Cookies.get('pattern');
                 self.state.regionEU = Cookies.get('regionEU') == 'true' ? true : false;
                 self.state.regionSet = Cookies.get('regionSet');
+                self.state.textLower = Cookies.get('textLower');
+                self.state.textUpper = Cookies.get('textUpper');
                 if(Cookies.get('patternRotation') != undefined) {
                     $('.watchPattern').css("transform", "rotate(" + Cookies.get('patternRotation') + "deg)");
                 }
@@ -687,6 +715,23 @@ WatchBuilder = (function($) {
             } else {
                 $(".selectStrap img[data-parttype='" + self.state.straps + "']").trigger('click');
             }
+            if(self.state.textUpper != '' || self.state.textLower != ''){
+                self.el.watchText.each(function(){
+                    if(!$(this).hasClass('lowerText') && self.state.textUpper != '') {
+                        $(this).text(self.state.textUpper);
+                    } else if($(this).hasClass('lowerText') && self.state.textLower != ''){
+                        $(this).text(self.state.textLower);
+                    }
+                });
+                self.el.textboxes.each(function () {
+                    if(!$(this).hasClass('lowerText') && self.state.textUpper != '') {
+                        $(this).val(self.state.textUpper);
+                    } else if($(this).hasClass('lowerText') && self.state.textLower != ''){
+                        $(this).val(self.state.textLower);
+                    }
+                })
+            }
+
 
             $(".selectCaseColor img[data-parttype='" + self.state.case + "']").trigger('click');
             $(".selectHands img[data-parttype='" + self.state.hands + "']").trigger('click');
@@ -726,7 +771,7 @@ WatchBuilder = (function($) {
         updatePrice: function () {
             var self = builder;
             var totalPrice = 0;
-            if(self.state.pattern == self.variables.noneName && self.state.numerals == self.variables.noneName && self.state.index == self.variables.noneName){
+            if(self.state.pattern == self.variables.noneName && self.state.numerals == self.variables.noneName && self.state.index == self.variables.noneName && self.state.textUpper == '' && self.state.textLower == ''){
                 self.el.priceValue.text(self.formatPrice(pricePlainOneStrap));
                 self.el.step1RecapTitle.text("JAGD WATCH - PLAIN DIAL");
                 self.el.additionalStrapPriceValue.text(singleStrapCost);

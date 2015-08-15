@@ -68,7 +68,6 @@ include('phpScripts/checkoutPreprocessing.php');
     <nav id="nav">
         <ul>
             <li><a id="backButton" href="watchBuilder.php">Back</a></li>
-            <li><a href="index.php">Back To Main</a></li>
         </ul>
     </nav>
 
@@ -145,6 +144,8 @@ include('phpScripts/checkoutPreprocessing.php');
                 }
                 ?>
             </div>
+            <p class="watchText upperText builderPText"><?php echo $state['textUpper'] ?></p>
+            <p class="watchText lowerText builderPText"><?php echo $state['textLower'] ?></p>
         </div>
 
 

@@ -32,6 +32,9 @@ $index = @$_POST['index'] == $utility->noneName ? NULL : @$_POST['index'];//NULL
 $pattern = @$_POST['pattern'] == $utility->noneName ? NULL : @$_POST['pattern'];//NULL;
 $billingLastName = @$_POST['billingLastNAME'];//'Jørgensen';
 $email = @$_POST['email'];//'rasmuskrj@gmail.com';
+$textUpper = @$_POST['textUpper'] != null ? @$_POST['textUpper'] : '';
+$textLower = @$_POST['textLower'] != null ? @$_POST['textLower'] : '';
+$sendNewsletters = @$_POST['sendNewsletters'] == 'on' ? true : false;
 $billingFirstName = @$_POST['billingFirstNAME'];//'Rasmus';
 $additionalStrap1 = @$_POST['additionalStrap1'] == $utility->noneName ? NULL : @$_POST['additionalStrap1'];//NULL;
 $additionalStrap2 = @$_POST['additionalStrap2'] == $utility->noneName ? NULL : @$_POST['additionalStrap2'];//NULL;
@@ -90,22 +93,22 @@ $stmtOrderId->close();
 if($statusCode != 1 && $statusCode != 4 && $statusCode != 17) {
     if($orderIdExists) {
         $stmt = $con->prepare("UPDATE orders SET amount=?, currency=?, DIBS_transact=?, DIBS_approvalcode=?, DIBS_statuscode=?, first_name=?, last_name=?, address=?, postalcode=?, city=?,
-                                      email=?, country=?, watch_case=?, hands=?, strap=?, dial=?, watch_index=?, numerals=?, marker=?, pattern=?, invert_pattern=?, pattern_rotation=?, additional_strap_1=?,
-                                       additional_strap_2=?, additional_strap_3=?, additional_strap_4=?, additional_strap_5=? WHERE order_id=?;");
+                                      email=?, country=?, watch_case=?, hands=?, strap=?, dial=?, watch_index=?, numerals=?, marker=?, pattern=?, invert_pattern=?, pattern_rotation=?, text_upper=?, text_lower=?, additional_strap_1=?,
+                                       additional_strap_2=?, additional_strap_3=?, additional_strap_4=?, additional_strap_5=?, send_newsletters=? WHERE order_id=?;");
         echo $stmt->error;
         echo $con->error;
-        $stmt->bind_param('isiiisssssssssssssssiissssss', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-            $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $orderId);
+        $stmt->bind_param('isiiisssssssssssssssiisssssssis', $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+            $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $textUpper, $textLower, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $sendNewsletters, $orderId);
     } else {
         $stmt = $con->prepare("INSERT INTO orders (order_id,amount,currency,DIBS_transact,DIBS_approvalcode,DIBS_statuscode,first_name,last_name,address,postalcode,city,email,country,watch_case,
-                                hands,strap,dial,watch_index,numerals,marker,pattern,invert_pattern,pattern_rotation,additional_strap_1,additional_strap_2,additional_strap_3,additional_strap_4,additional_strap_5)
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                hands,strap,dial,watch_index,numerals,marker,pattern,invert_pattern,pattern_rotation,text_upper,text_lower,additional_strap_1,additional_strap_2,additional_strap_3,additional_strap_4,additional_strap_5, send_newsletters)
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 
-        $stmt->bind_param('sisiiisssssssssssssssiisssss', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
-            $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
+        $stmt->bind_param('sisiiisssssssssssssssiisssssssi', $orderId, $amount, $currency, $transActionID, $approvalCode, $statusCode, $billingFirstName, $billingLastName, $billingAddress, $billingPostalCode, $billingCity, $email,
+            $billingCountry, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $textUpper, $textLower, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5);
 
-        $utility->sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email);
+        $utility->sendConfirmationMail($billingFirstName, $billingLastName, $orderId, $case, $hands, $straps, $dial, $index, $numerals, $marker, $pattern, $invertPattern, $textUpper, $textLower, $patternRotation, $additionalStrap1, $additionalStrap2, $additionalStrap3, $additionalStrap4, $additionalStrap5, $billingAddress, $billingPostalCode, $billingCity, $billingCountry, $email);
     }
     $stmt->execute();
     echo $con->error;

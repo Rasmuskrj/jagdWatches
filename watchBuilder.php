@@ -193,6 +193,10 @@ include("phpScripts/Preprocessing.php");
                         }
                         ?>
                     </div>
+                    <input class="watchText step2" type="text" maxlength="12" placeholder="Text here...">
+                    <input class="watchText lowerText step2" type="text" maxlength="12" placeholder="Or here...">
+                    <p class="watchText upperText builderPText"></p>
+                    <p class="watchText lowerText builderPText"></p>
                     <p style="position: absolute; top: 448px" ">&nbsp;</p>
                 </div>
                 <div class="chooseArrowLeft">
@@ -675,6 +679,8 @@ include("phpScripts/Preprocessing.php");
             <img src='images/WatchBuilder/Straps/Main/Outline.png' class='watchStrapBack watchElement largeWatchElement backElement' data-partType='Outline'>
             <img src='images/WatchBuilder/StrapBack/StandardStrapBack.png' class='watchStrapBack watchElement largeWatchElement backElement' data-partType='Standard'>
         </div>
+        <p class="watchText upperText"></p>
+        <p class="watchText lowerText"></p>
     </div>
 
 </div>

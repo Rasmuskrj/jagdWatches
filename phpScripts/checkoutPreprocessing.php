@@ -40,7 +40,9 @@ $stateKeys = array(
     "validPromotionCodeAdded",
     "totalPrice",
     "addedPromotionCode",
-    "regionEU"
+    "regionEU",
+    "textUpper",
+    "textLower"
 );
 
 $dataBase = new Database();

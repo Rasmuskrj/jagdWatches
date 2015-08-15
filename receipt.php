@@ -123,6 +123,8 @@
                     }
                     ?>
                 </div>
+                <p class="watchText upperText builderPText"><?php echo $textUpper ?></p>
+                <p class="watchText lowerText builderPText"><?php echo $textLower ?></p>
             </div>
 
             <section class="buyStep1 receiptMainContent">
@@ -288,7 +290,11 @@
                                             TOTAL:
                                         </td>
                                         <td class="rightCell">
-                                            <span class="totalPriceValue"><?php echo number_format($price / 100, 2, ',', '.');  ?></span><span class="priceCurrency"> DKK</span>
+                                            <span class="totalPriceValue"><?php
+                                                if($promotionCodeValue != false) {
+                                                    $price = $price - $promotionCodeValue;
+                                                }
+                                                echo number_format($price / 100, 2, ',', '.');  ?></span><span class="priceCurrency"> DKK</span>
                                         </td>
                                     </tr>
                                     </tbody>
