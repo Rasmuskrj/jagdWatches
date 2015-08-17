@@ -652,8 +652,12 @@ WatchBuilder = (function($) {
                 self.state.pattern = Cookies.get('pattern');
                 self.state.regionEU = Cookies.get('regionEU') == 'true' ? true : false;
                 self.state.regionSet = Cookies.get('regionSet');
-                self.state.textLower = Cookies.get('textLower');
-                self.state.textUpper = Cookies.get('textUpper');
+                if(Cookies.get('textLower') != undefined) {
+                    self.state.textLower = Cookies.get('textLower');
+                }
+                if(Cookies.get('textUpper') != undefined){
+                    self.state.textUpper = Cookies.get('textUpper');
+                }
                 if(Cookies.get('patternRotation') != undefined) {
                     $('.watchPattern').css("transform", "rotate(" + Cookies.get('patternRotation') + "deg)");
                 }
