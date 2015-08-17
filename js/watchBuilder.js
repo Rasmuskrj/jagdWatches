@@ -125,6 +125,7 @@ WatchBuilder = (function($) {
             });
             self.handleCookieNotice();
             self.enterStep1();
+            self.state.introDone = true;
             if(Cookies.get('userID') == undefined){
                 Cookies.set('userID', generateUUID(), {expires: 30, path: '/'});
             } else {
@@ -566,7 +567,7 @@ WatchBuilder = (function($) {
                                 if(!child.hasClass('arrow')){
                                     $(this).hide();
                                 }
-                                if(self.state.introDone && !self.state.outlinesRemoved) {
+                                if(!self.state.outlinesRemoved) {
                                     if (child.data('parttype') == self.variables.outlineName && partType != self.variables.outlineName) {
                                         $(this).remove();
                                         var ind = partArray.indexOf(self.variables.outlineName);
