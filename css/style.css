@@ -1872,15 +1872,6 @@ a.fancybox {
 /* full view modal        */
 /**************************/
 
-#fullViewDialog {
-    overflow: hidden;
-}
-
-.fullViewContainer {
-    height: 100%;
-    width: auto;
-}
-
 .fullViewContainer .watchElement {
     height: 100%;
     width: auto;
@@ -2111,6 +2102,16 @@ a.fancybox {
     z-index: 1050;
     font-size: 12px;
     white-space: nowrap;
+}
+
+/*************************/
+/* tooltips              */
+/*************************/
+
+.dialTooptip {
+    font-size: 14px;
+    max-height: 14px;
+    line-height: 14px;
 }
 
 /*********************************************************************************/

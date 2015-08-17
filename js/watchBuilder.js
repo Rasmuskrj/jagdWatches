@@ -85,6 +85,9 @@ WatchBuilder = (function($) {
                 self.el['partRecapAdditionalStrapRow' + i].hide();
             }
             self.el.partRecapAdditionStrapsTable.hide();
+            $('.watchDialThumbnail').tooltip({
+                tooltipClass: 'dialTooptip'
+            });
             self.setDefaultValues();
             self.el.promotionCodeTableRow.hide();
             var sliderValue = 0;
@@ -219,7 +222,6 @@ WatchBuilder = (function($) {
             self.el.priceValueContainer = $('.priceValueContainer');
             self.el.setRegionButtonSet = $('.setRegion');
 
-            self.el.downloadImageButton = $('#downloadImageButton');
             self.el.downloadImageModal = $('#downloadImageModal');
 
             self.el.textboxes = $('input.watchText');
@@ -436,23 +438,6 @@ WatchBuilder = (function($) {
                 self.el.setRegionModal.dialog('open');
             });
             self.el.setRegionRadios.buttonset();
-            self.el.downloadImageButton.button();
-            self.el.downloadImageButton.on('click', function () {
-                html2canvas($("#watch"), {
-                    onrendered: function(canvas) {
-                        theCanvas = canvas;
-                        document.body.appendChild(canvas);
-
-                        // Convert and download as image
-
-                        $("#imageContainer").append(Canvas2Image.convertToPNG(canvas));
-                        //$('#imageContainer').append("<a href='" + canvas.toDataURL() + "' download target='_blank'>click</a>");
-                        // Clean up
-                        document.body.removeChild(canvas);
-                    }
-                });
-                self.el.downloadImageModal.dialog('open');
-            });
             self.el.textboxes.on('change', function() {
                 var textVal = $(this).val(),
                     lower = $(this).hasClass('lowerText');
@@ -662,6 +647,7 @@ WatchBuilder = (function($) {
                 self.state.dial = Cookies.get('dial');
                 self.state.index = Cookies.get('index');
                 self.state.numerals = Cookies.get('numerals');
+                self.state.marker = Cookies.get('marker');
                 self.state.pattern = Cookies.get('pattern');
                 self.state.regionEU = Cookies.get('regionEU') == 'true' ? true : false;
                 self.state.regionSet = Cookies.get('regionSet');
@@ -702,6 +688,7 @@ WatchBuilder = (function($) {
                     self.el.partRecapAdditionStrapsTable.hide();
                 }
             }
+            self.setDialTooltips(self.state.regionEU);
             self.insertPrice();
             if(self.state.straps == self.variables.outlineName) {
                 $('.watchStrap').each(function (index) {
@@ -771,16 +758,17 @@ WatchBuilder = (function($) {
         updatePrice: function () {
             var self = builder;
             var totalPrice = 0;
-            if(self.state.pattern == self.variables.noneName && self.state.numerals == self.variables.noneName && self.state.index == self.variables.noneName && self.state.textUpper == '' && self.state.textLower == ''){
-                self.el.priceValue.text(self.formatPrice(pricePlainOneStrap));
+            var dialPrice = dialPrices[self.state.dial] != undefined ? dialPrices[self.state.dial] : dialPrices['standard'];
+            if(self.state.pattern == self.variables.noneName && self.state.numerals == self.variables.noneName && self.state.index == self.variables.noneName && self.state.marker == self.variables.noneName && self.state.textUpper == '' && self.state.textLower == ''){
+                self.el.priceValue.text(pricePlainOneStrap + dialPrice);
                 self.el.step1RecapTitle.text("JAGD WATCH - PLAIN DIAL");
                 self.el.additionalStrapPriceValue.text(singleStrapCost);
-                totalPrice = pricePlainOneStrap  + self.state.noOfAdditionalStraps * singleStrapCost;
+                totalPrice = pricePlainOneStrap + dialPrice + self.state.noOfAdditionalStraps * singleStrapCost;
             } else {
-                self.el.priceValue.text(self.formatPrice(priceEngravedOneStrap));
+                self.el.priceValue.text(priceEngravedOneStrap + dialPrice);
                 self.el.additionalStrapPriceValue.text(singleStrapCost);
                 self.el.step1RecapTitle.text("JAGD WATCH - ENGRAVED DIAL");
-                totalPrice = priceEngravedOneStrap  + self.state.noOfAdditionalStraps * singleStrapCost;
+                totalPrice = priceEngravedOneStrap + dialPrice + self.state.noOfAdditionalStraps * singleStrapCost;
             }
             self.el.subtotalValue.text(self.formatPrice(totalPrice.toFixed(2)));
             totalPrice = totalPrice + shippingCost;
@@ -863,13 +851,31 @@ WatchBuilder = (function($) {
 
             self.el.fullViewDialog.dialog({
                 autoOpen: false,
-                height: 700,
+                height: 818,
                 width: 400,
                 modal: true,
                 resizable: false,
                 open: function(event, ui) { $('.ui-widget-overlay').bind('click', function(){ $(this).siblings('.ui-dialog').find('.ui-dialog-content').dialog('close'); }); },
                 buttons: {
+                    "Download": function () {
+                        $('#watch').clone().attr('id','watch2').width(400).height(617).css({position: "relative"}).appendTo(document.body);
+                        html2canvas($("#watch2"), {
+                            onrendered: function(canvas) {
+                                theCanvas = canvas;
+                                document.body.appendChild(canvas);
 
+                                // Convert and download as image
+
+                                $("#imageContainer").append(Canvas2Image.convertToPNG(canvas));
+                                //$('#imageContainer').append("<a href='" + canvas.toDataURL() + "' download target='_blank'>click</a>");
+                                // Clean up
+                                document.body.removeChild(canvas);
+                                $('#watch2').remove();
+                            }
+                        });
+                        $(this).dialog('close');
+                        self.el.downloadImageModal.dialog('open');
+                    }
                 }
             });
 
@@ -963,6 +969,7 @@ WatchBuilder = (function($) {
 
         setRegion: function (isEU) {
             var self = builder;
+            self.setDialTooltips(isEU);
             if(isEU) {
                 self.state.regionEU = true;
                 self.state.regionSet = true;
@@ -976,6 +983,18 @@ WatchBuilder = (function($) {
                 Cookies.set('regionEU', false, {expires: 30, path: '/'});
                 Cookies.set('regionSet', true, {expires: 30, path: '/'});
             }
+        },
+
+        setDialTooltips: function(isEU) {
+            var self = builder;
+            $('.watchDialThumbnail').each(function() {
+                var partType = $(this).data('parttype'),
+                    dialPrice = dialPrices[partType] != undefined ? dialPrices[partType] : dialPrices['standard'];
+                if(isEU){
+                    dialPrice *= 1.25;
+                }
+                $(this).tooltip('option','content', self.formatPrice(dialPrice.toFixed(2)) + " DKK");
+            });
         },
 
         animateIntro: function () {

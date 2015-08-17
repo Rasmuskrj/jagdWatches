@@ -39,23 +39,9 @@ $watchCaseBackMains = glob($watchCaseBackMainFolder . "*.png");
 $watchStrapEndingsMains = glob($watchStrapEndingsMainFolder . "*.png");
 
 /**
- * 1: Plain dial
- * 2: Engraved dial
- * 3: Shipping Cost
- * 4: Single Strap Cost
+ * Get Prices
  */
-$sql =
-    "SELECT *
-    FROM prices;";
-
-if(!$result = $db->query($sql)){
-    die('There was an error running the query [' . $db->error . ']');
-}
-
-$prices = array();
-while($row = $result->fetch_assoc()){
-    $prices[] = $row;
-}
+$prices = $dataBase->getPrices();
 
 
 function moveValueByIndex( array $array, $from )

@@ -18,8 +18,8 @@ $imgType = "png";
 $orderId = @$_POST['orderid'];
 $promotionCode = @$_POST['addedPromotionCode'];
 $regionEU = @$_POST['regionEU'] == 'true' ? true : false;
-$textUpper = @$_POST['textUpper'] != null ? @$_POST['textUpper'] : '';
-$textLower = @$_POST['textLower'] != null ? @$_POST['textLower'] : '';
+$textUpper = @$_POST['textUpper'] == '' ? null : @$_POST['textUpper'];
+$textLower = @$_POST['textLower'] == '' ? null : @$_POST['textLower'];
 /**
  * If paid by promotion code, then inset order into database
  */
@@ -190,46 +190,31 @@ $straps = 0;
 $strapPrice = 0;
 $deliveryPrice = 0;
 
-$sql = "SELECT * FROM prices WHERE id=";
+$prices = $dataBase->getPrices();
 
 
-if($index == null && $numerals == null && $pattern == null && $marker == null){
-    $id = 1;
-    $sql .= $id;
+if($index == null && $numerals == null && $pattern == null && $marker == null && $textUpper == null && $textLower == null) {
+    $subtotal = $prices['prices']['plain']['price_dkk'];
     $jagdTitle = "JAGD WATCH - PLAIN DIAL";
-} else  {
-    $id = 2;
-    $sql .= $id;
+} else {
+    $subtotal = $prices['prices']['engraved']['price_dkk'];
     $jagdTitle = "JAGD WATCH - ENGRAVED DIAL";
 }
 
-$result = $db->query($sql);
+$strapPrice = $prices['prices']['singleStrap']['price_dkk'];
 
-while($row = $result->fetch_assoc()){
-    $subtotal = $row['price_dkk'];
-}
-
-$sql2 = "SELECT * FROM prices WHERE id=4";
-
-$result = $db->query($sql2);
-
-while($row = $result->fetch_assoc()){
-    $strapPrice = $row['price_dkk'];
-}
-
-$sql3 = "SELECT * FROM prices WHERE id=3";
-
-$result = $db->query($sql3);
-
-while($row = $result->fetch_assoc()){
-    $deliveryPrice = $row['price_dkk'];
-}
+$deliveryPrice = $prices['prices']['shipping']['price_dkk'];
 
 
 $straps = $strapPrice * $noOfAdditionalStraps;
 
+if(array_key_exists($dial, $prices['dialPrices'])) {
+    $dialPrice = $prices['dialPrices'][$dial];
+} else {
+    $dialPrice = $prices['dialPrices']['standard'];
+}
 
-$price = $subtotal + $straps + $deliveryPrice;
+$price = $subtotal + $dialPrice + $straps + $deliveryPrice;
 
 $price *= 100; //multiply by 100 to get price with sub-currency;
 

@@ -38,10 +38,16 @@ include("phpScripts/Preprocessing.php");
     <script src="plugins/html2canvas.js"></script>
     <script src="plugins/canvas2image.js"></script>
     <script>
-        var pricePlainOneStrap = <?php echo $prices[0]['price_dkk']; ?>;
-        var priceEngravedOneStrap = <?php echo $prices[1]['price_dkk']; ?>;
-        var shippingCost = <?php echo $prices[2]['price_dkk']; ?>;
-        var singleStrapCost = <?php echo $prices[3]['price_dkk']; ?>;
+        var pricePlainOneStrap = <?php echo $prices['prices']['plain']['price_dkk']; ?>;
+        var priceEngravedOneStrap = <?php echo $prices['prices']['engraved']['price_dkk']; ?>;
+        var shippingCost = <?php echo $prices['prices']['shipping']['price_dkk']; ?>;
+        var singleStrapCost = <?php echo $prices['prices']['singleStrap']['price_dkk']; ?>;
+        var dialPrices = [];
+        <?php
+            foreach($prices['dialPrices'] as $k => $v) {
+                echo "dialPrices['$k'] = $v;\n\t\t";
+            }
+        ?>
 
         var cases = [],
             straps = [],
@@ -135,8 +141,7 @@ include("phpScripts/Preprocessing.php");
             </section>
 
             <div class="watchContainer watchIntro">
-                <div id="watch">
-                    <p>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></p>
+                <div>
                     <div class="watchElementContainer">
                         <?php
                         foreach($watchStrapMains as $main){
@@ -206,7 +211,6 @@ include("phpScripts/Preprocessing.php");
                     <img src="images/WatchBuilder/Misc/Arrow%20main.png">
                 </div>
                 <span id="fullViewButton" class="step1 step2 type2">Full view</span>
-                <span id="downloadImageButton" class="step1 step2 type2">Download</span>
             </div>
 
             <!-- Step 1 -->
@@ -262,7 +266,7 @@ include("phpScripts/Preprocessing.php");
                         <div class="thumbnails thumbnailsRight vScrollable">
                             <?php
                             foreach($watchDialThumbnails as $thumbnail){
-                                echo "<span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='$thumbnail' class='watchDialThumbnail thumbnail rightSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "'></span></span>";
+                                echo "<span class='thumbnailContainer'><span class='thumbnailInnerContainer'><img src='$thumbnail' class='watchDialThumbnail thumbnail rightSideThumbnail' data-partType='" . pathinfo($thumbnail,PATHINFO_FILENAME) . "' title='placeholder'></span></span>";
                             }
                             ?>
                         </div>
@@ -604,83 +608,86 @@ include("phpScripts/Preprocessing.php");
 </div>
 
 <div id="fullViewDialog" title="FULL VIEW">
-    <div class="fullViewContainer">
-        <div class="watchElementContainer">
-            <?php
-            foreach($watchStrapMains as $main){
-                echo "<img src='$main' class='watchStrap watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
+    <div id="watch">
+        <div class="fullViewContainer">
+            <p>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></p>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchStrapMains as $main){
+                    echo "<img src='$main' class='watchStrap watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchCaseMains as $main){
+                    echo "<img src='$main' class='watchCase watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchDialMains as $main){
+                    echo "<img src='$main' class='watchDial watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchHandsMains as $main){
+                    echo "<img src='$main' class='watchHands watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($patternMains as $main){
+                    echo "<img src='$main' class='watchPattern watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchNumeralsMains as $main){
+                    echo "<img src='$main' class='watchNumerals watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchIndexMains as $main){
+                    echo "<img src='$main' class='watchIndex watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchMarkerMains as $main){
+                    echo "<img src='$main' class='watchMarker watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchCaseBackMains as $main){
+                    echo "<img src='$main' class='watchCase watchElement largeWatchElement backElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <?php
+                foreach($watchStrapEndingsMains as $main){
+                    echo "<img src='$main' class='watchStrap watchElement largeWatchElement backElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
+                }
+                ?>
+            </div>
+            <div class="watchElementContainer">
+                <img src='images/WatchBuilder/Straps/Main/Outline.png' class='watchStrapBack watchElement largeWatchElement backElement' data-partType='Outline'>
+                <img src='images/WatchBuilder/StrapBack/StandardStrapBack.png' class='watchStrapBack watchElement largeWatchElement backElement' data-partType='Standard'>
+            </div>
+            <p class="watchText upperText"></p>
+            <p class="watchText lowerText"></p>
         </div>
-        <div class="watchElementContainer">
-            <?php
-            foreach($watchCaseMains as $main){
-                echo "<img src='$main' class='watchCase watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
-        </div>
-        <div class="watchElementContainer">
-            <?php
-            foreach($watchDialMains as $main){
-                echo "<img src='$main' class='watchDial watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
-        </div>
-        <div class="watchElementContainer">
-            <?php
-            foreach($watchHandsMains as $main){
-                echo "<img src='$main' class='watchHands watchElement largeWatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
-        </div>
-        <div class="watchElementContainer">
-            <?php
-            foreach($patternMains as $main){
-                echo "<img src='$main' class='watchPattern watchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
-        </div>
-        <div class="watchElementContainer">
-            <?php
-            foreach($watchNumeralsMains as $main){
-                echo "<img src='$main' class='watchNumerals watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
-        </div>
-        <div class="watchElementContainer">
-            <?php
-            foreach($watchIndexMains as $main){
-                echo "<img src='$main' class='watchIndex watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
-        </div>
-        <div class="watchElementContainer">
-            <?php
-            foreach($watchMarkerMains as $main){
-                echo "<img src='$main' class='watchMarker watchElement step2WatchElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
-        </div>
-        <div class="watchElementContainer">
-            <?php
-            foreach($watchCaseBackMains as $main){
-                echo "<img src='$main' class='watchCase watchElement largeWatchElement backElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
-        </div>
-        <div class="watchElementContainer">
-            <?php
-            foreach($watchStrapEndingsMains as $main){
-                echo "<img src='$main' class='watchStrap watchElement largeWatchElement backElement' data-partType='" . pathinfo($main,PATHINFO_FILENAME) . "'>";
-            }
-            ?>
-        </div>
-        <div class="watchElementContainer">
-            <img src='images/WatchBuilder/Straps/Main/Outline.png' class='watchStrapBack watchElement largeWatchElement backElement' data-partType='Outline'>
-            <img src='images/WatchBuilder/StrapBack/StandardStrapBack.png' class='watchStrapBack watchElement largeWatchElement backElement' data-partType='Standard'>
-        </div>
-        <p class="watchText upperText"></p>
-        <p class="watchText lowerText"></p>
     </div>
 
 </div>

@@ -18,6 +18,8 @@ class Database {
      */
     private $conn;
 
+    private $priceIdTranslations = array('plain', 'engraved', 'shipping','singleStrap');
+
     /**
      * Constructor
      */
@@ -71,5 +73,29 @@ class Database {
             $validPromotionCode = $amount;
         }
         return $validPromotionCode;
+    }
+
+    public function getPrices(){
+        $stmt = $this->conn->prepare("SELECT * FROM prices");
+
+        $stmt->execute();
+        $stmt->bind_result($id, $desc, $engraved, $pricedkk);
+        $priceArr = array();
+        while($stmt->fetch()){
+            $priceArr[$this->priceIdTranslations[$id-1]] = array('description' => $desc, 'engraved' => $engraved, 'price_dkk' => $pricedkk);
+        }
+
+        $stmt->close();
+
+        $stmt = $this->conn->prepare("SELECT * FROM dial_prices");
+        $stmt->execute();
+        $stmt->bind_result($id, $dialName, $pricedkk);
+        $dialPrices = array();
+        while($stmt->fetch()){
+            $dialPrices[$dialName] = $pricedkk;
+        }
+
+        return array('prices' => $priceArr, 'dialPrices' => $dialPrices);
+
     }
 }

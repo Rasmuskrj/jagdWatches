@@ -73,7 +73,6 @@ $markerSrc = glob($watchMarkerMainFolder . $state['marker'] . "." . $imgType);
 
 /**
  * Find the correct price
- * NOTE: possible change the way rows are fetched. Hard coded IDs are hard to maintain.
  */
 $price = 0;
 $amount = 0;
@@ -81,41 +80,28 @@ $straps = 0;
 $strapPrice = 0;
 $deliveryPrice = 0;
 
-$sql = "SELECT * FROM prices WHERE id=";
+$prices = $dataBase->getPrices();
 
-if($state['index'] == 'None' && $state['numerals'] == 'None' && $state['pattern'] == 'None'){
-    $id = 1;
-    $sql .= $id;
-} else  {
-    $id = 2;
-    $sql .= $id;
+if($state['index'] == $util->noneName && $state['numerals'] == $util->noneName && $state['pattern'] == $util->noneName && $state['marker'] == $util->noneName && $state['textUpper'] == '' && $state['textLower'] == '') {
+    $amount = $prices['prices']['plain']['price_dkk'];
+} else {
+    $amount = $prices['prices']['engraved']['price_dkk'];
 }
 
-$result = $db->query($sql);
+$strapPrice = $prices['prices']['singleStrap']['price_dkk'];
 
-while($row = $result->fetch_assoc()){
-    $amount = $row['price_dkk'];
-}
-
-$sql2 = "SELECT * FROM prices WHERE id=4";
-
-$result = $db->query($sql2);
-
-while($row = $result->fetch_assoc()){
-    $strapPrice = $row['price_dkk'];
-}
-
-$sql3 = "SELECT * FROM prices WHERE id=3";
-
-$result = $db->query($sql3);
-
-while($row = $result->fetch_assoc()){
-    $deliveryPrice = $row['price_dkk'];
-}
+$deliveryPrice = $prices['prices']['shipping']['price_dkk'];
 
 $straps = $strapPrice * $state['noOfAdditionalStraps'];
 
-$price = $amount + $straps + $deliveryPrice;
+if(array_key_exists($state['dial'], $prices['dialPrices'])) {
+    $dialPrice = $prices['dialPrices'][$state['dial']];
+} else {
+    $dialPrice = $prices['dialPrices']['standard'];
+}
+
+$price = $amount + $dialPrice + $straps + $deliveryPrice;
+
 
 if($state['regionEU'] == 'true'){
     $price *= 1.25;

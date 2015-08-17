@@ -57,8 +57,7 @@
         <!-- Nav -->
         <nav id="nav">
             <ul>
-                <li><a id="backButton" href="#">Back</a></li>
-                <li><a href="index.php">Back To Main</a></li>
+                <li><a id="backButton" href="watchBuilder.php">Back</a></li>
             </ul>
         </nav>
 
@@ -123,8 +122,8 @@
                     }
                     ?>
                 </div>
-                <p class="watchText upperText builderPText"><?php echo $textUpper ?></p>
-                <p class="watchText lowerText builderPText"><?php echo $textLower ?></p>
+                <p class="watchText upperText builderPText"><?php echo $textUpper == null ? '' : $textUpper; ?></p>
+                <p class="watchText lowerText builderPText"><?php echo $textLower == null ? '' : $textLower;?></p>
             </div>
 
             <section class="buyStep1 receiptMainContent">
@@ -181,7 +180,7 @@
                                 </table>
                             </div>
                             <div class="cell rightCell">
-                                <span class="priceValue"><?php echo number_format($subtotal, 2, ',', '.'); ?></span><span class="priceCurrency"> DKK</span>
+                                <span class="priceValue"><?php echo number_format($subtotal + $dialPrice, 2, ',', '.'); ?></span><span class="priceCurrency"> DKK</span>
                             </div>
                         </div>
                         <?php
@@ -258,7 +257,7 @@
                                     <tbody>
                                     <tr class="grey smallRecapText">
                                         <td>SUBTOTAL:</td>
-                                        <td class="rightCell"><span class="priceValue"><?php echo number_format($subtotal + $straps, 2, ',', '.'); ?></span><span class="priceCurrency"> DKK</span> </td>
+                                        <td class="rightCell"><span class="priceValue"><?php echo number_format($subtotal + $straps + $dialPrice, 2, ',', '.'); ?></span><span class="priceCurrency"> DKK</span> </td>
                                     </tr>
                                     <tr class="grey smallRecapText">
                                         <td>SHIPPING:</td>
