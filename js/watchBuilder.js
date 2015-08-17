@@ -124,11 +124,11 @@ WatchBuilder = (function($) {
                 }
             });
             self.handleCookieNotice();
+            self.enterStep1();
             if(Cookies.get('userID') == undefined){
                 Cookies.set('userID', generateUUID(), {expires: 30, path: '/'});
             } else {
                 self.newUser = false;
-                self.enterStep1();
             }
         },
 

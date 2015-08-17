@@ -22,7 +22,6 @@ $(function(){
             autoDraggerLength: true
         });
         $('#cover').hide();
-        WatchBuilder.startIntro();
     });
 
     $(window).bind("load", function() {
