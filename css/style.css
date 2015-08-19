@@ -1217,6 +1217,24 @@ body, html {
     z-index: 1005;
 }
 
+.whiteFade {
+    position: absolute;
+    z-index: 1020;
+}
+
+.whiteFadeTop {
+    top: -10px
+}
+
+.whiteFadeBottom {
+    bottom: -10px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
 .watchText {
     position: absolute;
     top: 218px;

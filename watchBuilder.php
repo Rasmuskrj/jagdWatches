@@ -108,7 +108,7 @@ include("phpScripts/Preprocessing.php");
 <header id="header">
 
     <!-- Logo -->
-    <img src="images/JAGD logo grey white.png" alt="" name="logo" height="40" class="image logo">
+    <a href="index.php"><img src="images/JAGD logo grey white.png" alt="" name="logo" height="40" class="image logo"></a>
 
     <!-- Nav -->
     <nav id="nav">
@@ -204,6 +204,8 @@ include("phpScripts/Preprocessing.php");
                     <p class="watchText lowerText builderPText"></p>
                     <p style="position: absolute; top: 448px" ">&nbsp;</p>
                 </div>
+                <img src="images/WatchBuilder/Misc/White%20fade.png" class="whiteFade whiteFadeTop">
+                <img src="images/WatchBuilder/Misc/White%20fade.png" class="whiteFade whiteFadeBottom">
                 <div class="chooseArrowLeft">
                     <img src="images/WatchBuilder/Misc/Arrow%20main.png">
                 </div>

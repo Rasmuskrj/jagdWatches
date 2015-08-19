@@ -52,7 +52,7 @@
     <header id="header">
 
         <!-- Logo -->
-        <img src="images/JAGD logo grey white.png" alt="" name="logo" height="40" class="image logo">
+        <a href="index.php"><img src="images/JAGD logo grey white.png" alt="" name="logo" height="40" class="image logo"></a>
 
         <!-- Nav -->
         <nav id="nav">
@@ -124,6 +124,8 @@
                 </div>
                 <p class="watchText upperText builderPText"><?php echo $textUpper == null ? '' : $textUpper; ?></p>
                 <p class="watchText lowerText builderPText"><?php echo $textLower == null ? '' : $textLower;?></p>
+                <img src="images/WatchBuilder/Misc/White%20fade.png" class="whiteFade whiteFadeTop">
+                <img src="images/WatchBuilder/Misc/White%20fade.png" class="whiteFade whiteFadeBottom">
             </div>
 
             <section class="buyStep1 receiptMainContent">
