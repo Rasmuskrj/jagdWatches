@@ -114,7 +114,7 @@ include("phpScripts/Preprocessing.php");
     <nav id="nav">
         <ul>
             <li><a class="setRegion" href="#">Set region</a></li>
-            <li><a id="backButton" href="#">Back</a></li>
+            <li><a id="backButton" class="type2" href="#">Back</a></li>
         </ul>
     </nav>
 
@@ -198,11 +198,13 @@ include("phpScripts/Preprocessing.php");
                         }
                         ?>
                     </div>
+                    <div style="display: none">
                     <input class="watchText step2" type="text" maxlength="12" placeholder="Text here...">
                     <input class="watchText lowerText step2" type="text" maxlength="12" placeholder="Or here...">
                     <p class="watchText upperText builderPText"></p>
                     <p class="watchText lowerText builderPText"></p>
                     <p style="position: absolute; top: 448px" ">&nbsp;</p>
+                    </div>
                 </div>
                 <img src="images/WatchBuilder/Misc/White%20fade.png" class="whiteFade whiteFadeTop">
                 <img src="images/WatchBuilder/Misc/White%20fade.png" class="whiteFade whiteFadeBottom">

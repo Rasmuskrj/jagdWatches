@@ -103,6 +103,7 @@ WatchBuilder = (function($) {
             self.el.invertButton.button();
             self.el.addPromotionCodeBtn.button();
             self.el.buyStep2Button.button();
+            self.el.backButton.button();
             if(Cookies.get('patternRotation') != undefined){
                 sliderValue = Cookies.get('patternRotation');
                 self.state.patternRotation = sliderValue;
@@ -228,6 +229,8 @@ WatchBuilder = (function($) {
             self.el.textboxes = $('input.watchText');
             self.el.watchText = $('p.watchText');
             self.el.mainWatchText = $('.builderPText');
+
+            self.el.priceLabel = $('.priceLabel');
         },
 
         bindEvents: function() {
@@ -650,8 +653,8 @@ WatchBuilder = (function($) {
                 self.state.numerals = Cookies.get('numerals');
                 self.state.marker = Cookies.get('marker');
                 self.state.pattern = Cookies.get('pattern');
-                self.state.regionEU = Cookies.get('regionEU') == 'true' ? true : false;
-                self.state.regionSet = Cookies.get('regionSet');
+                self.state.regionEU = Cookies.get('regionEU') == 'true';
+                self.state.regionSet = Cookies.get('regionSet') == 'true';
                 if(Cookies.get('textLower') != undefined) {
                     self.state.textLower = Cookies.get('textLower');
                 }
@@ -863,7 +866,7 @@ WatchBuilder = (function($) {
                 open: function(event, ui) { $('.ui-widget-overlay').bind('click', function(){ $(this).siblings('.ui-dialog').find('.ui-dialog-content').dialog('close'); }); },
                 buttons: {
                     "Download": function () {
-                        $('#watch').clone().attr('id','watch2').width(400).height(617).css({position: "relative"}).appendTo(document.body);
+                        $('#watch').clone().attr('id','watch2').width(400*2).height(617*2).css({position: "relative"}).appendTo(document.body);
                         html2canvas($("#watch2"), {
                             onrendered: function(canvas) {
                                 theCanvas = canvas;
@@ -872,6 +875,7 @@ WatchBuilder = (function($) {
                                 // Convert and download as image
 
                                 $("#imageContainer").append(Canvas2Image.convertToPNG(canvas));
+                                $('#imageContainer img').width(400);
                                 //$('#imageContainer').append("<a href='" + canvas.toDataURL() + "' download target='_blank'>click</a>");
                                 // Clean up
                                 document.body.removeChild(canvas);
@@ -965,9 +969,13 @@ WatchBuilder = (function($) {
             if(self.state.regionSet) {
                 self.el.setRegionButton.hide();
                 self.el.priceValueContainer.show();
+                self.el.priceLabel.text("Price:");
+                self.el.priceLabel.css('font-size', '1.0em');
             } else {
                 self.el.setRegionButton.show();
                 self.el.priceValueContainer.hide();
+                self.el.priceLabel.text("Set your region to see price:");
+                self.el.priceLabel.css('font-size', '0.5em');
             }
             self.updatePrice();
         },

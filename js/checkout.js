@@ -18,6 +18,8 @@ $(function(){
         }
     });
 
+    $('#backButton').button();
+
     $(window).bind("load", function() {
 
         WatchBuilder.positionFooter();

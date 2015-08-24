@@ -67,7 +67,7 @@ include('phpScripts/checkoutPreprocessing.php');
     <!-- Nav -->
     <nav id="nav">
         <ul>
-            <li><a id="backButton" href="watchBuilder.php">Back</a></li>
+            <li><a id="backButton" class="type2" href="watchBuilder.php">Back</a></li>
         </ul>
     </nav>
 
@@ -144,10 +144,12 @@ include('phpScripts/checkoutPreprocessing.php');
                 }
                 ?>
             </div>
-            <p class="watchText upperText builderPText"><?php echo $state['textUpper'] ?></p>
-            <p class="watchText lowerText builderPText"><?php echo $state['textLower'] ?></p>
-            <img src="images/WatchBuilder/Misc/White%20fade.png" class="whiteFade whiteFadeTop">
-            <img src="images/WatchBuilder/Misc/White%20fade.png" class="whiteFade whiteFadeBottom">
+            <div style="display: none">
+                <p class="watchText upperText builderPText"><?php echo $state['textUpper'] ?></p>
+                <p class="watchText lowerText builderPText"><?php echo $state['textLower'] ?></p>
+                <img src="images/WatchBuilder/Misc/White%20fade.png" class="whiteFade whiteFadeTop">
+                <img src="images/WatchBuilder/Misc/White%20fade.png" class="whiteFade whiteFadeBottom">
+            </div>
         </div>
 
 

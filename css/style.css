@@ -1071,6 +1071,10 @@ body, html {
     font-size: 0.52em;
 }
 
+#backButton.type2 {
+    height: 50px
+}
+
 .ui-button {
     border: none;
 }
@@ -1352,6 +1356,17 @@ p.watchText.lowerText {
     top: 5px;
     font-size: 25px;
     color: #231F20;
+    width: 100%;
+}
+
+.priceLabel {
+    position: absolute;
+    left: 4px;
+}
+
+.priceValueContainer {
+    position: absolute;
+    right: 0;
 }
 
 .leftSideThumbnail{
@@ -1900,14 +1915,14 @@ a.fancybox {
 .fullViewContainer .watchElement.step2WatchElement {
     width: 26%;
     height: auto;
-    top: 223px;
+    top: 36%;
     left: 12.5%;
 }
 
 .fullViewContainer .watchElement.watchPattern {
-    height: 114px;
-    top: 218px;
-    left: 45px;
+    height: 18.4%;
+    top: 35.6%;
+    left: 11.3%;
 }
 
 .fullViewContainer .watchElement.backElement {
@@ -1922,6 +1937,11 @@ a.fancybox {
 
 .fullViewContainer p.watchText.lowerText{
     top: 275px;
+}
+
+.ui-dialog .ui-button {
+    font-size: 0.7em;
+    border: none;
 }
 
 .ui-dialog {
@@ -2099,10 +2119,12 @@ a.fancybox {
 
 .setRegionButton {
     font-size: 16px;
+    float: right;
 }
 
 .euButton {
     background-color: #4B809B;
+    float: right;
 }
 
 .euButton:hover {

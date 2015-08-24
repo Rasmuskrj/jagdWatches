@@ -7,6 +7,7 @@ $(function(){
     $(window).bind("load", function() {
 
         WatchBuilder.positionFooter();
+        $('#backButton').button();
 
         $(window)
             .scroll(WatchBuilder.positionFooter)

@@ -119,8 +119,6 @@ Marker:             " . ($marker == null ? $this->noneName : $marker) . "
 Pattern:            " . ($pattern == null ? $this->noneName : $pattern) . "
 Pattern inverted:   " . ($invertPattern == 0 ? 'No' : 'Yes') . "
 Pattern rotation:   $patternRotation
-Text Upper:         $textUpper
-Text Lower:         $textLower
 
 Extra strap 1:      " . ($additionalStrap1 == null ? $this->noneName : $additionalStrap1) . "
 Extra strap 2:      " . ($additionalStrap2 == null ? $this->noneName : $additionalStrap2) . "
