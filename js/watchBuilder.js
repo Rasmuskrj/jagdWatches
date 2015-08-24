@@ -865,25 +865,29 @@ WatchBuilder = (function($) {
                 resizable: false,
                 open: function(event, ui) { $('.ui-widget-overlay').bind('click', function(){ $(this).siblings('.ui-dialog').find('.ui-dialog-content').dialog('close'); }); },
                 buttons: {
-                    "Download": function () {
-                        $('#watch').clone().attr('id','watch2').width(400*2).height(617*2).css({position: "relative"}).appendTo(document.body);
-                        html2canvas($("#watch2"), {
-                            onrendered: function(canvas) {
-                                theCanvas = canvas;
-                                document.body.appendChild(canvas);
+                    "Download": {
+                        class: 'downloadBtn',
+                        text: 'Download',
+                        click: function () {
+                            $('#watch').clone().attr('id','watch2').width(400*2).height(640*2).css({position: "relative"}).appendTo(document.body);
+                            html2canvas($("#watch2"), {
+                                onrendered: function(canvas) {
+                                    theCanvas = canvas;
+                                    document.body.appendChild(canvas);
 
-                                // Convert and download as image
+                                    // Convert and download as image
 
-                                $("#imageContainer").append(Canvas2Image.convertToPNG(canvas));
-                                $('#imageContainer img').width(400);
-                                //$('#imageContainer').append("<a href='" + canvas.toDataURL() + "' download target='_blank'>click</a>");
-                                // Clean up
-                                document.body.removeChild(canvas);
-                                $('#watch2').remove();
-                            }
-                        });
-                        $(this).dialog('close');
-                        self.el.downloadImageModal.dialog('open');
+                                    $("#imageContainer").append(Canvas2Image.convertToPNG(canvas));
+                                    $('#imageContainer img').width(400);
+                                    //$('#imageContainer').append("<a href='" + canvas.toDataURL() + "' download target='_blank'>click</a>");
+                                    // Clean up
+                                    document.body.removeChild(canvas);
+                                    $('#watch2').remove();
+                                }
+                            });
+                            $(this).dialog('close');
+                            self.el.downloadImageModal.dialog('open');
+                        }
                     }
                 }
             });
