@@ -869,7 +869,7 @@ WatchBuilder = (function($) {
                         class: 'downloadBtn',
                         text: 'Download',
                         click: function () {
-                            $('#watch').clone().attr('id','watch2').width(400*2).height(640*2).css({position: "relative"}).appendTo(document.body);
+                            $('#watch').clone().attr('id','watch2').width(400*2).height(643*2).css({position: "relative"}).appendTo(document.body);
                             html2canvas($("#watch2"), {
                                 onrendered: function(canvas) {
                                     theCanvas = canvas;
